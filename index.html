@@ -1,0 +1,3147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OFP Unified Operations Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Sidebar Styles -->
+  <link rel="stylesheet" href="sidebar.css">
+  <!-- Login Styles -->
+  <link rel="stylesheet" href="login.css">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --accent: #2563eb;
+      --accent-glow: rgba(37, 99, 235, 0.15);
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --info: #06b6d4;
+      --info-light: #ecfeff;
+      --bg-app: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --sidebar-width: 260px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-app);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Helper styles */
+    .hidden {
+      display: none !important;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-primary { background: var(--accent-glow); color: var(--accent); }
+    .badge-success { background: var(--success-light); color: var(--success); }
+    .badge-warning { background: var(--warning-light); color: var(--warning); }
+    .badge-danger { background: var(--danger-light); color: var(--danger); }
+    .badge-info { background: var(--info-light); color: var(--info); }
+
+    /* Login styling moved to login.css */
+
+    /* ==========================================================================
+       MAIN APP LAYOUT
+       ========================================================================== */
+    #app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar styling moved to sidebar.css */
+
+    /* Main Content Wrapper */
+    .main-workspace {
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: margin-left 0.3s;
+    }
+
+    /* Header */
+    .app-header {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-left h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .header-left p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .current-date {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-app);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Content Area */
+    .content-body {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ==========================================================================
+       PANEL: DASHBOARD
+       ========================================================================== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    }
+
+    .kpi-info h3 {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .kpi-info p.value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 0.25rem;
+    }
+
+    .kpi-info p.trend {
+      font-size: 0.7rem;
+      margin-top: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .trend-up { color: var(--success); }
+    .trend-down { color: var(--danger); }
+
+    .kpi-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .chart-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chart-card h3 i {
+      color: var(--accent);
+    }
+
+    .chart-canvas-placeholder {
+      height: 260px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Custom CSS Chart Styles */
+    .bar-chart-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-top: 20px;
+    }
+
+    .bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .bar-value {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .bar-visual {
+      width: 32px;
+      background: linear-gradient(180deg, var(--accent) 0%, #3b82f6 100%);
+      border-radius: 6px;
+      transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .bar-visual:hover {
+      filter: brightness(1.1);
+    }
+
+    .bar-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60px;
+      text-align: center;
+    }
+
+    .donut-gauge {
+      width: 160px;
+      height: 160px;
+      position: relative;
+    }
+
+    .donut-gauge svg {
+      transform: rotate(-90deg);
+    }
+
+    .donut-inner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .donut-inner-text p.percent {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .donut-inner-text p.label {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: -0.1rem;
+    }
+
+    .donut-legends {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .legend-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .legend-val {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .recent-activity-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* ==========================================================================
+       PANEL: WIZARDS WRAPPERS
+       ========================================================================== */
+    .wizard-panel-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      padding: 2rem;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02);
+    }
+
+    .wizard-panel-header {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .wizard-panel-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .wizard-progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.2rem 0 2rem 0;
+      position: relative;
+    }
+    .wizard-progress::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #e2e8f0;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+    .step-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+      background: white;
+      padding: 0 0.5rem;
+      cursor: pointer;
+    }
+    .step-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #e2e8f0;
+      transition: 0.2s;
+    }
+    .step-indicator.active .step-circle {
+      background: var(--primary-light);
+      color: white;
+      box-shadow: 0 0 0 3px var(--accent);
+      border-color: var(--accent);
+    }
+    .step-indicator.completed .step-circle {
+      background: var(--success);
+      color: white;
+      box-shadow: 0 0 0 2px var(--success);
+    }
+    .step-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+      color: #64748b;
+      letter-spacing: 0.03em;
+      text-align: center;
+    }
+    .step-indicator.active .step-label { color: var(--text-main); }
+    .step-indicator.completed .step-label { color: var(--success); }
+
+    .step-content {
+      background: #fafcff;
+      border-radius: 20px;
+      border: 1px solid #e9edf2;
+      padding: 1.8rem;
+      margin-bottom: 1.8rem;
+      min-height: 280px;
+    }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--primary);
+    }
+    .step-title i {
+      color: var(--accent);
+      width: 1.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.2rem 1.8rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .field-group label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .field-group label i {
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: var(--text-main);
+      width: 100%;
+      transition: all 0.15s;
+    }
+    .field-group input:focus,
+    .field-group select:focus,
+    .field-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .field-group .hint {
+      font-size: 0.6rem;
+      color: #94a3b8;
+    }
+
+    .wizard-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .btn-primary {
+      background: var(--primary-light);
+      border-color: var(--primary-light);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-color);
+    }
+
+    .section-divider {
+      grid-column: 1 / -1;
+      border-top: 1px dashed #cbd5e1;
+      margin: 0.5rem 0;
+    }
+
+    /* ==========================================================================
+       PANEL: RECORDS VIEWER
+       ========================================================================== */
+    .records-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .record-tab-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 0.25rem 1rem 0.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .record-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .record-tab-btn.active {
+      color: var(--accent);
+    }
+
+    .record-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-wrapper {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.85rem;
+    }
+
+    .search-wrapper input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .filters-wrapper {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .filters-wrapper select {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      background: white;
+    }
+
+    .table-container {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .data-table th {
+      background: #f8fafc;
+      padding: 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table td {
+      padding: 1rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tr:hover td {
+      background: #fafcff;
+    }
+
+    .action-btn-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .action-btn.delete-btn:hover {
+      background: var(--danger-light);
+      border-color: #fca5a5;
+      color: var(--danger);
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+    /* ==========================================================================
+       MODAL DETAIL PANEL
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .detail-item {
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+    }
+
+    .detail-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .detail-value {
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+      font-weight: 500;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    /* DataTable Responsive (dtr-control) Styles */
+    .dtr-control-th,
+    .dtr-control-td {
+      display: none;
+    }
+
+    .dtr-control-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #10b981;
+      color: white;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    .dtr-control-btn:hover {
+      background: #059669;
+    }
+    .dtr-control-btn.expanded {
+      background: #ef4444;
+    }
+    .dtr-control-btn.expanded:hover {
+      background: #dc2626;
+    }
+    .dtr-details {
+      padding: 1rem;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .dtr-details-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 0;
+      margin: 0;
+    }
+    .dtr-details-list li {
+      display: flex;
+      font-size: 0.8rem;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 0.4rem;
+    }
+    .dtr-details-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .dtr-title {
+      font-weight: 700;
+      width: 140px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .dtr-val {
+      color: var(--text-main);
+    }
+
+    /* Mobile adjustments are managed within sidebar.css */
+    @media (max-width: 768px) {
+      .dtr-control-th,
+      .dtr-control-td {
+        display: table-cell;
+        width: 38px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .mobile-hide {
+        display: none !important;
+      }
+      .records-tabs {
+        gap: 0.75rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.25rem;
+      }
+      .record-tab-btn {
+        padding: 0.5rem 0.25rem 0.75rem 0.25rem;
+        font-size: 0.75rem;
+      }
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-wrapper {
+        max-width: none;
+        width: 100%;
+      }
+      .filters-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.5rem;
+      }
+      .filters-wrapper select {
+        width: 100%;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       LOGIN VIEW
+       ========================================================================== -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div style="margin-bottom: 1.5rem;">
+        <i class="fa-solid fa-network-wired" style="font-size: 2.5rem; color: var(--accent);"></i>
+      </div>
+      <h2>OFP Operations Portal</h2>
+      <p class="subtitle">Unified Access & Real-time Resource Hub</p>
+
+      <div class="login-form">
+        <div class="login-group">
+          <label for="username">Username / Role</label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="username" placeholder="Enter username">
+          </div>
+        </div>
+        <div class="login-group">
+          <label for="password">Password</label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password" placeholder="••••••••">
+            <button type="button" id="toggle-password" class="btn-toggle-password" title="Toggle Password Visibility">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div id="login-error-msg" style="color: var(--danger); font-size: 0.75rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center;" class="hidden">
+          Invalid username or password.
+        </div>
+        <button type="button" class="btn-login" onclick="handleFormLogin()">Sign In</button>
+      </div>
+
+      <div class="quick-login-title">Quick Select Role For Testing</div>
+      <div class="quick-login-grid">
+        <button class="btn-quick-role" onclick="quickLogin('admin', 'admin')">
+          <i class="fa-solid fa-user-shield"></i>
+          <span>Admin</span>
+        </button>
+        <button class="btn-quick-role" onclick="quickLogin('pm', 'pm')">
+          <i class="fa-solid fa-diagram-project"></i>
+          <span>Project Mgr</span>
+        </button>
+        <button class="btn-quick-role" onclick="quickLogin('im', 'im')">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Inventory Mgr</span>
+        </button>
+        <button class="btn-quick-role" onclick="quickLogin('mm', 'mm')">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>Maintenance</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       APP WORKSPACE CONTAINER (HIDDEN UNTIL LOGGED IN)
+       ========================================================================== -->
+  <div id="app-container" class="hidden">
+    <!-- Sidebar Overlay Backdrop -->
+    <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-circle-nodes logo-icon"></i>
+        <span class="logo-text">OFP Portal</span>
+        <button id="mobile-sidebar-close" class="btn-sidebar-close" title="Close Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item active" id="menu-dashboard">
+          <a onclick="navigateTo('dashboard')">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item" id="menu-projects">
+          <a onclick="navigateTo('projects')">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span>Project Wizard</span>
+          </a>
+        </li>
+        <li class="menu-item" id="menu-inventory">
+          <a onclick="navigateTo('inventory')">
+            <i class="fa-solid fa-dolly"></i>
+            <span>Inventory Wizard</span>
+          </a>
+        </li>
+        <li class="menu-item" id="menu-maintenance">
+          <a onclick="navigateTo('maintenance')">
+            <i class="fa-solid fa-headset"></i>
+            <span>NOC Wizard</span>
+          </a>
+        </li>
+        <li class="menu-item" id="menu-records">
+          <a onclick="navigateTo('records')">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>All Records</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="user-profile">
+        <div class="user-avatar" id="profile-avatar">A</div>
+        <div class="user-details">
+          <div class="user-name" id="profile-name">Administrator</div>
+          <div class="user-role-pill" id="profile-role">Admin</div>
+        </div>
+      </div>
+
+      <button class="btn-logout" onclick="handleLogout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-workspace">
+      
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="header-left" style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobile-sidebar-toggle" class="btn-mobile-toggle" title="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div>
+            <h2 id="current-panel-title">Operations Dashboard</h2>
+            <p id="current-panel-subtitle">Welcome back! Real-time operations feed is live.</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="current-date" id="live-clock">
+            <i class="fa-regular fa-clock"></i> Loading...
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <div class="content-body">
+        
+        <!-- ==========================================================
+             PANEL: DASHBOARD
+             ========================================================== -->
+        <div id="panel-dashboard" class="app-panel">
+          
+          <!-- Metrics Cards -->
+          <div class="kpi-grid" id="dashboard-kpis">
+            <!-- Dynamic KPI items inserted here -->
+          </div>
+
+          <!-- Charts Row -->
+          <div class="charts-grid" style="margin-top: 1.5rem;">
+            
+            <div class="chart-card">
+              <h3><i class="fa-solid fa-chart-simple"></i> Monthly Volume Breakdown</h3>
+              <div class="chart-canvas-placeholder">
+                <div class="bar-chart-container" id="bar-chart-monthly">
+                  <!-- Custom CSS bars rendered here -->
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-card" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+              <h3 style="align-self: flex-start; width: 100%;"><i class="fa-solid fa-compass-drafting"></i> SLA & Status Compliance</h3>
+              <div class="chart-canvas-placeholder">
+                <div class="donut-gauge">
+                  <svg width="160" height="160">
+                    <circle cx="80" cy="80" r="70" fill="transparent" stroke="#f1f5f9" stroke-width="14"></circle>
+                    <circle id="donut-compliance-circle" cx="80" cy="80" r="70" fill="transparent" stroke="var(--accent)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" style="transition: stroke-dashoffset 1s ease-in-out;"></circle>
+                  </svg>
+                  <div class="donut-inner-text">
+                    <p class="percent" id="donut-compliance-val">0%</p>
+                    <p class="label">NOC SLA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="donut-legends" id="donut-legends-box">
+                <!-- Legends dynamic values -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Recent Submissions list -->
+          <div class="recent-activity-card" style="margin-top: 1.5rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-list-check" style="color:var(--accent)"></i> Recent Operations Log
+            </h3>
+            <div class="table-container">
+              <table class="data-table" id="recent-activity-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Key Identifier</th>
+                    <th>Responsible Party</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-activity-rows">
+                  <!-- Row insertions -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ==========================================================
+             PANEL: PROJECTS WIZARD
+             ========================================================== -->
+        <div id="panel-projects" class="app-panel hidden">
+          <div class="wizard-panel-container">
+            
+            <div class="wizard-progress" id="projectsProgress">
+              <div class="step-indicator active" data-step="0">
+                <div class="step-circle">1</div>
+                <span class="step-label">Basic</span>
+              </div>
+              <div class="step-indicator" data-step="1">
+                <div class="step-circle">2</div>
+                <span class="step-label">Location</span>
+              </div>
+              <div class="step-indicator" data-step="2">
+                <div class="step-circle">3</div>
+                <span class="step-label">Distance</span>
+              </div>
+              <div class="step-indicator" data-step="3">
+                <div class="step-circle">4</div>
+                <span class="step-label">Access</span>
+              </div>
+              <div class="step-indicator" data-step="4">
+                <div class="step-circle">5</div>
+                <span class="step-label">Team</span>
+              </div>
+              <div class="step-indicator" data-step="5">
+                <div class="step-circle">6</div>
+                <span class="step-label">Status</span>
+              </div>
+              <div class="step-indicator" data-step="6">
+                <div class="step-circle">7</div>
+                <span class="step-label">RFS/ODF</span>
+              </div>
+              <div class="step-indicator" data-step="7">
+                <div class="step-circle">8</div>
+                <span class="step-label">HOTO</span>
+              </div>
+              <div class="step-indicator" data-step="8">
+                <div class="step-circle">9</div>
+                <span class="step-label">Billing</span>
+              </div>
+            </div>
+
+            <form id="projectWizardForm" onsubmit="handleProjectSubmit(event)">
+              
+              <!-- STEP 0: Basic -->
+              <div class="step-content" data-step="0">
+                <div class="step-title"><i class="far fa-comments"></i> 1. Communication & Basic</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="far fa-calendar"></i> Comm. Date</label>
+                    <input type="date" name="commDate" value="2026-06-28">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-bullhorn"></i> Mode</label>
+                    <select name="commMode"><option>Telegram</option><option>Email</option><option>WhatsApp</option><option>Phone</option></select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-building"></i> Company</label>
+                    <input type="text" name="company" value="Airtel FTTH">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-tag"></i> Project Type</label>
+                    <select name="projectType"><option>ODN</option><option>Transport</option><option>IBD</option><option>Other</option></select>
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-file-signature"></i> Work Order</label>
+                    <input type="text" name="workOrder" value="BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-id-card"></i> Airtel ID</label>
+                    <input type="text" name="airtelId" value="PUN19054">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-city"></i> City</label>
+                    <input type="text" name="city" value="Pune">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-map-pin"></i> Area</label>
+                    <input type="text" name="area" value="Wadgaon Budruk">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 1: Location -->
+              <div class="step-content hidden" data-step="1">
+                <div class="step-title"><i class="fas fa-location-dot"></i> 2. Location & GIS</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-satellite"></i> GIS Node</label><input type="text" name="gisNode" value="S0V"></div>
+                  <div class="field-group"><label><i class="fas fa-globe"></i> End Lat/Long</label><input type="text" name="endLatLong" value="18.469960028579628, 73.8111160730124"></div>
+                  <div class="field-group"><label><i class="fas fa-flag-checkered"></i> End Site</label><input type="text" name="endSite" value="Aarya Residency"></div>
+                  <div class="field-group"><label><i class="fas fa-arrow-right"></i> Start Location</label><input type="text" name="startLocation" value="Parjaya Puram Encloser"></div>
+                  <div class="field-group"><label><i class="fas fa-arrow-left"></i> Start Lat/Long</label><input type="text" name="startLatLong" placeholder="e.g. 18.47, 73.81" value="18.468200, 73.810500"></div>
+                  <div class="field-group"><label><i class="fas fa-link"></i> Link ID</label><input type="text" name="linkId" value="202604001"></div>
+                  <div class="field-group"><label><i class="fas fa-route"></i> Survey Start</label><input type="text" name="surveyStart" value="Parjaya Puram Encloser"></div>
+                </div>
+              </div>
+
+              <!-- STEP 2: Distance -->
+              <div class="step-content hidden" data-step="2">
+                <div class="step-title"><i class="fas fa-ruler-combined"></i> 3. Distance & Fiber</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> WO Distance</label><input type="number" name="woDistance" value="100"></div>
+                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Survey Dist (m)</label><input type="number" name="surveyDistance" value="150"></div>
+                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Final Dist (m)</label><input type="number" name="finalDistance" value="150"></div>
+                  <div class="field-group"><label><i class="fas fa-circle-nodes"></i> Fiber Core</label><input type="number" name="fiberCore" value="6"></div>
+                  <div class="field-group"><label><i class="fas fa-house"></i> Home Pass</label><input type="number" name="homePass" value="8"></div>
+                </div>
+              </div>
+
+              <!-- STEP 3: Access -->
+              <div class="step-content hidden" data-step="3">
+                <div class="step-title"><i class="fas fa-lock"></i> 4. Permission & Access</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-check-circle"></i> Start Permission</label>
+                    <select name="startPermission"><option>Received</option><option>Not Received</option><option>Pending</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-door-open"></i> Building Access</label>
+                    <select name="buildingAccess"><option>Yes</option><option>No</option><option>Partial</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-user-tie"></i> Deployment Engineer</label><input type="text" name="deploymentEngineer" value="Suraj"></div>
+                  <div class="field-group"><label><i class="fas fa-user-cog"></i> AT Engineer</label><input type="text" name="atEngineer" placeholder="AT Engineer name" value="Abhishek"></div>
+                </div>
+              </div>
+
+              <!-- STEP 4: Team -->
+              <div class="step-content hidden" data-step="4">
+                <div class="step-title"><i class="fas fa-people-group"></i> 5. Team & Vendor</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> Ownership</label>
+                    <select name="ownership" id="projOwnershipSelect">
+                      <option value="Evisions">Evisions</option>
+                      <option value="Vendor">Vendor</option>
+                      <option value="Airtel">Airtel</option>
+                      <option value="Third Party">Third Party</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-truck"></i> Team / Vendor Name</label>
+                    <select name="teamVendor" id="projTeamVendorSelect">
+                      <option value="Team 1">Team 1</option>
+                      <option value="Team 2">Team 2</option>
+                      <option value="Swarad Connect">Swarad Connect</option>
+                      <option value="Anil Enterprises">Anil Enterprises</option>
+                      <option value="Hyperband Infra">Hyperband Infra</option>
+                      <option value="Jay Ganesh Enterprises">Jay Ganesh Enterprises</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user-tie"></i> Supervisor (Evisions)</label>
+                    <input type="text" name="supervisor" value="Rahul Dilliwala">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user-tie"></i> Manager (Evisions)</label>
+                    <input type="text" name="manager" value="Shyam Morale">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 5: Status -->
+              <div class="step-content hidden" data-step="5">
+                <div class="step-title"><i class="fas fa-clock"></i> 6. Status & Dates</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-calendar-check"></i> Issues Cleared</label><input type="date" name="issuesClearedDate" value="2026-05-27"></div>
+                  <div class="field-group"><label><i class="fas fa-circle-half-stroke"></i> Permanent/Semi</label>
+                    <select name="permanency"><option>Permanent</option><option>Semi Permanent</option><option>Temporary</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-plug"></i> POP Access</label>
+                    <select name="popAccess"><option>Yes</option><option>No</option><option>Pending</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-flag"></i> Site Status</label>
+                    <select name="siteStatus"><option>WIP</option><option>Completed</option><option>Cancelled</option><option>On Hold</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-calendar-plus"></i> Work Completed</label><input type="date" name="workCompletedDate" value="2026-06-25"></div>
+                  <div class="field-group"><label><i class="fas fa-lightbulb"></i> Suggestion</label><input type="text" name="suggestion" value="NA"></div>
+                  <div class="field-group"><label><i class="fas fa-rotate-left"></i> Rework Required</label>
+                    <select name="reworkRequired"><option>No</option><option>Yes</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-calendar-day"></i> Rework Date</label><input type="date" name="reworkDate" value=""></div>
+                </div>
+              </div>
+
+              <!-- STEP 6: RFS / ODF -->
+              <div class="step-content hidden" data-step="6">
+                <div class="step-title"><i class="fas fa-tower-broadcast"></i> 7. RFS / ODF / AT</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-check-double"></i> RFS Status</label>
+                    <select name="rfsStatus"><option>Received</option><option>Not Received</option><option>Pending</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-calendar-alt"></i> RFS Month</label><input type="text" name="rfsMonth" value="Jun-26"></div>
+                  <div class="field-group"><label><i class="fas fa-box"></i> ODF No.</label><input type="text" name="odfNo" value="SSB32"></div>
+                  <div class="field-group"><label><i class="fas fa-check-circle"></i> AT Status</label>
+                    <select name="atStatus"><option>Done</option><option>Pending</option><option>Not Started</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-file-alt"></i> AT Paper</label>
+                    <select name="atPaper"><option>Done</option><option>Pending</option></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 7: HOTO -->
+              <div class="step-content hidden" data-step="7">
+                <div class="step-title"><i class="fas fa-handshake"></i> 8. HOTO</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-hashtag"></i> HOTO No.</label><input type="text" name="hotoNo" value="HOTO 1"></div>
+                  <div class="field-group"><label><i class="fas fa-calendar"></i> HOTO Date</label><input type="date" name="hotoDate" value="2026-06-26"></div>
+                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> HOTO Dist (m)</label><input type="number" name="hotoDistance" value="500"></div>
+                  <div class="field-group"><label><i class="fas fa-signature"></i> HOTO Signature</label>
+                    <select name="hotoSignature"><option>Done</option><option>Pending</option><option>Not Received</option></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 8: Billing -->
+              <div class="step-content hidden" data-step="8">
+                <div class="step-title"><i class="fas fa-file-invoice-dollar"></i> 9. Billing & Payment</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-check-circle"></i> Billing Status</label>
+                    <select name="billingStatus"><option>Done</option><option>Pending</option><option>Not Started</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-calendar"></i> PO Date</label><input type="date" name="poDate" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-file-invoice"></i> PO No.</label><input type="text" name="poNo" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-calendar-day"></i> Invoice Date</label><input type="date" name="invoiceDate" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-hashtag"></i> Invoice No.</label><input type="text" name="invoiceNo" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-paper-plane"></i> Invoice Sent</label>
+                    <select name="invoiceSent"><option>No</option><option>Yes</option></select>
+                  </div>
+                  <div class="field-group"><label><i class="fas fa-coins"></i> Base Amount</label><input type="number" step="0.01" name="baseAmount" placeholder="0.00" value="12500.00"></div>
+                  <div class="field-group"><label><i class="fas fa-percent"></i> GST</label><input type="number" step="0.01" name="gstAmount" placeholder="0.00" value="2250.00"></div>
+                  <div class="field-group"><label><i class="fas fa-money-bill"></i> Final Amount</label><input type="number" step="0.01" name="finalAmount" placeholder="0.00" value="14750.00"></div>
+                  <div class="field-group"><label><i class="fas fa-hashtag"></i> ARN</label><input type="text" name="arn" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-user-check"></i> Approver</label><input type="text" name="approver" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-calendar-alt"></i> Payment Due</label><input type="date" name="paymentDueDate" value=""></div>
+                  <div class="field-group"><label><i class="fas fa-credit-card"></i> Payment Status</label>
+                    <select name="paymentStatus">
+                      <option>Not Received</option><option>Partially Received</option><option>Fully Received</option><option>Awaiting Payment</option><option>Overdue</option>
+                    </select>
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;"><label><i class="fas fa-comment"></i> Final Remark</label><textarea name="finalRemark" rows="2"></textarea></div>
+                </div>
+              </div>
+
+              <!-- navigation -->
+              <div class="wizard-nav">
+                <button type="button" class="btn btn-outline" id="projPrevBtn" onclick="changeWizardStep('projects', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <div style="display:flex; gap:0.8rem;">
+                  <button type="button" class="btn btn-primary" id="projNextBtn" onclick="changeWizardStep('projects', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                  <button type="submit" class="btn btn-success hidden" id="projSubmitBtn"><i class="fas fa-check"></i> Submit Project</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+
+        <!-- ==========================================================
+             PANEL: INVENTORY WIZARD
+             ========================================================== -->
+        <div id="panel-inventory" class="app-panel hidden">
+          <div class="wizard-panel-container">
+            
+            <div class="wizard-progress" id="inventoryProgress">
+              <div class="step-indicator active" data-step="0">
+                <div class="step-circle">1</div>
+                <span class="step-label">Receipt</span>
+              </div>
+              <div class="step-indicator" data-step="1">
+                <div class="step-circle">2</div>
+                <span class="step-label">Material</span>
+              </div>
+              <div class="step-indicator" data-step="2">
+                <div class="step-circle">3</div>
+                <span class="step-label">Fiber</span>
+              </div>
+              <div class="step-indicator" data-step="3">
+                <div class="step-circle">4</div>
+                <span class="step-label">Cable</span>
+              </div>
+              <div class="step-indicator" data-step="4">
+                <div class="step-circle">5</div>
+                <span class="step-label">Inspection</span>
+              </div>
+              <div class="step-indicator" data-step="5">
+                <div class="step-circle">6</div>
+                <span class="step-label">Summary</span>
+              </div>
+            </div>
+
+            <form id="inventoryWizardForm" onsubmit="handleInventorySubmit(event)">
+              
+              <!-- STEP 0: Receipt -->
+              <div class="step-content" data-step="0">
+                <div class="step-title"><i class="fas fa-receipt"></i> 1. Receipt Details</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-hashtag"></i> Sr. No.</label>
+                    <input type="number" name="srNo" value="1" min="1">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Material Received Date</label>
+                    <input type="date" name="receivedDate" value="2026-06-28">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Invoice Date</label>
+                    <input type="date" name="invoiceDate" value="2026-06-27">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-file-invoice"></i> Invoice No.</label>
+                    <input type="text" name="invoiceNo" value="INV-99882">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-truck"></i> Material Received from</label>
+                    <select name="receivedFrom">
+                      <option value="Airtel">Airtel</option>
+                      <option value="Cable Contact">Cable Contact</option>
+                      <option value="Chetna Technology">Chetna Technology</option>
+                      <option value="Sterlite">Sterlite</option>
+                      <option value="Birla">Birla</option>
+                      <option value="HPCL">HPCL</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-city"></i> City</label>
+                    <select name="city">
+                      <option value="Pune">Pune</option>
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="Bangalore">Bangalore</option>
+                      <option value="Chennai">Chennai</option>
+                      <option value="Hyderabad">Hyderabad</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 1: Material -->
+              <div class="step-content hidden" data-step="1">
+                <div class="step-title"><i class="fas fa-tag"></i> 2. Material Type</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-layer-group"></i> Material Type</label>
+                    <select name="materialType">
+                      <option value="Fiber">Fiber</option>
+                      <option value="Closure Box">Closure Box</option>
+                      <option value="Bamboo Closure">Bamboo Closure</option>
+                      <option value="Rope Wire">Rope Wire</option>
+                      <option value="Sleeves (Packets)">Sleeves (Packets)</option>
+                      <option value="Isopropyl Liquid (Cans)">Isopropyl Liquid (Cans)</option>
+                      <option value="Zip Ties (Packets)">Zip Ties (Packets)</option>
+                      <option value="Tissue Paper (Packets)">Tissue Paper (Packets)</option>
+                      <option value="Splicing Machine">Splicing Machine</option>
+                      <option value="OTDR Machine">OTDR Machine</option>
+                      <option value="Power Meter">Power Meter</option>
+                      <option value="Head Torch">Head Torch</option>
+                      <option value="Masking Tape">Masking Tape</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-building"></i> Fiber Company Name</label>
+                    <select name="fiberCompany">
+                      <option value="Sterlite">Sterlite</option>
+                      <option value="Birla">Birla</option>
+                      <option value="HPCL">HPCL</option>
+                      <option value="Nexans">Nexans</option>
+                      <option value="Corning">Corning</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-shield"></i> Fibre Type</label>
+                    <select name="fiberType">
+                      <option value="Armoured">Armoured</option>
+                      <option value="Unarmoured">Unarmoured</option>
+                      <option value="NA">NA</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-circle"></i> Coil / Drum</label>
+                    <select name="coilDrum">
+                      <option value="Coil">Coil</option>
+                      <option value="Drum">Drum</option>
+                      <option value="NA">NA</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-circle-nodes"></i> Fiber Core</label>
+                    <select name="fiberCore">
+                      <option value="6F">6F</option>
+                      <option value="12F">12F</option>
+                      <option value="24F">24F</option>
+                      <option value="48F">48F</option>
+                      <option value="96F">96F</option>
+                      <option value="NA">NA</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-ruler"></i> Unit of Measurement</label>
+                    <select name="uom">
+                      <option value="Meter">Meter</option>
+                      <option value="Nos.">Nos.</option>
+                      <option value="Litre">Litre</option>
+                      <option value="Packet">Packet</option>
+                      <option value="Can">Can</option>
+                      <option value="Roll">Roll</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-sort-numeric-up"></i> Quantity</label>
+                    <input type="number" name="quantity" value="1600" min="0" step="0.01">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2: Fiber details -->
+              <div class="step-content hidden" data-step="2">
+                <div class="step-title"><i class="fas fa-wave-square"></i> 3. Fiber / Cable Details</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-barcode"></i> Cable Id No.</label>
+                    <input type="text" name="cableIdNo" value="CBL-9923">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-ruler-horizontal"></i> Cable length as per invoice / tag</label>
+                    <input type="number" name="invoiceCableLength" value="1600" step="0.01">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-play"></i> Start Reading of Fiber</label>
+                    <input type="number" name="startReading" value="0" step="0.01">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-stop"></i> End Reading of Fiber</label>
+                    <input type="number" name="endReading" value="1600" step="0.01">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-arrows-left-right"></i> Total Cable Length</label>
+                    <input type="number" name="totalCableLength" value="1600" step="0.01">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3: Cable inspection -->
+              <div class="step-content hidden" data-step="3">
+                <div class="step-title"><i class="fas fa-clipboard-check"></i> 4. Cable Inspection</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-question-circle"></i> Is the cable short?</label>
+                    <select name="cableShort">
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calculator"></i> Difference in start & end reading</label>
+                    <input type="text" name="differenceReading" value="No" placeholder="e.g. -50 or No">
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-comment"></i> Remark</label>
+                    <textarea name="inspectionRemark" rows="2" placeholder="Any remarks about the material"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: Additional items -->
+              <div class="step-content hidden" data-step="4">
+                <div class="step-title"><i class="fas fa-list"></i> 5. Additional Items</div>
+                <div class="form-grid">
+                  <div class="field-group"><label><i class="fas fa-tools"></i> Rope Wire</label><input type="text" name="ropeWire" placeholder="e.g. 50"></div>
+                  <div class="field-group"><label><i class="fas fa-layer-group"></i> Sleeves (Packets)</label><input type="text" name="sleevesPackets" placeholder="e.g. 2"></div>
+                  <div class="field-group"><label><i class="fas fa-flask"></i> Isopropyl Liquid (Cans)</label><input type="text" name="isopropylCans" placeholder="e.g. 2"></div>
+                  <div class="field-group"><label><i class="fas fa-link"></i> Zip Ties (Packets)</label><input type="text" name="zipTies" placeholder="e.g. 20"></div>
+                  <div class="field-group"><label><i class="fas fa-toilet-paper"></i> Tissue Paper (Packets)</label><input type="text" name="tissuePackets" placeholder="e.g. 10"></div>
+                  <div class="field-group"><label><i class="fas fa-microchip"></i> Splicing Machine</label><input type="text" name="splicingMachine" placeholder="e.g. 2"></div>
+                  <div class="field-group"><label><i class="fas fa-chart-line"></i> OTDR Machine</label><input type="text" name="otdrMachine" placeholder="e.g. 1"></div>
+                  <div class="field-group"><label><i class="fas fa-bolt"></i> Power Meter</label><input type="text" name="powerMeter" placeholder="e.g. 5"></div>
+                  <div class="field-group"><label><i class="fas fa-lightbulb"></i> Head Torch</label><input type="text" name="headTorch" placeholder="e.g. 3"></div>
+                  <div class="field-group"><label><i class="fas fa-tape"></i> Masking Tape</label><input type="text" name="maskingTape" placeholder="e.g. 1"></div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-edit"></i> Other Remarks</label>
+                    <textarea name="otherRemarks" rows="2" placeholder="Additional notes about other items"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 5: Summary -->
+              <div class="step-content hidden" data-step="5">
+                <div class="step-title"><i class="fas fa-check-double"></i> 6. Summary & Submit</div>
+                <div class="form-grid">
+                  <div style="grid-column: 1 / -1; background: #f1f5f9; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 0.5rem;">
+                    <p style="font-size: 0.85rem; color: #0f172a;"><i class="fas fa-info-circle" style="color:#2563eb;"></i> Please review all the entered information before submitting.</p>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-check-circle"></i> Ready to Submit?</label>
+                    <select name="readyToSubmit">
+                      <option value="yes">Yes, all fields are correct</option>
+                      <option value="no">I need to review again</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> Verified By</label>
+                    <input type="text" name="verifiedBy" placeholder="Your name" value="Rahul">
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-comment"></i> Final Remark</label>
+                    <textarea name="finalRemark" rows="2" placeholder="Any final comments"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- navigation -->
+              <div class="wizard-nav">
+                <button type="button" class="btn btn-outline" id="invPrevBtn" onclick="changeWizardStep('inventory', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <div style="display:flex; gap:0.8rem;">
+                  <button type="button" class="btn btn-primary" id="invNextBtn" onclick="changeWizardStep('inventory', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                  <button type="submit" class="btn btn-success hidden" id="invSubmitBtn"><i class="fas fa-check"></i> Submit Inventory</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+
+        <!-- ==========================================================
+             PANEL: MAINTENANCE WIZARD
+             ========================================================== -->
+        <div id="panel-maintenance" class="app-panel hidden">
+          <div class="wizard-panel-container">
+            
+            <div class="wizard-progress" id="maintenanceProgress">
+              <div class="step-indicator active" data-step="0">
+                <div class="step-circle">1</div>
+                <span class="step-label">Complaint</span>
+              </div>
+              <div class="step-indicator" data-step="1">
+                <div class="step-circle">2</div>
+                <span class="step-label">Company</span>
+              </div>
+              <div class="step-indicator" data-step="2">
+                <div class="step-circle">3</div>
+                <span class="step-label">Assign</span>
+              </div>
+              <div class="step-indicator" data-step="3">
+                <div class="step-circle">4</div>
+                <span class="step-label">Fiber</span>
+              </div>
+              <div class="step-indicator" data-step="4">
+                <div class="step-circle">5</div>
+                <span class="step-label">Closure</span>
+              </div>
+              <div class="step-indicator" data-step="5">
+                <div class="step-circle">6</div>
+                <span class="step-label">Perform</span>
+              </div>
+              <div class="step-indicator" data-step="6">
+                <div class="step-circle">7</div>
+                <span class="step-label">Reason</span>
+              </div>
+              <div class="step-indicator" data-step="7">
+                <div class="step-circle">8</div>
+                <span class="step-label">Delay</span>
+              </div>
+            </div>
+
+            <form id="maintenanceWizardForm" onsubmit="handleMaintenanceSubmit(event)">
+              
+              <!-- STEP 0: Complaint Registration -->
+              <div class="step-content" data-step="0">
+                <div class="step-title"><i class="fas fa-file-signature"></i> 1. Complaint Registration</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-hashtag"></i> Sr. No.</label>
+                    <input type="number" name="srNo" value="1" min="1">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-alt"></i> Month</label>
+                    <select name="month">
+                      <option>January</option><option>February</option><option>March</option><option>April</option>
+                      <option>May</option><option>June</option><option>July</option><option>August</option>
+                      <option>September</option><option>October</option><option>November</option><option>December</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar"></i> Year</label>
+                    <input type="number" name="year" value="2026" min="2020" max="2035">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> NOC Executive (registered)</label>
+                    <select name="registeredNocExecutive">
+                      <option>Aniket Baikar</option><option>Abhishek Gaikwad</option><option>Nitesh Pathak</option>
+                      <option>Rushikesh Angre</option><option>Rohit Shivale</option><option>Amol Jagadale</option>
+                      <option>Shyam Morale</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Received Date & Time</label>
+                    <input type="datetime-local" name="receivedDateTime" value="2026-06-28T09:30">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Received Date</label>
+                    <input type="date" name="receivedDate" value="2026-06-28">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-tag"></i> Type</label>
+                    <select name="type">
+                      <option>Complaint</option><option>Termination</option><option>Restoration</option>
+                      <option>Maintenance</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-code"></i> Evisions Complaint Code</label>
+                    <input type="text" name="evisionsComplaintCode" value="24047180">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 1: Company & Link -->
+              <div class="step-content hidden" data-step="1">
+                <div class="step-title"><i class="fas fa-building"></i> 2. Company & Link</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-building"></i> Company Name</label>
+                    <select name="companyName">
+                      <option>AIRTEL</option><option>VIL</option><option>GAZON</option><option>Railtel</option>
+                      <option>GBPS</option><option>POWERGRID</option><option>JIO</option><option>SUMASHILP</option>
+                      <option>HATHWAY</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-link"></i> Link Type</label>
+                    <select name="linkType">
+                      <option>FTTH</option><option>BACKBONE</option><option>SMALLCELL</option>
+                      <option>TRANSPORT</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-file-code"></i> Company Complaint Code</label>
+                    <input type="text" name="companyComplaintCode" value="INC000226909459">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-hashtag"></i> Unique Cut No.</label>
+                    <input type="text" name="uniqueCutNo" value="24047180">
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-link"></i> Link Name</label>
+                    <input type="text" name="linkName" value="1ZM TO TCG Panorama Ambegaon">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2: Assignment -->
+              <div class="step-content hidden" data-step="2">
+                <div class="step-title"><i class="fas fa-user-check"></i> 3. Assignment</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-users"></i> Maintained By</label>
+                    <select name="maintainedBy">
+                      <option>Team 1</option><option>Team 2</option><option>Swarad Connect</option>
+                      <option>Anil Enterprises</option><option>Hyperband Infra</option><option>Dream Cable</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-flag"></i> Link Status</label>
+                    <select name="linkStatus">
+                      <option>NEED TO ASSIGN</option><option>ASSIGNED</option><option>WIP</option>
+                      <option>RESTORED</option><option>AUTO RESTORED</option>
+                      <option>ACCESS ISSUE - OUR SIDE</option><option>ACCESS ISSUE - COMPANY SIDE</option>
+                      <option>IGNORE</option><option>NO FIBER ISSUE</option>
+                      <option>CORE THROUGH</option><option>CONFIRMATION PENDING</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Call Assigned Date & Time</label>
+                    <input type="datetime-local" name="assignedDateTime" value="2026-06-28T09:45">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user-tie"></i> Team Leader (Evisions)</label>
+                    <select name="teamLeader">
+                      <option>Rahul Dilliwala</option><option>Sanket Kandhare</option>
+                      <option>Amar Belapurkar</option><option>Akash Pardeshi</option>
+                      <option>Sachin Khude</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> Splicer Name</label>
+                    <input type="text" name="splicerName" value="Karan">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-motorcycle"></i> Rider Name</label>
+                    <input type="text" name="riderName" value="Sameer">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3: Fiber -->
+              <div class="step-content hidden" data-step="3">
+                <div class="step-title"><i class="fas fa-fiber"></i> 4. Fiber Details</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-question-circle"></i> Fiber Pulling Required?</label>
+                    <select name="fiberPullingRequired">
+                      <option>No</option><option>Yes</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-users"></i> Fiber Pulling Team Name</label>
+                    <input type="text" name="pullingTeamName" value="Amrut Rathod">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-circle-nodes"></i> Fibre Core</label>
+                    <select name="fiberCore">
+                      <option>6</option><option>12</option><option>24</option>
+                      <option>48</option><option>96</option><option>144</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-ruler"></i> Length of Fibre (Mtr)</label>
+                    <input type="number" name="fiberLength" value="200" step="0.01">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-globe"></i> Latitude</label>
+                    <input type="text" name="latitude" placeholder="e.g. 18.469960" value="18.469960">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-globe"></i> Longitude</label>
+                    <input type="text" name="longitude" placeholder="e.g. 73.811116" value="73.811116">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: Closure -->
+              <div class="step-content hidden" data-step="4">
+                <div class="step-title"><i class="fas fa-clock"></i> 5. Closure Details</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Evisions Closed Date & Time</label>
+                    <input type="datetime-local" name="evisionsClosedDateTime" value="2026-06-28T12:35">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Evisions Closed Date</label>
+                    <input type="date" name="evisionsClosedDate" value="2026-06-28">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Company Closed Date & Time</label>
+                    <input type="datetime-local" name="companyClosedDateTime" value="2026-06-28T12:45">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Company Closed Date</label>
+                    <input type="date" name="companyClosedDate" value="2026-06-28">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> NOC Executive (closed)</label>
+                    <select name="closedNocExecutive">
+                      <option>Aniket Baikar</option><option>Abhishek Gaikwad</option>
+                      <option>Nitesh Pathak</option><option>Rushikesh Angre</option>
+                      <option>Rohit Shivale</option><option>Amol Jagadale</option>
+                      <option>Shyam Morale</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-hourglass-half"></i> Waiting for Confirmation</label>
+                    <input type="text" name="waitingForConfirmation" value="0:00:00">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 5: Performance -->
+              <div class="step-content hidden" data-step="5">
+                <div class="step-title"><i class="fas fa-chart-line"></i> 6. Performance Metrics</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Evisions MTTR</label>
+                    <input type="text" name="evisionsMttr" value="3:05:00">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-check-circle"></i> Evisions SLA</label>
+                    <select name="evisionsSla"><option>In</option><option>Out</option></select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Company MTTR</label>
+                    <input type="text" name="companyMttr" value="3:15:00">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-check-circle"></i> Company SLA</label>
+                    <select name="companySla"><option>In</option><option>Out</option></select>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-user"></i> 2nd Splicer Name</label>
+                    <input type="text" name="secondSplicerName" placeholder="2nd Splicer" value="">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-motorcycle"></i> 2nd Rider Name</label>
+                    <input type="text" name="secondRiderName" placeholder="2nd Rider" value="">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 6: Reason -->
+              <div class="step-content hidden" data-step="6">
+                <div class="step-title"><i class="fas fa-exclamation-triangle"></i> 7. Reason for Outage</div>
+                <div class="form-grid">
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-info-circle"></i> Reason for Outage</label>
+                    <select name="outageReason">
+                      <option>Evisions Fiber Issue</option><option>Company Fiber Issue</option>
+                      <option>CLOSURE DISTURBED</option><option>FIBER CUT DUE TO VEHICLE</option>
+                      <option>DOG BITE</option><option>FIBER CUT DUE TO RAT BITE</option>
+                      <option>PMC ACTIVITY</option><option>POWER ISSUE</option><option>NO FIBER ISSUE</option>
+                    </select>
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-tag"></i> Reason for Outage - Type</label>
+                    <select name="outageReasonType">
+                      <option>FIBER DAMAGE</option><option>CLOSURE DISTURBED</option>
+                      <option>FIBER CUT DUE TO VEHICLE</option><option>DOG BITE</option>
+                      <option>FIBER CUT DUE TO RAT BITE</option><option>METRO WORK</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 7: Delay -->
+              <div class="step-content hidden" data-step="7">
+                <div class="step-title"><i class="fas fa-hourglass-end"></i> 8. Delay & Remarks</div>
+                <div class="form-grid">
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Delay time for aligning Team</label>
+                    <input type="text" name="delayTimeAligning" value="00:00:00">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-info-circle"></i> Reason for Delay</label>
+                    <input type="text" name="delayReason" placeholder="Reason for delay" value="None">
+                  </div>
+                  <div class="field-group" style="grid-column: 1 / -1;">
+                    <label><i class="fas fa-comment"></i> Remarks</label>
+                    <textarea name="remarks" rows="2">NA</textarea>
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Aging</label>
+                    <input type="text" name="aging" value="3:05:00">
+                  </div>
+                  <div class="field-group">
+                    <label><i class="fas fa-clock"></i> New Aging</label>
+                    <input type="text" name="newAging" value="3:05:00">
+                  </div>
+                </div>
+              </div>
+
+              <!-- navigation -->
+              <div class="wizard-nav">
+                <button type="button" class="btn btn-outline" id="maintPrevBtn" onclick="changeWizardStep('maintenance', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <div style="display:flex; gap:0.8rem;">
+                  <button type="button" class="btn btn-primary" id="maintNextBtn" onclick="changeWizardStep('maintenance', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                  <button type="submit" class="btn btn-success hidden" id="maintSubmitBtn"><i class="fas fa-check"></i> Submit Complaint</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+
+        <!-- ==========================================================
+             PANEL: RECORDS LIST
+             ========================================================== -->
+        <div id="panel-records" class="app-panel hidden">
+          <div class="wizard-panel-container">
+            
+            <div class="records-tabs" id="records-tab-headers">
+              <button class="record-tab-btn active" id="tab-btn-projects" onclick="switchRecordsTab('projects')">Project Sheets</button>
+              <button class="record-tab-btn" id="tab-btn-inventory" onclick="switchRecordsTab('inventory')">Inventory Receipts</button>
+              <button class="record-tab-btn" id="tab-btn-complaints" onclick="switchRecordsTab('complaints')">NOC Complaint Tickets</button>
+            </div>
+
+            <div class="controls-row">
+              <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="records-search" placeholder="Search records by keywords..." oninput="handleSearchFilter()">
+              </div>
+              
+              <div class="filters-wrapper" id="filters-container">
+                <!-- Dropdown selectors dynamically populated based on active tab -->
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table" id="master-records-table">
+                <thead id="records-table-head">
+                  <!-- Dynamic Headers -->
+                </thead>
+                <tbody id="records-table-body">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+              <div id="records-empty-state" class="empty-state hidden">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>No records found matching your filters.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL POPUP FOR DETAILS
+       ========================================================================== -->
+  <div id="detail-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Record Details</h3>
+        <button class="btn-close-modal" onclick="closeDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- Key value breakdown -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SCRIPT ACTIONS
+       ========================================================================== -->
+  <script>
+    // ===== SYSTEM STATE =====
+    let currentUser = null;
+    let currentPanel = 'dashboard';
+    
+    // Wizards Step States
+    const wizardSteps = {
+      projects: { current: 0, total: 9 },
+      inventory: { current: 0, total: 6 },
+      maintenance: { current: 0, total: 8 }
+    };
+    
+    // Master Records Tab State
+    let activeRecordsTab = 'projects';
+
+    // Role Matrix
+    const ROLES = {
+      ADMIN: 'admin',
+      PROJECT_MANAGER: 'pm',
+      INVENTORY_MANAGER: 'im',
+      MAINTENANCE_MANAGER: 'mm'
+    };
+
+    // Preloaded Mock Data
+    const defaultMockProjects = [
+      { id: "P-1", dateCreated: "2026-06-20", commDate: "2026-06-20", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346", airtelId: "PUN19054", city: "Pune", area: "Wadgaon Budruk", surveyDistance: 150, homePass: 8, siteStatus: "WIP", deploymentEngineer: "Suraj" },
+      { id: "P-2", dateCreated: "2026-06-22", commDate: "2026-06-22", company: "Airtel FTTH", projectType: "IBD", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/IBW/20062026/089753", airtelId: "PUN18921", city: "Pune", area: "Ambegaon", surveyDistance: 450, homePass: 48, siteStatus: "Completed", deploymentEngineer: "Ramesh" },
+      { id: "P-3", dateCreated: "2026-06-25", commDate: "2026-06-25", company: "Airtel FTTH", projectType: "Transport", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/TR/25062026/112233", airtelId: "PUN17429", city: "Mumbai", area: "Kothrud", surveyDistance: 1200, homePass: 0, siteStatus: "Completed", deploymentEngineer: "Suraj" },
+      { id: "P-4", dateCreated: "2026-06-27", commDate: "2026-06-27", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/OD/27062026/445566", airtelId: "PUN19050", city: "Pune", area: "Hadapsar", surveyDistance: 800, homePass: 24, siteStatus: "WIP", deploymentEngineer: "Vijay" }
+    ];
+
+    const defaultMockInventory = [
+      { id: "I-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", invoiceDate: "2026-06-19", invoiceNo: "INV-1234", receivedFrom: "Sterlite", city: "Pune", materialType: "Fiber", fiberCompany: "Sterlite", fiberType: "Armoured", quantity: 1600, uom: "Meter", cableIdNo: "CBL-5678", totalCableLength: 1600, cableShort: "No", verifiedBy: "Rahul" },
+      { id: "I-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", invoiceDate: "2026-06-22", invoiceNo: "INV-5678", receivedFrom: "Corning", city: "Pune", materialType: "Closure Box", fiberCompany: "Corning", quantity: 10, uom: "Nos.", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Amit" },
+      { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
+    ];
+
+    const defaultMockComplaints = [
+      { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
+      { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
+      { id: "M-3", dateCreated: "2026-06-25", receivedDate: "2026-06-25", receivedDateTime: "2026-06-25T14:00", type: "Complaint", evisionsComplaintCode: "24047211", companyName: "AIRTEL", linkType: "BACKBONE", companyComplaintCode: "INC000228009", linkName: "Katraj Node Link", maintainedBy: "Swarad Connect", linkStatus: "WIP", evisionsMttr: "02:00:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Splicing in progress" },
+      { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
+    ];
+
+    // Initialize LocalStorage Data
+    function initLocalStorage() {
+      if (!localStorage.getItem('ofp_projects')) {
+        localStorage.setItem('ofp_projects', JSON.stringify(defaultMockProjects));
+      }
+      if (!localStorage.getItem('ofp_inventory')) {
+        localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
+      }
+      if (!localStorage.getItem('ofp_complaints')) {
+        localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
+      }
+    }
+
+    // Authentication handlers moved to login.js
+
+    // ===== NAVIGATION / ROUTING =====
+    function navigateTo(panelId) {
+      // Close mobile sidebar menu if open
+      if (typeof window.closeMobileSidebar === 'function') {
+        window.closeMobileSidebar();
+      }
+
+      // Auth Guard Checks
+      if (currentUser) {
+        if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
+          panelId = 'dashboard';
+        } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records'].includes(panelId)) {
+          panelId = 'dashboard';
+        } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'records'].includes(panelId)) {
+          panelId = 'dashboard';
+        } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
+          panelId = 'dashboard';
+        }
+      }
+
+      currentPanel = panelId;
+      
+      // Hide all panels
+      document.querySelectorAll('.app-panel').forEach(p => p.classList.add('hidden'));
+      // Show active panel
+      document.getElementById('panel-' + panelId).classList.remove('hidden');
+
+      // Update sidebar active class
+      document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+      const activeMenuItem = document.getElementById('menu-' + panelId);
+      if (activeMenuItem) {
+        activeMenuItem.classList.add('active');
+      }
+
+      // Update Headers
+      const title = document.getElementById('current-panel-title');
+      const subtitle = document.getElementById('current-panel-subtitle');
+
+      if (panelId === 'dashboard') {
+        title.textContent = 'Operations Dashboard';
+        subtitle.textContent = `Welcome back! Displaying operations metrics.`;
+        renderDashboardData();
+      } else if (panelId === 'projects') {
+        title.textContent = 'Project Wizard';
+        subtitle.textContent = 'Step-by-step rollout and fiber provisioning creator.';
+        initWizardState('projects');
+      } else if (panelId === 'inventory') {
+        title.textContent = 'Inventory Management';
+        subtitle.textContent = 'Material receipt registry and cable quality checks.';
+        initWizardState('inventory');
+      } else if (panelId === 'maintenance') {
+        title.textContent = 'NOC Maintenance Wizard';
+        subtitle.textContent = 'NOC Complaint registration, assignment, and MTTR log.';
+        initWizardState('maintenance');
+      } else if (panelId === 'records') {
+        title.textContent = 'Master Records Center';
+        subtitle.textContent = 'Search, filter, and inspect completed operations sheets.';
+        switchRecordsTab(activeRecordsTab);
+      }
+    }
+
+    // ===== CLOCK =====
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      const now = new Date();
+      const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', options)}`;
+    }
+    setInterval(updateClock, 1000);
+
+    // ===== WIZARD MANAGER =====
+    function initWizardState(type) {
+      wizardSteps[type].current = 0;
+      updateWizardUI(type);
+    }
+
+    function updateWizardUI(type) {
+      const stepState = wizardSteps[type];
+      const formEl = document.getElementById(type === 'projects' ? 'projectWizardForm' : (type === 'inventory' ? 'inventoryWizardForm' : 'maintenanceWizardForm'));
+      
+      // Toggle hidden content sections
+      formEl.querySelectorAll('.step-content').forEach(el => {
+        el.classList.add('hidden');
+        if (parseInt(el.dataset.step) === stepState.current) {
+          el.classList.remove('hidden');
+        }
+      });
+
+      // Indicators update
+      const progressContainer = document.getElementById(type + 'Progress');
+      progressContainer.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        indicator.classList.remove('active', 'completed');
+        if (index === stepState.current) {
+          indicator.classList.add('active');
+        } else if (index < stepState.current) {
+          indicator.classList.add('completed');
+        }
+      });
+
+      // Buttons check
+      const prefix = type === 'projects' ? 'proj' : (type === 'inventory' ? 'inv' : 'maint');
+      const prevBtn = document.getElementById(prefix + 'PrevBtn');
+      const nextBtn = document.getElementById(prefix + 'NextBtn');
+      const submitBtn = document.getElementById(prefix + 'SubmitBtn');
+
+      prevBtn.disabled = (stepState.current === 0);
+
+      if (stepState.current === stepState.total - 1) {
+        nextBtn.classList.add('hidden');
+        submitBtn.classList.remove('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+        submitBtn.classList.add('hidden');
+      }
+    }
+
+    function changeWizardStep(type, delta) {
+      const stepState = wizardSteps[type];
+      const newStep = stepState.current + delta;
+      if (newStep >= 0 && newStep < stepState.total) {
+        stepState.current = newStep;
+        updateWizardUI(type);
+      }
+    }
+
+    // Step clicks
+    document.querySelectorAll('.wizard-progress').forEach(progressEl => {
+      const type = progressEl.id.replace('Progress', '').toLowerCase();
+      progressEl.querySelectorAll('.step-indicator').forEach(indicator => {
+        indicator.addEventListener('click', () => {
+          const stepVal = parseInt(indicator.dataset.step);
+          wizardSteps[type].current = stepVal;
+          updateWizardUI(type);
+        });
+      });
+    });
+
+    // Form submit handlers
+    function handleProjectSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Add metadata
+      data.id = "P-" + Date.now();
+      data.dateCreated = new Date().toISOString().split('T')[0];
+
+      // Retrieve database
+      const db = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
+      db.unshift(data);
+      localStorage.setItem('ofp_projects', JSON.stringify(db));
+
+      alert('✅ Project Sheet successfully submitted and saved!');
+      form.reset();
+      initWizardState('projects');
+      navigateTo('dashboard');
+    }
+
+    function handleInventorySubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      data.id = "I-" + Date.now();
+      data.dateCreated = new Date().toISOString().split('T')[0];
+
+      const db = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      db.unshift(data);
+      localStorage.setItem('ofp_inventory', JSON.stringify(db));
+
+      alert('✅ Material Receipt Record saved successfully!');
+      form.reset();
+      initWizardState('inventory');
+      navigateTo('dashboard');
+    }
+
+    function handleMaintenanceSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      data.id = "M-" + Date.now();
+      data.dateCreated = new Date().toISOString().split('T')[0];
+
+      const db = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
+      db.unshift(data);
+      localStorage.setItem('ofp_complaints', JSON.stringify(db));
+
+      alert('✅ NOC Maintenance Ticket successfully recorded!');
+      form.reset();
+      initWizardState('maintenance');
+      navigateTo('dashboard');
+    }
+
+    // ===== RECORDS TAB SYSTEM =====
+    function switchRecordsTab(tab) {
+      activeRecordsTab = tab;
+      
+      // Update Tab Headers
+      document.querySelectorAll('.record-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById('tab-btn-' + tab).classList.add('active');
+
+      // Populate filters dropdown
+      populateFilters();
+
+      // Render records table
+      renderRecordsTable();
+    }
+
+    function populateFilters() {
+      const filterBox = document.getElementById('filters-container');
+      filterBox.innerHTML = ''; // reset
+
+      const select = document.createElement('select');
+      select.id = 'records-status-filter';
+      select.onchange = handleSearchFilter;
+
+      if (activeRecordsTab === 'projects') {
+        select.innerHTML = `
+          <option value="all">All Site Statuses</option>
+          <option value="WIP">WIP</option>
+          <option value="Completed">Completed</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Cancelled">Cancelled</option>
+        `;
+        filterBox.appendChild(select);
+
+        // Add City filter
+        const citySelect = document.createElement('select');
+        citySelect.id = 'records-city-filter';
+        citySelect.onchange = handleSearchFilter;
+        citySelect.innerHTML = `
+          <option value="all">All Cities</option>
+          <option value="Pune">Pune</option>
+          <option value="Mumbai">Mumbai</option>
+        `;
+        filterBox.appendChild(citySelect);
+
+      } else if (activeRecordsTab === 'inventory') {
+        select.innerHTML = `
+          <option value="all">All Materials</option>
+          <option value="Fiber">Fiber</option>
+          <option value="Closure Box">Closure Box</option>
+          <option value="Bamboo Closure">Bamboo Closure</option>
+          <option value="Isopropyl Liquid (Cans)">Isopropyl Liquid (Cans)</option>
+        `;
+        filterBox.appendChild(select);
+      } else if (activeRecordsTab === 'complaints') {
+        select.innerHTML = `
+          <option value="all">All SLA Statuses</option>
+          <option value="In">SLA - In</option>
+          <option value="Out">SLA - Out</option>
+        `;
+        filterBox.appendChild(select);
+
+        const statusSelect = document.createElement('select');
+        statusSelect.id = 'records-maint-status';
+        statusSelect.onchange = handleSearchFilter;
+        statusSelect.innerHTML = `
+          <option value="all">All Link Statuses</option>
+          <option value="RESTORED">RESTORED</option>
+          <option value="WIP">WIP</option>
+          <option value="ASSIGNED">ASSIGNED</option>
+          <option value="ACCESS ISSUE - OUR SIDE">ACCESS ISSUE</option>
+        `;
+        filterBox.appendChild(statusSelect);
+      }
+    }
+
+    function getFilteredData() {
+      let data = [];
+      if (activeRecordsTab === 'projects') {
+        data = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
+      } else if (activeRecordsTab === 'inventory') {
+        data = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      } else if (activeRecordsTab === 'complaints') {
+        data = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
+      }
+
+      const searchQuery = document.getElementById('records-search').value.toLowerCase().trim();
+      const statusFilterVal = document.getElementById('records-status-filter')?.value || 'all';
+      const cityFilterVal = document.getElementById('records-city-filter')?.value || 'all';
+      const maintStatusVal = document.getElementById('records-maint-status')?.value || 'all';
+
+      return data.filter(item => {
+        // Search filter
+        let matchSearch = true;
+        if (searchQuery) {
+          matchSearch = Object.values(item).some(val => 
+            String(val).toLowerCase().includes(searchQuery)
+          );
+        }
+
+        // Dropdown filters
+        let matchDropdowns = true;
+        if (activeRecordsTab === 'projects') {
+          if (statusFilterVal !== 'all' && item.siteStatus !== statusFilterVal) matchDropdowns = false;
+          if (cityFilterVal !== 'all' && String(item.city).toLowerCase() !== cityFilterVal.toLowerCase()) matchDropdowns = false;
+        } else if (activeRecordsTab === 'inventory') {
+          if (statusFilterVal !== 'all' && item.materialType !== statusFilterVal) matchDropdowns = false;
+        } else if (activeRecordsTab === 'complaints') {
+          if (statusFilterVal !== 'all' && item.evisionsSla !== statusFilterVal) matchDropdowns = false;
+          if (maintStatusVal !== 'all' && item.linkStatus !== maintStatusVal) matchDropdowns = false;
+        }
+
+        return matchSearch && matchDropdowns;
+      });
+    }
+
+    function handleSearchFilter() {
+      renderRecordsTable();
+    }
+
+    function renderRecordsTable() {
+      const data = getFilteredData();
+      const head = document.getElementById('records-table-head');
+      const body = document.getElementById('records-table-body');
+      const emptyState = document.getElementById('records-empty-state');
+
+      body.innerHTML = ''; // Reset
+      emptyState.classList.add('hidden');
+
+      if (data.length === 0) {
+        emptyState.classList.remove('hidden');
+        head.innerHTML = '';
+        return;
+      }
+
+      if (activeRecordsTab === 'projects') {
+        head.innerHTML = `
+          <tr>
+            <th class="dtr-control-th"></th>
+            <th>Airtel ID</th>
+            <th class="mobile-hide">Company</th>
+            <th class="mobile-hide">Type</th>
+            <th class="mobile-hide">City / Area</th>
+            <th class="mobile-hide">Home Pass</th>
+            <th>Status</th>
+            <th style="width: 100px; text-align: right;">Actions</th>
+          </tr>
+        `;
+
+        data.forEach(item => {
+          const statusClass = item.siteStatus === 'Completed' ? 'badge-success' : 'badge-warning';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="dtr-control-td">
+              <button type="button" class="dtr-control-btn" onclick="toggleRowDetails(this, '${item.id}', 'projects')" title="Toggle Info">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
+            <td><strong>${item.airtelId || 'N/A'}</strong></td>
+            <td class="mobile-hide">${item.company || 'N/A'}</td>
+            <td class="mobile-hide">${item.projectType || 'N/A'}</td>
+            <td class="mobile-hide">${item.city || ''} - ${item.area || ''}</td>
+            <td class="mobile-hide">${item.homePass || '0'}</td>
+            <td><span class="badge ${statusClass}">${item.siteStatus || 'WIP'}</span></td>
+            <td style="text-align: right;">
+              <div class="action-btn-group" style="justify-content: flex-end;">
+                <button class="action-btn" title="View details" onclick="showRecordDetails('projects', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('projects', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      } else if (activeRecordsTab === 'inventory') {
+        head.innerHTML = `
+          <tr>
+            <th class="dtr-control-th"></th>
+            <th class="mobile-hide">Invoice Date</th>
+            <th>Invoice No.</th>
+            <th>Material Type</th>
+            <th class="mobile-hide">Vendor</th>
+            <th class="mobile-hide">Quantity</th>
+            <th class="mobile-hide">Verified By</th>
+            <th style="width: 100px; text-align: right;">Actions</th>
+          </tr>
+        `;
+
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="dtr-control-td">
+              <button type="button" class="dtr-control-btn" onclick="toggleRowDetails(this, '${item.id}', 'inventory')" title="Toggle Info">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
+            <td class="mobile-hide">${item.invoiceDate || 'N/A'}</td>
+            <td><strong>${item.invoiceNo || 'N/A'}</strong></td>
+            <td><span class="badge badge-info">${item.materialType || 'N/A'}</span></td>
+            <td class="mobile-hide">${item.receivedFrom || 'N/A'}</td>
+            <td class="mobile-hide">${item.quantity || '0'} ${item.uom || ''}</td>
+            <td class="mobile-hide">${item.verifiedBy || 'N/A'}</td>
+            <td style="text-align: right;">
+              <div class="action-btn-group" style="justify-content: flex-end;">
+                <button class="action-btn" title="View details" onclick="showRecordDetails('inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      } else if (activeRecordsTab === 'complaints') {
+        head.innerHTML = `
+          <tr>
+            <th class="dtr-control-th"></th>
+            <th>Code</th>
+            <th class="mobile-hide">Company</th>
+            <th class="mobile-hide">Link Name</th>
+            <th class="mobile-hide">Vendor</th>
+            <th>Link Status</th>
+            <th class="mobile-hide">Evisions SLA</th>
+            <th style="width: 100px; text-align: right;">Actions</th>
+          </tr>
+        `;
+
+        data.forEach(item => {
+          const slaClass = item.evisionsSla === 'In' ? 'badge-success' : 'badge-danger';
+          const linkStatusClass = item.linkStatus === 'RESTORED' ? 'badge-success' : (item.linkStatus === 'WIP' ? 'badge-warning' : 'badge-primary');
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="dtr-control-td">
+              <button type="button" class="dtr-control-btn" onclick="toggleRowDetails(this, '${item.id}', 'complaints')" title="Toggle Info">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
+            <td><strong>${item.evisionsComplaintCode || 'N/A'}</strong></td>
+            <td class="mobile-hide">${item.companyName || 'N/A'}</td>
+            <td class="mobile-hide">${item.linkName || 'N/A'}</td>
+            <td class="mobile-hide">${item.maintainedBy || 'N/A'}</td>
+            <td><span class="badge ${linkStatusClass}">${item.linkStatus || 'N/A'}</span></td>
+            <td class="mobile-hide"><span class="badge ${slaClass}">SLA ${item.evisionsSla || 'In'}</span></td>
+            <td style="text-align: right;">
+              <div class="action-btn-group" style="justify-content: flex-end;">
+                <button class="action-btn" title="View details" onclick="showRecordDetails('complaints', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('complaints', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      }
+    }
+
+    window.toggleRowDetails = function(btn, rowId, type) {
+      const row = btn.closest('tr');
+      const nextRow = row.nextElementSibling;
+      
+      if (nextRow && nextRow.classList.contains('child-row')) {
+        nextRow.remove();
+        btn.classList.remove('expanded');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+      } else {
+        btn.classList.add('expanded');
+        btn.innerHTML = '<i class="fa-solid fa-minus"></i>';
+        
+        const dbKey = type === 'projects' ? 'ofp_projects' : (type === 'inventory' ? 'ofp_inventory' : 'ofp_complaints');
+        const data = JSON.parse(localStorage.getItem(dbKey) || '[]');
+        const item = data.find(x => x.id === rowId);
+        
+        if (!item) return;
+        
+        const childRow = document.createElement('tr');
+        childRow.className = 'child-row';
+        
+        let detailsHtml = '';
+        if (type === 'projects') {
+          detailsHtml = `
+            <li><span class="dtr-title">Company</span><span class="dtr-val">${item.company || '—'}</span></li>
+            <li><span class="dtr-title">Project Type</span><span class="dtr-val">${item.projectType || '—'}</span></li>
+            <li><span class="dtr-title">City / Area</span><span class="dtr-val">${item.city || ''} - ${item.area || ''}</span></li>
+            <li><span class="dtr-title">Home Pass</span><span class="dtr-val">${item.homePass || '—'}</span></li>
+          `;
+        } else if (type === 'inventory') {
+          detailsHtml = `
+            <li><span class="dtr-title">Invoice Date</span><span class="dtr-val">${item.invoiceDate || '—'}</span></li>
+            <li><span class="dtr-title">Vendor</span><span class="dtr-val">${item.receivedFrom || '—'}</span></li>
+            <li><span class="dtr-title">Quantity</span><span class="dtr-val">${item.quantity || '0'} ${item.uom || ''}</span></li>
+            <li><span class="dtr-title">Verified By</span><span class="dtr-val">${item.verifiedBy || '—'}</span></li>
+          `;
+        } else if (type === 'complaints') {
+          detailsHtml = `
+            <li><span class="dtr-title">Outage Company</span><span class="dtr-val">${item.companyName || '—'}</span></li>
+            <li><span class="dtr-title">Link Name</span><span class="dtr-val">${item.linkName || '—'}</span></li>
+            <li><span class="dtr-title">Maintenance Vendor</span><span class="dtr-val">${item.maintainedBy || '—'}</span></li>
+            <li><span class="dtr-title">Evisions SLA</span><span class="dtr-val">${item.evisionsSla || '—'}</span></li>
+          `;
+        }
+        
+        const visibleCols = row.querySelectorAll('td').length;
+        
+        childRow.innerHTML = `
+          <td colspan="${visibleCols}" style="padding:0;">
+            <div class="dtr-details">
+              <ul class="dtr-details-list">
+                ${detailsHtml}
+              </ul>
+            </div>
+          </td>
+        `;
+        
+        row.parentNode.insertBefore(childRow, row.nextSibling);
+      }
+    }
+
+    function deleteRecord(tab, id) {
+      if (!confirm('Are you sure you want to permanently delete this record?')) return;
+      const key = 'ofp_' + tab;
+      const db = JSON.parse(localStorage.getItem(key) || '[]');
+      const filtered = db.filter(item => item.id !== id);
+      localStorage.setItem(key, JSON.stringify(filtered));
+      renderRecordsTable();
+      renderDashboardData();
+    }
+
+    function showRecordDetails(tab, id) {
+      const key = 'ofp_' + tab;
+      const db = JSON.parse(localStorage.getItem(key) || '[]');
+      const record = db.find(item => item.id === id);
+      if (!record) return;
+
+      const modal = document.getElementById('detail-modal');
+      const content = document.getElementById('modal-body-content');
+      document.getElementById('modal-title').textContent = `${tab.substring(0,1).toUpperCase() + tab.substring(1)} Details (${record.id})`;
+
+      let html = '<div class="detail-grid">';
+      
+      const keyLabels = {
+        id: "Unique System ID",
+        dateCreated: "System Saved Date",
+        commDate: "Communication Date",
+        commMode: "Communication Mode",
+        company: "Company",
+        projectType: "Project Type",
+        workOrder: "Work Order Code",
+        airtelId: "Airtel ID Reference",
+        city: "City",
+        area: "Geographic Area",
+        gisNode: "GIS Node",
+        endLatLong: "End Coordinates",
+        endSite: "End Site Name",
+        startLocation: "Start Location",
+        startLatLong: "Start Coordinates",
+        linkId: "Link ID Reference",
+        surveyStart: "Survey Starting Point",
+        woDistance: "WO Distance (meters)",
+        surveyDistance: "Surveyed Distance (meters)",
+        finalDistance: "Final Outage/Cable Distance",
+        fiberCore: "Fiber Cores Count",
+        homePass: "Home Pass Provisioned",
+        startPermission: "Permission Status",
+        buildingAccess: "Building Access Status",
+        deploymentEngineer: "Lead Deployment Engineer",
+        atEngineer: "Acceptance Test Engineer",
+        ownership: "Material Ownership Type",
+        teamVendor: "Allocated Vendor Name",
+        supervisor: "Evisions Field Supervisor",
+        manager: "Evisions Delivery Manager",
+        issuesClearedDate: "Issues Cleared Date",
+        permanency: "Billing Permanency Level",
+        popAccess: "POP Site Access Status",
+        siteStatus: "Current Site Status",
+        workCompletedDate: "Rollout Completion Date",
+        suggestion: "Engineering Suggestions",
+        reworkRequired: "Rework Required State",
+        reworkDate: "Rework Schedule Date",
+        rfsStatus: "Ready For Service Status",
+        rfsMonth: "RFS Month Target",
+        odfNo: "ODF Rack Number",
+        atStatus: "Acceptance Testing Status",
+        atPaper: "AT Documentation Status",
+        hotoNo: "HOTO Reference Code",
+        hotoDate: "Handover To Operations Date",
+        hotoDistance: "HOTO Recorded Distance",
+        hotoSignature: "HOTO Document Signature",
+        billingStatus: "Billing Process Status",
+        poDate: "Purchase Order Date",
+        poNo: "PO Reference Number",
+        invoiceDate: "Invoice Receipt Date",
+        invoiceNo: "Invoice Reference Number",
+        invoiceSent: "Invoice Dispatched Status",
+        baseAmount: "Base Cost Amount (INR)",
+        gstAmount: "Tax GST Amount (INR)",
+        finalAmount: "Total Billing Cost (INR)",
+        arn: "ARN Transaction Code",
+        approver: "Authorized Project Approver",
+        paymentDueDate: "Payment Due Date",
+        paymentStatus: "Invoice Payment Status",
+        finalRemark: "Final Operational Remarks",
+        
+        // Inventory
+        srNo: "Sheet Serial Number",
+        receivedDate: "Receipt Date",
+        receivedFrom: "Dispatched From Vendor",
+        materialType: "Material Categorization",
+        fiberCompany: "Manufacturing Brand",
+        fiberType: "Fiber Cable Coating",
+        coilDrum: "Coil/Drum Format",
+        uom: "Unit of Measure",
+        quantity: "Delivered Quantity",
+        cableIdNo: "Drum ID / Tag Number",
+        invoiceCableLength: "Cable Length on Invoice",
+        startReading: "Cable Outer Drum Start Reading",
+        endReading: "Cable Outer Drum End Reading",
+        cableShort: "Is Cable Short?",
+        differenceReading: "Discrepancy Meter Delta",
+        inspectionRemark: "Quality Control Notes",
+        ropeWire: "Allocated Rope Wire (Qty)",
+        sleevesPackets: "Allocation Sleeves Packets",
+        isopropylCans: "Allocation Alcohol Cans",
+        zipTies: "Allocation Zip Ties Packets",
+        tissuePackets: "Allocation Cleaning Tissues",
+        splicingMachine: "Issued Splicing Machines",
+        otdrMachine: "Issued OTDR Machines",
+        powerMeter: "Issued Light Power Meters",
+        headTorch: "Issued Technical Head Lamps",
+        maskingTape: "Issued Heavy Tapes",
+        otherRemarks: "Inventory Dispatch Notes",
+        readyToSubmit: "Review Checkbox Passed",
+        verifiedBy: "Verifying Store Officer",
+        
+        // Maintenance
+        month: "Registered Month",
+        year: "Registered Year",
+        registeredNocExecutive: "Registering NOC Operator",
+        receivedDateTime: "NOC Trigger Time",
+        companyName: "Outage Company Carrier",
+        linkType: "Link Topology Class",
+        companyComplaintCode: "Carrier Internal Incident ID",
+        uniqueCutNo: "Unique Cut Number",
+        linkName: "Target Fiber Link Path",
+        maintainedBy: "Maintenance Vendor Contractor",
+        linkStatus: "Active Outage Ticket Status",
+        assignedDateTime: "Contractor Dispatch Time",
+        teamLeader: "Evisions Dispatch Lead",
+        splicerName: "Field Splicing Engineer",
+        riderName: "Field Operations Rider",
+        fiberPullingRequired: "Outage Fiber Re-pulling Status",
+        pullingTeamName: "Outage Pulling Team Contractor",
+        fiberLength: "Pulled Fiber Length (Meters)",
+        latitude: "Outage Spot Latitude",
+        longitude: "Outage Spot Longitude",
+        evisionsClosedDateTime: "Evisions Resolution Timestamp",
+        evisionsClosedDate: "Evisions Resolution Date",
+        companyClosedDateTime: "Carrier Close Timestamp",
+        companyClosedDate: "Carrier Close Date",
+        closedNocExecutive: "Closing NOC Operator",
+        waitingForConfirmation: "Carrier Confirmation Idle Time",
+        companyMttr: "Carrier Incident Ticket MTTR",
+        secondSplicerName: "Secondary Splicer Backup",
+        secondRiderName: "Secondary Rider Backup",
+        outageReason: "Primary Cause of Fiber Outage",
+        outageReasonType: "Outage Breakdown Category",
+        delayTimeAligning: "Mobilization Delay Duration",
+        delayReason: "Mobilization Delay Reason Details",
+        aging: "Total Ticket Duration Log",
+        newAging: "Adjusted Net Outage Time",
+        remarks: "NOC Close Remarks"
+      };
+
+      for (const [key, val] of Object.entries(record)) {
+        const label = keyLabels[key] || key;
+        html += `
+          <div class="detail-item">
+            <div class="detail-label">${label}</div>
+            <div class="detail-value">${val || '—'}</div>
+          </div>
+        `;
+      }
+
+      html += '</div>';
+      content.innerHTML = html;
+      modal.classList.remove('hidden');
+    }
+
+    function closeDetailsModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+    }
+
+    // ===== DASHBOARD GENERATOR =====
+    function renderDashboardData() {
+      // 1. Load Data
+      const projects = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
+      const inventory = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      const complaints = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
+
+      // 2. Render Cards based on Role
+      const kpiContainer = document.getElementById('dashboard-kpis');
+      kpiContainer.innerHTML = ''; // reset
+
+      // Calculate general metrics
+      const totalProjects = projects.length;
+      const completedProjects = projects.filter(p => p.siteStatus === 'Completed').length;
+      const activeProjects = projects.filter(p => p.siteStatus === 'WIP').length;
+
+      const totalReceipts = inventory.length;
+      const totalCableMeters = inventory
+        .filter(i => i.materialType === 'Fiber')
+        .reduce((sum, item) => sum + parseFloat(item.quantity || 0), 0);
+
+      const totalComplaints = complaints.length;
+      const resolvedComplaints = complaints.filter(c => c.linkStatus === 'RESTORED').length;
+      const activeComplaints = complaints.filter(c => c.linkStatus === 'WIP' || c.linkStatus === 'ASSIGNED').length;
+      
+      const slaInCount = complaints.filter(c => c.evisionsSla === 'In').length;
+      const slaPercent = totalComplaints > 0 ? Math.round((slaInCount / totalComplaints) * 100) : 100;
+
+      // Construct dynamic boxes
+      if (currentUser.role === ROLES.ADMIN) {
+        // Admin card list
+        kpiContainer.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Projects</h3>
+              <p class="value">${totalProjects}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-circle-check"></i> ${completedProjects} Completed</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-diagram-project"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Fiber Cable Stock</h3>
+              <p class="value">${Math.round(totalCableMeters)} m</p>
+              <p class="trend"><i class="fa-solid fa-truck-ramp-box"></i> ${totalReceipts} Delivery Invoices</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-boxes-stacked"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Active Outages (NOC)</h3>
+              <p class="value">${activeComplaints}</p>
+              <p class="trend trend-down"><i class="fa-solid fa-triangle-exclamation"></i> ${totalComplaints - resolvedComplaints} Open Tickets</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-headset"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>SLA Performance</h3>
+              <p class="value">${slaPercent}%</p>
+              <p class="trend trend-up"><i class="fa-solid fa-chart-line"></i> Target is >95%</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fef2f2; color:#ef4444;"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          </div>
+        `;
+      } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
+        kpiContainer.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Project Sheets</h3>
+              <p class="value">${totalProjects}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-circle-check"></i> Active PM Session</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-diagram-project"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Active Sites (WIP)</h3>
+              <p class="value">${activeProjects}</p>
+              <p class="trend"><i class="fa-solid fa-person-digging"></i> Rollout Team active</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-compass-drafting"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Completed Turnovers</h3>
+              <p class="value">${completedProjects}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-handshake"></i> HOTO Documents ready</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+        `;
+      } else if (currentUser.role === ROLES.INVENTORY_MANAGER) {
+        kpiContainer.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Material Receipts</h3>
+              <p class="value">${totalReceipts}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-clipboard-list"></i> Storehouse Session</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-file-invoice"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Cable Stock In-house</h3>
+              <p class="value">${Math.round(totalCableMeters)} m</p>
+              <p class="trend"><i class="fa-solid fa-scroll"></i> Armoured & Unarmoured</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-boxes-stacked"></i></div>
+          </div>
+        `;
+      } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
+        kpiContainer.innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total NOC Tickets</h3>
+              <p class="value">${totalComplaints}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-headset"></i> NOC Desk Session</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-headset"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Restored Tickets</h3>
+              <p class="value">${resolvedComplaints}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-shield-halved"></i> Splicing team cleared</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>SLA Performance</h3>
+              <p class="value">${slaPercent}%</p>
+              <p class="trend"><i class="fa-solid fa-stopwatch"></i> Compliance counter</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fef2f2; color:#ef4444;"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          </div>
+        `;
+      }
+
+      // 3. Render Custom SVG Donut SLA
+      const circleEl = document.getElementById('donut-compliance-circle');
+      const textVal = document.getElementById('donut-compliance-val');
+      
+      textVal.textContent = slaPercent + '%';
+      // Circle radius is 70, circumference is 2 * PI * 70 = 439.8
+      const offset = 439.8 - (slaPercent / 100) * 439.8;
+      circleEl.setAttribute('stroke-dashoffset', offset);
+
+      // Render legends box
+      const legendsBox = document.getElementById('donut-legends-box');
+      legendsBox.innerHTML = `
+        <div class="legend-item">
+          <div class="legend-label"><span class="legend-dot" style="background:var(--success)"></span> In SLA Duration</div>
+          <span class="legend-val">${slaInCount}</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-label"><span class="legend-dot" style="background:var(--danger)"></span> Breach / Out SLA</div>
+          <span class="legend-val">${totalComplaints - slaInCount}</span>
+        </div>
+      `;
+
+      // 4. Render Monthly Custom CSS Bar Chart
+      // Group complaints by Carrier/Company
+      const carrierGroup = {};
+      complaints.forEach(c => {
+        const company = c.companyName || 'OTHER';
+        carrierGroup[company] = (carrierGroup[company] || 0) + 1;
+      });
+
+      const barChartContainer = document.getElementById('bar-chart-monthly');
+      barChartContainer.innerHTML = ''; // reset
+
+      // Find max value to calibrate height percentage
+      let maxVal = Math.max(...Object.values(carrierGroup), 1);
+      
+      const carriers = Object.keys(carrierGroup).length > 0 ? Object.keys(carrierGroup) : ['AIRTEL', 'VIL', 'GAZON'];
+      
+      carriers.forEach(carrier => {
+        const count = carrierGroup[carrier] || 0;
+        const pctHeight = Math.max((count / maxVal) * 80, 5); // scale between 5% and 80%
+
+        const col = document.createElement('div');
+        col.className = 'bar-col';
+        col.innerHTML = `
+          <span class="bar-value">${count}</span>
+          <div class="bar-visual" style="height: ${pctHeight}%;"></div>
+          <span class="bar-label" title="${carrier}">${carrier}</span>
+        `;
+        barChartContainer.appendChild(col);
+      });
+
+      // 5. Render Recent Activities Log (Last 5 submittals across all three datasets)
+      const recentRows = document.getElementById('recent-activity-rows');
+      recentRows.innerHTML = ''; // reset
+
+      const allItems = [];
+      projects.forEach(p => {
+        allItems.push({
+          date: p.dateCreated || '—',
+          category: 'Project',
+          identifier: p.airtelId || 'PM Record',
+          actor: p.deploymentEngineer || 'Suraj',
+          status: p.siteStatus || 'WIP',
+          statusClass: p.siteStatus === 'Completed' ? 'badge-success' : 'badge-warning'
+        });
+      });
+      inventory.forEach(i => {
+        allItems.push({
+          date: i.dateCreated || '—',
+          category: 'Inventory',
+          identifier: i.invoiceNo || 'INV Record',
+          actor: i.verifiedBy || 'Storehouse',
+          status: i.materialType || 'Receipt',
+          statusClass: 'badge-info'
+        });
+      });
+      complaints.forEach(c => {
+        allItems.push({
+          date: c.dateCreated || '—',
+          category: 'Complaint NOC',
+          identifier: c.evisionsComplaintCode || 'NOC Ticket',
+          actor: c.maintainedBy || 'NOC desk',
+          status: c.linkStatus || 'Ticket',
+          statusClass: c.linkStatus === 'RESTORED' ? 'badge-success' : 'badge-warning'
+        });
+      });
+
+      // Sort by date created desc
+      allItems.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      // Append top 5
+      const limit = allItems.slice(0, 5);
+      if (limit.length === 0) {
+        recentRows.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No records registered. Please start by filing a wizard sheet!</td></tr>`;
+      } else {
+        limit.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.date}</td>
+            <td><strong>${item.category}</strong></td>
+            <td><code>${item.identifier}</code></td>
+            <td>${item.actor}</td>
+            <td><span class="badge ${item.statusClass}">${item.status}</span></td>
+          `;
+          recentRows.appendChild(tr);
+        });
+      }
+    }
+
+    // ===== ON LOAD INITIALIZER =====
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuthOnLoad();
+    });
+  </script>
+  <!-- Login JS Handlers -->
+  <script src="login.js"></script>
+  <!-- Sidebar JS Dynamic Controls -->
+  <script src="sidebar.js"></script>
+</body>
+</html>
