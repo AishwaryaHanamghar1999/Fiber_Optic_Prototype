@@ -109,47 +109,71 @@ function applyAuthLayout() {
   const menuDashboard = document.getElementById('menu-dashboard');
   const menuProjects = document.getElementById('menu-projects');
   const menuInventory = document.getElementById('menu-inventory');
+  const menuOutwardInventory = document.getElementById('menu-outward-inventory');
   const menuMaintenance = document.getElementById('menu-maintenance');
   const menuRecords = document.getElementById('menu-records');
+  const menuRecordsInward = document.getElementById('menu-records-inward');
+  const menuRecordsOutward = document.getElementById('menu-records-outward');
+  const menuBilling = document.getElementById('menu-billing');
 
   // Reset menu defaults
   if (menuDashboard) menuDashboard.classList.remove('hidden');
   if (menuProjects) menuProjects.classList.remove('hidden');
   if (menuInventory) menuInventory.classList.remove('hidden');
+  if (menuOutwardInventory) menuOutwardInventory.classList.remove('hidden');
   if (menuMaintenance) menuMaintenance.classList.remove('hidden');
   if (menuRecords) menuRecords.classList.remove('hidden');
+    if (menuRecordsInward) menuRecordsInward.classList.add('hidden');
+    if (menuRecordsOutward) menuRecordsOutward.classList.add('hidden');
+  if (menuBilling) menuBilling.classList.remove('hidden');
 
   if (currentUser.role === ROLES.ADMIN) {
     // Admin - can only see reports (Dashboard & Records)
     if (menuProjects) menuProjects.classList.add('hidden');
     if (menuInventory) menuInventory.classList.add('hidden');
+    if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
+    if (menuBilling) menuBilling.classList.add('hidden');
+    
+    if (menuRecords) menuRecords.classList.add('hidden');
+    if (menuRecordsInward) menuRecordsInward.classList.remove('hidden');
+    if (menuRecordsOutward) menuRecordsOutward.classList.remove('hidden');
     
     const tabProj = document.getElementById('tab-btn-projects');
     const tabInv = document.getElementById('tab-btn-inventory');
+    const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
     const tabComp = document.getElementById('tab-btn-complaints');
     
     if (tabProj) tabProj.classList.remove('hidden');
     if (tabInv) tabInv.classList.remove('hidden');
+    if (tabOutwardInv) tabOutwardInv.classList.remove('hidden');
     if (tabComp) tabComp.classList.remove('hidden');
     
     activeRecordsTab = 'projects';
-    navigateTo('dashboard');
+    navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
     if (menuInventory) menuInventory.classList.add('hidden');
+    if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
     
     const tabInv = document.getElementById('tab-btn-inventory');
+    const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
     const tabComp = document.getElementById('tab-btn-complaints');
     
     if (tabInv) tabInv.classList.add('hidden');
+    if (tabOutwardInv) tabOutwardInv.classList.add('hidden');
     if (tabComp) tabComp.classList.add('hidden');
     
     activeRecordsTab = 'projects';
-    navigateTo('dashboard');
+    navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.INVENTORY_MANAGER) {
     if (menuProjects) menuProjects.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
+    if (menuBilling) menuBilling.classList.add('hidden');
+    
+    if (menuRecords) menuRecords.classList.add('hidden');
+    if (menuRecordsInward) menuRecordsInward.classList.remove('hidden');
+    if (menuRecordsOutward) menuRecordsOutward.classList.remove('hidden');
     
     const tabProj = document.getElementById('tab-btn-projects');
     const tabComp = document.getElementById('tab-btn-complaints');
@@ -158,19 +182,24 @@ function applyAuthLayout() {
     if (tabComp) tabComp.classList.add('hidden');
     
     activeRecordsTab = 'inventory';
-    navigateTo('dashboard');
+    navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
     if (menuProjects) menuProjects.classList.add('hidden');
     if (menuInventory) menuInventory.classList.add('hidden');
+    if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
+    if (menuBilling) menuBilling.classList.add('hidden');
+    
     
     const tabProj = document.getElementById('tab-btn-projects');
     const tabInv = document.getElementById('tab-btn-inventory');
+    const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
     
     if (tabProj) tabProj.classList.add('hidden');
     if (tabInv) tabInv.classList.add('hidden');
+    if (tabOutwardInv) tabOutwardInv.classList.add('hidden');
     
     activeRecordsTab = 'complaints';
-    navigateTo('dashboard');
+    navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   }
 }
 

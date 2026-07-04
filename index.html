@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Sidebar Styles -->
@@ -57,13 +59,16 @@
       width: 6px;
       height: 6px;
     }
+
     ::-webkit-scrollbar-track {
       background: transparent;
     }
+
     ::-webkit-scrollbar-thumb {
       background: var(--border-color);
       border-radius: 10px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: var(--text-muted);
     }
@@ -72,6 +77,7 @@
     .hidden {
       display: none !important;
     }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -83,11 +89,31 @@
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
-    .badge-primary { background: var(--accent-glow); color: var(--accent); }
-    .badge-success { background: var(--success-light); color: var(--success); }
-    .badge-warning { background: var(--warning-light); color: var(--warning); }
-    .badge-danger { background: var(--danger-light); color: var(--danger); }
-    .badge-info { background: var(--info-light); color: var(--info); }
+
+    .badge-primary {
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+
+    .badge-success {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .badge-warning {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .badge-danger {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .badge-info {
+      background: var(--info-light);
+      color: var(--info);
+    }
 
     /* Login styling moved to login.css */
 
@@ -209,8 +235,14 @@
       align-items: center;
       gap: 0.25rem;
     }
-    .trend-up { color: var(--success); }
-    .trend-down { color: var(--danger); }
+
+    .trend-up {
+      color: var(--success);
+    }
+
+    .trend-down {
+      color: var(--danger);
+    }
 
     .kpi-icon-box {
       width: 48px;
@@ -394,7 +426,7 @@
       border: 1px solid var(--border-color);
       border-radius: 28px;
       padding: 2rem;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.02);
     }
 
     .wizard-panel-header {
@@ -422,6 +454,7 @@
       margin: 1.2rem 0 2rem 0;
       position: relative;
     }
+
     .wizard-progress::before {
       content: '';
       position: absolute;
@@ -433,6 +466,7 @@
       transform: translateY(-50%);
       z-index: 0;
     }
+
     .step-indicator {
       display: flex;
       flex-direction: column;
@@ -442,6 +476,7 @@
       padding: 0 0.5rem;
       cursor: pointer;
     }
+
     .step-circle {
       width: 38px;
       height: 38px;
@@ -457,17 +492,20 @@
       box-shadow: 0 0 0 2px #e2e8f0;
       transition: 0.2s;
     }
+
     .step-indicator.active .step-circle {
       background: var(--primary-light);
       color: white;
       box-shadow: 0 0 0 3px var(--accent);
       border-color: var(--accent);
     }
+
     .step-indicator.completed .step-circle {
       background: var(--success);
       color: white;
       box-shadow: 0 0 0 2px var(--success);
     }
+
     .step-label {
       font-size: 0.55rem;
       font-weight: 700;
@@ -477,8 +515,14 @@
       letter-spacing: 0.03em;
       text-align: center;
     }
-    .step-indicator.active .step-label { color: var(--text-main); }
-    .step-indicator.completed .step-label { color: var(--success); }
+
+    .step-indicator.active .step-label {
+      color: var(--text-main);
+    }
+
+    .step-indicator.completed .step-label {
+      color: var(--success);
+    }
 
     .step-content {
       background: #fafcff;
@@ -498,6 +542,7 @@
       gap: 0.6rem;
       color: var(--primary);
     }
+
     .step-title i {
       color: var(--accent);
       width: 1.5rem;
@@ -514,6 +559,7 @@
       flex-direction: column;
       gap: 0.35rem;
     }
+
     .field-group label {
       font-size: 0.65rem;
       font-weight: 700;
@@ -524,10 +570,12 @@
       align-items: center;
       gap: 0.3rem;
     }
+
     .field-group label i {
       color: #94a3b8;
       font-size: 0.75rem;
     }
+
     .field-group input,
     .field-group select,
     .field-group textarea {
@@ -541,6 +589,7 @@
       width: 100%;
       transition: all 0.15s;
     }
+
     .field-group input:focus,
     .field-group select:focus,
     .field-group textarea:focus {
@@ -548,6 +597,7 @@
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-glow);
     }
+
     .field-group .hint {
       font-size: 0.6rem;
       color: #94a3b8;
@@ -586,10 +636,12 @@
       border-color: var(--primary-light);
       color: white;
     }
+
     .btn-primary:hover {
       background: var(--primary);
       border-color: var(--primary);
     }
+
     .btn-primary:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -600,6 +652,7 @@
       border-color: var(--success);
       color: white;
     }
+
     .btn-success:hover {
       background: #059669;
     }
@@ -902,21 +955,26 @@
       cursor: pointer;
       transition: background-color 0.2s, transform 0.2s;
     }
+
     .dtr-control-btn:hover {
       background: #059669;
     }
+
     .dtr-control-btn.expanded {
       background: #ef4444;
     }
+
     .dtr-control-btn.expanded:hover {
       background: #dc2626;
     }
+
     .dtr-details {
       padding: 1rem;
       background: #f8fafc;
       border-bottom: 1px solid var(--border-color);
       text-align: left;
     }
+
     .dtr-details-list {
       list-style: none;
       display: flex;
@@ -925,28 +983,33 @@
       padding: 0;
       margin: 0;
     }
+
     .dtr-details-list li {
       display: flex;
       font-size: 0.8rem;
       border-bottom: 1px dashed #e2e8f0;
       padding-bottom: 0.4rem;
     }
+
     .dtr-details-list li:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
+
     .dtr-title {
       font-weight: 700;
       width: 140px;
       color: var(--text-muted);
       flex-shrink: 0;
     }
+
     .dtr-val {
       color: var(--text-main);
     }
 
     /* Mobile adjustments are managed within sidebar.css */
     @media (max-width: 768px) {
+
       .dtr-control-th,
       .dtr-control-td {
         display: table-cell;
@@ -954,36 +1017,44 @@
         text-align: center;
         vertical-align: middle;
       }
+
       .mobile-hide {
         display: none !important;
       }
+
       .records-tabs {
         gap: 0.75rem;
         overflow-x: auto;
         white-space: nowrap;
         padding-bottom: 0.25rem;
       }
+
       .record-tab-btn {
         padding: 0.5rem 0.25rem 0.75rem 0.25rem;
         font-size: 0.75rem;
       }
+
       .controls-row {
         flex-direction: column;
         align-items: stretch;
       }
+
       .search-wrapper {
         max-width: none;
         width: 100%;
       }
+
       .filters-wrapper {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 0.5rem;
       }
+
       .filters-wrapper select {
         width: 100%;
       }
+
       .kpi-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -991,6 +1062,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- ==========================================================================
@@ -1022,7 +1094,9 @@
             </button>
           </div>
         </div>
-        <div id="login-error-msg" style="color: var(--danger); font-size: 0.75rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center;" class="hidden">
+        <div id="login-error-msg"
+          style="color: var(--danger); font-size: 0.75rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center;"
+          class="hidden">
           Invalid username or password.
         </div>
         <button type="button" class="btn-login" onclick="handleFormLogin()">Sign In</button>
@@ -1056,7 +1130,7 @@
   <div id="app-container" class="hidden">
     <!-- Sidebar Overlay Backdrop -->
     <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
-    
+
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="brand">
@@ -1066,7 +1140,7 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      
+
       <ul class="sidebar-menu">
         <li class="menu-item active" id="menu-dashboard">
           <a onclick="navigateTo('dashboard')">
@@ -1082,8 +1156,14 @@
         </li>
         <li class="menu-item" id="menu-inventory">
           <a onclick="navigateTo('inventory')">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Inward Inventory</span>
+          </a>
+        </li>
+        <li class="menu-item" id="menu-outward-inventory">
+          <a onclick="navigateTo('outward-inventory')">
             <i class="fa-solid fa-dolly"></i>
-            <span>Inventory Wizard</span>
+            <span>Outward Inventory</span>
           </a>
         </li>
         <li class="menu-item" id="menu-maintenance">
@@ -1092,10 +1172,28 @@
             <span>NOC Wizard</span>
           </a>
         </li>
+        <li class="menu-item role-pm" id="menu-billing">
+          <a onclick="navigateTo('billing')">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <span>Billing</span>
+          </a>
+        </li>
         <li class="menu-item" id="menu-records">
           <a onclick="navigateTo('records')">
             <i class="fa-solid fa-file-invoice"></i>
             <span>All Records</span>
+          </a>
+        </li>
+        <li class="menu-item hidden" id="menu-records-inward">
+          <a onclick="navigateToRecord('inventory', 'menu-records-inward')">
+            <i class="fas fa-boxes"></i>
+            <span>Inward Records</span>
+          </a>
+        </li>
+        <li class="menu-item hidden" id="menu-records-outward">
+          <a onclick="navigateToRecord('outward-inventory', 'menu-records-outward')">
+            <i class="fas fa-dolly"></i>
+            <span>Outward Records</span>
           </a>
         </li>
       </ul>
@@ -1116,7 +1214,7 @@
 
     <!-- MAIN WRAPPER -->
     <main class="main-workspace">
-      
+
       <!-- HEADER -->
       <header class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 1rem;">
@@ -1137,12 +1235,12 @@
 
       <!-- CONTENT BODY -->
       <div class="content-body">
-        
+
         <!-- ==========================================================
              PANEL: DASHBOARD
              ========================================================== -->
         <div id="panel-dashboard" class="app-panel">
-          
+
           <!-- Metrics Cards -->
           <div class="kpi-grid" id="dashboard-kpis">
             <!-- Dynamic KPI items inserted here -->
@@ -1150,7 +1248,7 @@
 
           <!-- Charts Row -->
           <div class="charts-grid" style="margin-top: 1.5rem;">
-            
+
             <div class="chart-card">
               <h3><i class="fa-solid fa-chart-simple"></i> Monthly Volume Breakdown</h3>
               <div class="chart-canvas-placeholder">
@@ -1160,13 +1258,17 @@
               </div>
             </div>
 
-            <div class="chart-card" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-              <h3 style="align-self: flex-start; width: 100%;"><i class="fa-solid fa-compass-drafting"></i> SLA & Status Compliance</h3>
+            <div class="chart-card"
+              style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+              <h3 style="align-self: flex-start; width: 100%;"><i class="fa-solid fa-compass-drafting"></i> SLA & Status
+                Compliance</h3>
               <div class="chart-canvas-placeholder">
                 <div class="donut-gauge">
                   <svg width="160" height="160">
                     <circle cx="80" cy="80" r="70" fill="transparent" stroke="#f1f5f9" stroke-width="14"></circle>
-                    <circle id="donut-compliance-circle" cx="80" cy="80" r="70" fill="transparent" stroke="var(--accent)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" style="transition: stroke-dashoffset 1s ease-in-out;"></circle>
+                    <circle id="donut-compliance-circle" cx="80" cy="80" r="70" fill="transparent"
+                      stroke="var(--accent)" stroke-width="14" stroke-dasharray="439.8" stroke-dashoffset="439.8"
+                      stroke-linecap="round" style="transition: stroke-dashoffset 1s ease-in-out;"></circle>
                   </svg>
                   <div class="donut-inner-text">
                     <p class="percent" id="donut-compliance-val">0%</p>
@@ -1183,7 +1285,8 @@
 
           <!-- Recent Submissions list -->
           <div class="recent-activity-card" style="margin-top: 1.5rem;">
-            <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+            <h3
+              style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
               <i class="fa-solid fa-list-check" style="color:var(--accent)"></i> Recent Operations Log
             </h3>
             <div class="table-container">
@@ -1212,914 +1315,1346 @@
              ========================================================== -->
         <div id="panel-projects" class="app-panel hidden">
           <div class="wizard-panel-container">
-            
-            <div class="wizard-progress" id="projectsProgress">
-              <div class="step-indicator active" data-step="0">
-                <div class="step-circle">1</div>
-                <span class="step-label">Basic</span>
-              </div>
-              <div class="step-indicator" data-step="1">
-                <div class="step-circle">2</div>
-                <span class="step-label">Location</span>
-              </div>
-              <div class="step-indicator" data-step="2">
-                <div class="step-circle">3</div>
-                <span class="step-label">Distance</span>
-              </div>
-              <div class="step-indicator" data-step="3">
-                <div class="step-circle">4</div>
-                <span class="step-label">Access</span>
-              </div>
-              <div class="step-indicator" data-step="4">
-                <div class="step-circle">5</div>
-                <span class="step-label">Team</span>
-              </div>
-              <div class="step-indicator" data-step="5">
-                <div class="step-circle">6</div>
-                <span class="step-label">Status</span>
-              </div>
-              <div class="step-indicator" data-step="6">
-                <div class="step-circle">7</div>
-                <span class="step-label">RFS/ODF</span>
-              </div>
-              <div class="step-indicator" data-step="7">
-                <div class="step-circle">8</div>
-                <span class="step-label">HOTO</span>
-              </div>
-              <div class="step-indicator" data-step="8">
-                <div class="step-circle">9</div>
-                <span class="step-label">Billing</span>
-              </div>
-            </div>
+            <div class="container">
+              <h1>
+                <i class="fas fa-wand-magic-sparkles" style="color:#2563eb;"></i> Project Wizard
+                <small>step by step</small>
+              </h1>
 
-            <form id="projectWizardForm" onsubmit="handleProjectSubmit(event)">
-              
-              <!-- STEP 0: Basic -->
-              <div class="step-content" data-step="0">
-                <div class="step-title"><i class="far fa-comments"></i> 1. Communication & Basic</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="far fa-calendar"></i> Comm. Date</label>
-                    <input type="date" name="commDate" value="2026-06-28">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-bullhorn"></i> Mode</label>
-                    <select name="commMode"><option>Telegram</option><option>Email</option><option>WhatsApp</option><option>Phone</option></select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-building"></i> Company</label>
-                    <input type="text" name="company" value="Airtel FTTH">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-tag"></i> Project Type</label>
-                    <select name="projectType"><option>ODN</option><option>Transport</option><option>IBD</option><option>Other</option></select>
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-file-signature"></i> Work Order</label>
-                    <input type="text" name="workOrder" value="BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-id-card"></i> Airtel ID</label>
-                    <input type="text" name="airtelId" value="PUN19054">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-city"></i> City</label>
-                    <input type="text" name="city" value="Pune">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-map-pin"></i> Area</label>
-                    <input type="text" name="area" value="Wadgaon Budruk">
-                  </div>
+              <!-- Progress -->
+              <div class="wizard-progress" id="projectsProgress">
+                <div class="step-indicator active" data-step="0">
+                  <div class="step-circle">1</div>
+                  <span class="step-label">Basic & Loc</span>
+                </div>
+                <div class="step-indicator" data-step="1">
+                  <div class="step-circle">2</div>
+                  <span class="step-label">Survey & Team</span>
+                </div>
+                <div class="step-indicator" data-step="2">
+                  <div class="step-circle">3</div>
+                  <span class="step-label">Completion</span>
+                </div>
+                <div class="step-indicator" data-step="3">
+                  <div class="step-circle">4</div>
+                  <span class="step-label">RFS & AT</span>
+                </div>
+                <div class="step-indicator" data-step="4">
+                  <div class="step-circle">5</div>
+                  <span class="step-label">HOTO</span>
                 </div>
               </div>
 
-              <!-- STEP 1: Location -->
-              <div class="step-content hidden" data-step="1">
-                <div class="step-title"><i class="fas fa-location-dot"></i> 2. Location & GIS</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-satellite"></i> GIS Node</label><input type="text" name="gisNode" value="S0V"></div>
-                  <div class="field-group"><label><i class="fas fa-globe"></i> End Lat/Long</label><input type="text" name="endLatLong" value="18.469960028579628, 73.8111160730124"></div>
-                  <div class="field-group"><label><i class="fas fa-flag-checkered"></i> End Site</label><input type="text" name="endSite" value="Aarya Residency"></div>
-                  <div class="field-group"><label><i class="fas fa-arrow-right"></i> Start Location</label><input type="text" name="startLocation" value="Parjaya Puram Encloser"></div>
-                  <div class="field-group"><label><i class="fas fa-arrow-left"></i> Start Lat/Long</label><input type="text" name="startLatLong" placeholder="e.g. 18.47, 73.81" value="18.468200, 73.810500"></div>
-                  <div class="field-group"><label><i class="fas fa-link"></i> Link ID</label><input type="text" name="linkId" value="202604001"></div>
-                  <div class="field-group"><label><i class="fas fa-route"></i> Survey Start</label><input type="text" name="surveyStart" value="Parjaya Puram Encloser"></div>
-                </div>
-              </div>
-
-              <!-- STEP 2: Distance -->
-              <div class="step-content hidden" data-step="2">
-                <div class="step-title"><i class="fas fa-ruler-combined"></i> 3. Distance & Fiber</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> WO Distance</label><input type="number" name="woDistance" value="100"></div>
-                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Survey Dist (m)</label><input type="number" name="surveyDistance" value="150"></div>
-                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Final Dist (m)</label><input type="number" name="finalDistance" value="150"></div>
-                  <div class="field-group"><label><i class="fas fa-circle-nodes"></i> Fiber Core</label><input type="number" name="fiberCore" value="6"></div>
-                  <div class="field-group"><label><i class="fas fa-house"></i> Home Pass</label><input type="number" name="homePass" value="8"></div>
-                </div>
-              </div>
-
-              <!-- STEP 3: Access -->
-              <div class="step-content hidden" data-step="3">
-                <div class="step-title"><i class="fas fa-lock"></i> 4. Permission & Access</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-check-circle"></i> Start Permission</label>
-                    <select name="startPermission"><option>Received</option><option>Not Received</option><option>Pending</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-door-open"></i> Building Access</label>
-                    <select name="buildingAccess"><option>Yes</option><option>No</option><option>Partial</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-user-tie"></i> Deployment Engineer</label><input type="text" name="deploymentEngineer" value="Suraj"></div>
-                  <div class="field-group"><label><i class="fas fa-user-cog"></i> AT Engineer</label><input type="text" name="atEngineer" placeholder="AT Engineer name" value="Abhishek"></div>
-                </div>
-              </div>
-
-              <!-- STEP 4: Team -->
-              <div class="step-content hidden" data-step="4">
-                <div class="step-title"><i class="fas fa-people-group"></i> 5. Team & Vendor</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> Ownership</label>
-                    <select name="ownership" id="projOwnershipSelect">
-                      <option value="Evisions">Evisions</option>
-                      <option value="Vendor">Vendor</option>
-                      <option value="Airtel">Airtel</option>
-                      <option value="Third Party">Third Party</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-truck"></i> Team / Vendor Name</label>
-                    <select name="teamVendor" id="projTeamVendorSelect">
-                      <option value="Team 1">Team 1</option>
-                      <option value="Team 2">Team 2</option>
-                      <option value="Swarad Connect">Swarad Connect</option>
-                      <option value="Anil Enterprises">Anil Enterprises</option>
-                      <option value="Hyperband Infra">Hyperband Infra</option>
-                      <option value="Jay Ganesh Enterprises">Jay Ganesh Enterprises</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user-tie"></i> Supervisor (Evisions)</label>
-                    <input type="text" name="supervisor" value="Rahul Dilliwala">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user-tie"></i> Manager (Evisions)</label>
-                    <input type="text" name="manager" value="Shyam Morale">
+              <form id="projectWizardForm" onsubmit="handleProjectSubmit(event)">
+                <!-- ===== STEP 0: Basic & Loc ===== -->
+                <div class="step-content" data-step="0">
+                  <div class="step-title"><i class="fas fa-file-lines"></i> 1. Basic & Location</div>
+                  <div class="form-grid">
+                    <div class="field-group"><label><i class="far fa-calendar"></i> New Project Communication
+                        Date</label><input type="date" value="2023-09-28"></div>
+                    <div class="field-group"><label><i class="fas fa-bullhorn"></i> New Project Comunication
+                        Mode</label><select>
+                        <option>Telegram</option>
+                        <option>Email</option>
+                        <option>WhatsApp</option>
+                        <option>Phone</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-building"></i> Company</label><input type="text"
+                        value="Airtel FTTH"></div>
+                    <div class="field-group"><label><i class="fas fa-tag"></i> Project Type</label><select>
+                        <option>ODN</option>
+                        <option>Transport</option>
+                        <option>IBD</option>
+                        <option>Other</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-file-signature"></i> Work Order (WO)</label><input
+                        type="text"
+                        value="BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346">
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-id-card"></i> Airtel Unique ID</label><input
+                        type="text" value="PUN19054"></div>
+                    <div class="field-group"><label><i class="fas fa-city"></i> City</label><input type="text"
+                        value="Pune"></div>
+                    <div class="field-group"><label><i class="fas fa-map-pin"></i> Area</label><input type="text"
+                        value="Wadgaon Budruk"></div>
+                    <div class="field-group"><label><i class="fas fa-satellite"></i> GIS (Node)</label><input
+                        type="text" value="S0V"></div>
+                    <div class="field-group"><label><i class="fas fa-globe"></i> End (SITE) Location Latitude &
+                        Longitude</label><input type="text" value="18.469960028579628, 73.8111160730124"></div>
+                    <div class="field-group"><label><i class="fas fa-flag-checkered"></i> End (SITE) location
+                        Name</label><input type="text" value="Aarya Residency"></div>
+                    <div class="field-group"><label><i class="fas fa-arrow-right"></i> Start Location Name</label><input
+                        type="text" value="Parjaya Puram Encloser"></div>
+                    <div class="field-group"><label><i class="fas fa-arrow-left"></i> Start Location Latitude &
+                        Longitude</label><input type="text" placeholder="e.g. 18.47, 73.81"></div>
                   </div>
                 </div>
-              </div>
 
-              <!-- STEP 5: Status -->
-              <div class="step-content hidden" data-step="5">
-                <div class="step-title"><i class="fas fa-clock"></i> 6. Status & Dates</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-calendar-check"></i> Issues Cleared</label><input type="date" name="issuesClearedDate" value="2026-05-27"></div>
-                  <div class="field-group"><label><i class="fas fa-circle-half-stroke"></i> Permanent/Semi</label>
-                    <select name="permanency"><option>Permanent</option><option>Semi Permanent</option><option>Temporary</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-plug"></i> POP Access</label>
-                    <select name="popAccess"><option>Yes</option><option>No</option><option>Pending</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-flag"></i> Site Status</label>
-                    <select name="siteStatus"><option>WIP</option><option>Completed</option><option>Cancelled</option><option>On Hold</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-calendar-plus"></i> Work Completed</label><input type="date" name="workCompletedDate" value="2026-06-25"></div>
-                  <div class="field-group"><label><i class="fas fa-lightbulb"></i> Suggestion</label><input type="text" name="suggestion" value="NA"></div>
-                  <div class="field-group"><label><i class="fas fa-rotate-left"></i> Rework Required</label>
-                    <select name="reworkRequired"><option>No</option><option>Yes</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-calendar-day"></i> Rework Date</label><input type="date" name="reworkDate" value=""></div>
-                </div>
-              </div>
-
-              <!-- STEP 6: RFS / ODF -->
-              <div class="step-content hidden" data-step="6">
-                <div class="step-title"><i class="fas fa-tower-broadcast"></i> 7. RFS / ODF / AT</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-check-double"></i> RFS Status</label>
-                    <select name="rfsStatus"><option>Received</option><option>Not Received</option><option>Pending</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-calendar-alt"></i> RFS Month</label><input type="text" name="rfsMonth" value="Jun-26"></div>
-                  <div class="field-group"><label><i class="fas fa-box"></i> ODF No.</label><input type="text" name="odfNo" value="SSB32"></div>
-                  <div class="field-group"><label><i class="fas fa-check-circle"></i> AT Status</label>
-                    <select name="atStatus"><option>Done</option><option>Pending</option><option>Not Started</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-file-alt"></i> AT Paper</label>
-                    <select name="atPaper"><option>Done</option><option>Pending</option></select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 7: HOTO -->
-              <div class="step-content hidden" data-step="7">
-                <div class="step-title"><i class="fas fa-handshake"></i> 8. HOTO</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-hashtag"></i> HOTO No.</label><input type="text" name="hotoNo" value="HOTO 1"></div>
-                  <div class="field-group"><label><i class="fas fa-calendar"></i> HOTO Date</label><input type="date" name="hotoDate" value="2026-06-26"></div>
-                  <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> HOTO Dist (m)</label><input type="number" name="hotoDistance" value="500"></div>
-                  <div class="field-group"><label><i class="fas fa-signature"></i> HOTO Signature</label>
-                    <select name="hotoSignature"><option>Done</option><option>Pending</option><option>Not Received</option></select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 8: Billing -->
-              <div class="step-content hidden" data-step="8">
-                <div class="step-title"><i class="fas fa-file-invoice-dollar"></i> 9. Billing & Payment</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-check-circle"></i> Billing Status</label>
-                    <select name="billingStatus"><option>Done</option><option>Pending</option><option>Not Started</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-calendar"></i> PO Date</label><input type="date" name="poDate" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-file-invoice"></i> PO No.</label><input type="text" name="poNo" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-calendar-day"></i> Invoice Date</label><input type="date" name="invoiceDate" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-hashtag"></i> Invoice No.</label><input type="text" name="invoiceNo" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-paper-plane"></i> Invoice Sent</label>
-                    <select name="invoiceSent"><option>No</option><option>Yes</option></select>
-                  </div>
-                  <div class="field-group"><label><i class="fas fa-coins"></i> Base Amount</label><input type="number" step="0.01" name="baseAmount" placeholder="0.00" value="12500.00"></div>
-                  <div class="field-group"><label><i class="fas fa-percent"></i> GST</label><input type="number" step="0.01" name="gstAmount" placeholder="0.00" value="2250.00"></div>
-                  <div class="field-group"><label><i class="fas fa-money-bill"></i> Final Amount</label><input type="number" step="0.01" name="finalAmount" placeholder="0.00" value="14750.00"></div>
-                  <div class="field-group"><label><i class="fas fa-hashtag"></i> ARN</label><input type="text" name="arn" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-user-check"></i> Approver</label><input type="text" name="approver" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-calendar-alt"></i> Payment Due</label><input type="date" name="paymentDueDate" value=""></div>
-                  <div class="field-group"><label><i class="fas fa-credit-card"></i> Payment Status</label>
-                    <select name="paymentStatus">
-                      <option>Not Received</option><option>Partially Received</option><option>Fully Received</option><option>Awaiting Payment</option><option>Overdue</option>
-                    </select>
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;"><label><i class="fas fa-comment"></i> Final Remark</label><textarea name="finalRemark" rows="2"></textarea></div>
-                </div>
-              </div>
-
-              <!-- navigation -->
-              <div class="wizard-nav">
-                <button type="button" class="btn btn-outline" id="projPrevBtn" onclick="changeWizardStep('projects', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
-                <div style="display:flex; gap:0.8rem;">
-                  <button type="button" class="btn btn-primary" id="projNextBtn" onclick="changeWizardStep('projects', 1)">Next <i class="fas fa-chevron-right"></i></button>
-                  <button type="submit" class="btn btn-success hidden" id="projSubmitBtn"><i class="fas fa-check"></i> Submit Project</button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
-
-
-        <!-- ==========================================================
-             PANEL: INVENTORY WIZARD
-             ========================================================== -->
-        <div id="panel-inventory" class="app-panel hidden">
-          <div class="wizard-panel-container">
-            
-            <div class="wizard-progress" id="inventoryProgress">
-              <div class="step-indicator active" data-step="0">
-                <div class="step-circle">1</div>
-                <span class="step-label">Receipt</span>
-              </div>
-              <div class="step-indicator" data-step="1">
-                <div class="step-circle">2</div>
-                <span class="step-label">Material</span>
-              </div>
-              <div class="step-indicator" data-step="2">
-                <div class="step-circle">3</div>
-                <span class="step-label">Fiber</span>
-              </div>
-              <div class="step-indicator" data-step="3">
-                <div class="step-circle">4</div>
-                <span class="step-label">Cable</span>
-              </div>
-              <div class="step-indicator" data-step="4">
-                <div class="step-circle">5</div>
-                <span class="step-label">Inspection</span>
-              </div>
-              <div class="step-indicator" data-step="5">
-                <div class="step-circle">6</div>
-                <span class="step-label">Summary</span>
-              </div>
-            </div>
-
-            <form id="inventoryWizardForm" onsubmit="handleInventorySubmit(event)">
-              
-              <!-- STEP 0: Receipt -->
-              <div class="step-content" data-step="0">
-                <div class="step-title"><i class="fas fa-receipt"></i> 1. Receipt Details</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-hashtag"></i> Sr. No.</label>
-                    <input type="number" name="srNo" value="1" min="1">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-day"></i> Material Received Date</label>
-                    <input type="date" name="receivedDate" value="2026-06-28">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-day"></i> Invoice Date</label>
-                    <input type="date" name="invoiceDate" value="2026-06-27">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-file-invoice"></i> Invoice No.</label>
-                    <input type="text" name="invoiceNo" value="INV-99882">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-truck"></i> Material Received from</label>
-                    <select name="receivedFrom">
-                      <option value="Airtel">Airtel</option>
-                      <option value="Cable Contact">Cable Contact</option>
-                      <option value="Chetna Technology">Chetna Technology</option>
-                      <option value="Sterlite">Sterlite</option>
-                      <option value="Birla">Birla</option>
-                      <option value="HPCL">HPCL</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-city"></i> City</label>
-                    <select name="city">
-                      <option value="Pune">Pune</option>
-                      <option value="Mumbai">Mumbai</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Bangalore">Bangalore</option>
-                      <option value="Chennai">Chennai</option>
-                      <option value="Hyderabad">Hyderabad</option>
-                      <option value="Other">Other</option>
-                    </select>
+                <!-- ===== STEP 1: Survey & Team ===== -->
+                <div class="step-content hidden" data-step="1">
+                  <div class="step-title"><i class="fas fa-hard-hat"></i> 2. Survey & Team</div>
+                  <div class="form-grid">
+                    <div class="field-group"><label><i class="fas fa-user-tie"></i> Ownership</label>
+                      <select>
+                        <option>In-House</option>
+                        <option>Vendor</option>
+                        <option>Partner</option>
+                      </select>
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-users"></i> Team/Vendor</label>
+                      <select>
+                        <option>Team Alpha</option>
+                        <option>Team Beta</option>
+                        <option>Vendor XYZ</option>
+                      </select>
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-hashtag"></i> Evisions Link ID No.
+                        ( Link ID Logic -
+                        Year - Month - Task/ Project No. from that month )</label><input type="text"
+                        placeholder="Hub IP Logic..."></div>
+                    <div class="field-group"><label><i class="fas fa-map-marked-alt"></i> Survey Start
+                        Location</label><input type="text"></div>
+                    <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Work Order
+                        Distance</label><input type="number" value="100"></div>
+                    <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Survey Distance
+                        (m)</label><input type="number" value="150"></div>
+                    <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> Final Distance
+                        (m)</label><input type="number" value="150"></div>
+                    <div class="field-group"><label><i class="fas fa-circle-nodes"></i> Fibre Type (Core)</label><input
+                        type="number" value="6"></div>
+                    <div class="field-group"><label><i class="fas fa-house"></i> Home Pass</label><input type="number"
+                        value="8">
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-check-circle"></i> Start Loc
+                        Permission</label><select>
+                        <option>Received</option>
+                        <option>Not Received</option>
+                        <option>Pending</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-door-open"></i> Building Access</label><select>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Partial</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-user-tie"></i> Deploy Engineer
+                        (Airtel)</label><input type="text" value="Suraj"></div>
+                    <div class="field-group"><label><i class="fas fa-user-cog"></i> AT Engineer (Airtel)</label><input
+                        type="text" placeholder="AT Engineer name"></div>
+                    <div class="field-group"><label><i class="fas fa-user"></i> Ownership</label><select>
+                        <option>Evisions</option>
+                        <option>Vendor</option>
+                        <option>Airtel</option>
+                        <option>Third Party</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-truck"></i> Team / Vendor Name</label>
+                      <select id="teamVendorSelect">
+                        <option value="Team 1">Team 1</option>
+                        <option value="Team 2">Team 2</option>
+                        <option value="Team 3">Team 3</option>
+                        <option value="Team 4">Team 4</option>
+                        <option value="Team 5">Team 5</option>
+                        <option value="Team 6">Team 6</option>
+                        <option value="Swarad Connect">Swarad Connect</option>
+                        <option value="Anil Enterprises">Anil Enterprises</option>
+                        <option value="Anjali Communication">Anjali Communication</option>
+                        <option value="AS Communication">AS Communication</option>
+                        <option value="Ashfaque Shaikh">Ashfaque Shaikh</option>
+                        <option value="BS Tel Digital">BS Tel Digital</option>
+                        <option value="Dream Cable">Dream Cable</option>
+                        <option value="G V Enterprises">G V Enterprises</option>
+                        <option value="Goodlink Communication">Goodlink Communication</option>
+                        <option value="Goodwill Enterprises">Goodwill Enterprises</option>
+                        <option value="Harshad More">Harshad More</option>
+                        <option value="Hashtag Services">Hashtag Services</option>
+                        <option value="Hyperband Infra">Hyperband Infra</option>
+                        <option value="ICC Broadband">ICC Broadband</option>
+                        <option value="J R Communication">J R Communication</option>
+                        <option value="Jay Ganesh Enterprises">Jay Ganesh Enterprises</option>
+                        <option value="Manjara Network">Manjara Network</option>
+                        <option value="Om Enterprises">Om Enterprises</option>
+                        <option value="Prasad Cable Network">Prasad Cable Network</option>
+                        <option value="Pruthvi Enterprises">Pruthvi Enterprises</option>
+                        <option value="Purple Enterprises">Purple Enterprises</option>
+                        <option value="Ramchandra Tukaram Bodke">Ramchandra Tukaram Bodke</option>
+                        <option value="Reliable Systems & Network Services">Reliable Systems & Network Services</option>
+                        <option value="Sanavi Network">Sanavi Network</option>
+                        <option value="Shafiq Salim Shaikh">Shafiq Salim Shaikh</option>
+                        <option value="Shaurya Network">Shaurya Network</option>
+                        <option value="Shital Enterprises">Shital Enterprises</option>
+                        <option value="Shiv Enterprises">Shiv Enterprises</option>
+                        <option value="Shree Swami Samarth Net Services">Shree Swami Samarth Net Services</option>
+                        <option value="Shrinath Enterprises">Shrinath Enterprises</option>
+                        <option value="Skyline Technology">Skyline Technology</option>
+                        <option value="Spine Teleinfra Pvt. Ltd.">Spine Teleinfra Pvt. Ltd.</option>
+                        <option value="Star Entertainment">Star Entertainment</option>
+                        <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable
+                          Services
+                        </option>
+                      </select>
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-user-tie"></i> Supervisor (Telesonic)</label><input
+                        type="text"></div>
+                    <div class="field-group"><label><i class="fas fa-user-tie"></i> Manager (Telesonic)</label><input
+                        type="text">
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-calendar-check"></i> Site Issues
+                        Cleared</label><input type="date"></div>
+                    <div class="field-group"><label><i class="fas fa-circle-half-stroke"></i>
+                        Permanent/Semi</label><select>
+                        <option>Permanent</option>
+                        <option>Semi Permanent</option>
+                        <option>Temporary</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-plug"></i> POP Access</label><select>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Pending</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-flag"></i> Site Status</label><select>
+                        <option>WIP</option>
+                        <option>Completed</option>
+                        <option>Cancelled</option>
+                        <option>On Hold</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-comment"></i> Status Remark</label><input
+                        type="text"></div>
                   </div>
                 </div>
-              </div>
 
-              <!-- STEP 1: Material -->
-              <div class="step-content hidden" data-step="1">
-                <div class="step-title"><i class="fas fa-tag"></i> 2. Material Type</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-layer-group"></i> Material Type</label>
-                    <select name="materialType">
-                      <option value="Fiber">Fiber</option>
-                      <option value="Closure Box">Closure Box</option>
-                      <option value="Bamboo Closure">Bamboo Closure</option>
-                      <option value="Rope Wire">Rope Wire</option>
-                      <option value="Sleeves (Packets)">Sleeves (Packets)</option>
-                      <option value="Isopropyl Liquid (Cans)">Isopropyl Liquid (Cans)</option>
-                      <option value="Zip Ties (Packets)">Zip Ties (Packets)</option>
-                      <option value="Tissue Paper (Packets)">Tissue Paper (Packets)</option>
-                      <option value="Splicing Machine">Splicing Machine</option>
-                      <option value="OTDR Machine">OTDR Machine</option>
-                      <option value="Power Meter">Power Meter</option>
-                      <option value="Head Torch">Head Torch</option>
-                      <option value="Masking Tape">Masking Tape</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-building"></i> Fiber Company Name</label>
-                    <select name="fiberCompany">
-                      <option value="Sterlite">Sterlite</option>
-                      <option value="Birla">Birla</option>
-                      <option value="HPCL">HPCL</option>
-                      <option value="Nexans">Nexans</option>
-                      <option value="Corning">Corning</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-shield"></i> Fibre Type</label>
-                    <select name="fiberType">
-                      <option value="Armoured">Armoured</option>
-                      <option value="Unarmoured">Unarmoured</option>
-                      <option value="NA">NA</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-circle"></i> Coil / Drum</label>
-                    <select name="coilDrum">
-                      <option value="Coil">Coil</option>
-                      <option value="Drum">Drum</option>
-                      <option value="NA">NA</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-circle-nodes"></i> Fiber Core</label>
-                    <select name="fiberCore">
-                      <option value="6F">6F</option>
-                      <option value="12F">12F</option>
-                      <option value="24F">24F</option>
-                      <option value="48F">48F</option>
-                      <option value="96F">96F</option>
-                      <option value="NA">NA</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-ruler"></i> Unit of Measurement</label>
-                    <select name="uom">
-                      <option value="Meter">Meter</option>
-                      <option value="Nos.">Nos.</option>
-                      <option value="Litre">Litre</option>
-                      <option value="Packet">Packet</option>
-                      <option value="Can">Can</option>
-                      <option value="Roll">Roll</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-sort-numeric-up"></i> Quantity</label>
-                    <input type="number" name="quantity" value="1600" min="0" step="0.01">
+                <!-- ===== STEP 2: Completion ===== -->
+                <div class="step-content hidden" data-step="2">
+                  <div class="step-title"><i class="fas fa-check-circle"></i> 3. Completion & Rework</div>
+                  <div class="form-grid">
+                    <div class="field-group"><label><i class="fas fa-calendar-plus"></i> Work Completed
+                        Date</label><input type="date"></div>
+                    <div class="field-group"><label><i class="fas fa-lightbulb"></i> Suggestion for Future</label><input
+                        type="text"></div>
+                    <div class="field-group"><label><i class="fas fa-rotate-left"></i> Re-work</label><select>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-calendar-day"></i> Re-work
+                        Date</label><input type="date"></div>
                   </div>
                 </div>
-              </div>
 
-              <!-- STEP 2: Fiber details -->
-              <div class="step-content hidden" data-step="2">
-                <div class="step-title"><i class="fas fa-wave-square"></i> 3. Fiber / Cable Details</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-barcode"></i> Cable Id No.</label>
-                    <input type="text" name="cableIdNo" value="CBL-9923">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-ruler-horizontal"></i> Cable length as per invoice / tag</label>
-                    <input type="number" name="invoiceCableLength" value="1600" step="0.01">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-play"></i> Start Reading of Fiber</label>
-                    <input type="number" name="startReading" value="0" step="0.01">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-stop"></i> End Reading of Fiber</label>
-                    <input type="number" name="endReading" value="1600" step="0.01">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-arrows-left-right"></i> Total Cable Length</label>
-                    <input type="number" name="totalCableLength" value="1600" step="0.01">
+                <!-- ===== STEP 3: RFS / ODF / AT ===== -->
+                <div class="step-content hidden" data-step="3">
+                  <div class="step-title"><i class="fas fa-tower-broadcast"></i> 4. RFS / ODF / AT</div>
+                  <div class="form-grid">
+                    <div class="field-group"><label><i class="fas fa-check-double"></i> RFS Status</label><select>
+                        <option>Received</option>
+                        <option>Not Received</option>
+                        <option>Pending</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-calendar-alt"></i> RFS Month</label><input
+                        type="text"></div>
+                    <div class="field-group"><label><i class="fas fa-box"></i> ODF No</label><input type="text"></div>
+                    <div class="field-group"><label><i class="fas fa-check-circle"></i> AT Status</label><select>
+                        <option>Done</option>
+                        <option>Pending</option>
+                        <option>Not Started</option>
+                      </select></div>
+                    <div class="field-group"><label><i class="fas fa-file-alt"></i> AT Paper Status</label><select>
+                        <option>Done</option>
+                        <option>Pending</option>
+                      </select></div>
                   </div>
                 </div>
-              </div>
 
-              <!-- STEP 3: Cable inspection -->
-              <div class="step-content hidden" data-step="3">
-                <div class="step-title"><i class="fas fa-clipboard-check"></i> 4. Cable Inspection</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-question-circle"></i> Is the cable short?</label>
-                    <select name="cableShort">
-                      <option value="No">No</option>
-                      <option value="Yes">Yes</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calculator"></i> Difference in start & end reading</label>
-                    <input type="text" name="differenceReading" value="No" placeholder="e.g. -50 or No">
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-comment"></i> Remark</label>
-                    <textarea name="inspectionRemark" rows="2" placeholder="Any remarks about the material"></textarea>
+                <!-- ===== STEP 4: HOTO ===== -->
+                <div class="step-content hidden" data-step="4">
+                  <div class="step-title"><i class="fas fa-handshake"></i> 5. HOTO</div>
+                  <div class="form-grid">
+                    <div class="field-group"><label><i class="fas fa-hashtag"></i> HOTO No.</label><input type="text">
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-calendar"></i> HOTO Date</label><input type="date">
+                    </div>
+                    <div class="field-group"><label><i class="fas fa-arrows-left-right"></i> HOTO Distance
+                        (m)</label><input type="number"></div>
+                    <div class="field-group"><label><i class="fas fa-signature"></i> HOTO Signature
+                        Status</label><select>
+                        <option>Done</option>
+                        <option>Pending</option>
+                        <option>Not Received</option>
+                      </select></div>
                   </div>
                 </div>
-              </div>
 
-              <!-- STEP 4: Additional items -->
-              <div class="step-content hidden" data-step="4">
-                <div class="step-title"><i class="fas fa-list"></i> 5. Additional Items</div>
-                <div class="form-grid">
-                  <div class="field-group"><label><i class="fas fa-tools"></i> Rope Wire</label><input type="text" name="ropeWire" placeholder="e.g. 50"></div>
-                  <div class="field-group"><label><i class="fas fa-layer-group"></i> Sleeves (Packets)</label><input type="text" name="sleevesPackets" placeholder="e.g. 2"></div>
-                  <div class="field-group"><label><i class="fas fa-flask"></i> Isopropyl Liquid (Cans)</label><input type="text" name="isopropylCans" placeholder="e.g. 2"></div>
-                  <div class="field-group"><label><i class="fas fa-link"></i> Zip Ties (Packets)</label><input type="text" name="zipTies" placeholder="e.g. 20"></div>
-                  <div class="field-group"><label><i class="fas fa-toilet-paper"></i> Tissue Paper (Packets)</label><input type="text" name="tissuePackets" placeholder="e.g. 10"></div>
-                  <div class="field-group"><label><i class="fas fa-microchip"></i> Splicing Machine</label><input type="text" name="splicingMachine" placeholder="e.g. 2"></div>
-                  <div class="field-group"><label><i class="fas fa-chart-line"></i> OTDR Machine</label><input type="text" name="otdrMachine" placeholder="e.g. 1"></div>
-                  <div class="field-group"><label><i class="fas fa-bolt"></i> Power Meter</label><input type="text" name="powerMeter" placeholder="e.g. 5"></div>
-                  <div class="field-group"><label><i class="fas fa-lightbulb"></i> Head Torch</label><input type="text" name="headTorch" placeholder="e.g. 3"></div>
-                  <div class="field-group"><label><i class="fas fa-tape"></i> Masking Tape</label><input type="text" name="maskingTape" placeholder="e.g. 1"></div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-edit"></i> Other Remarks</label>
-                    <textarea name="otherRemarks" rows="2" placeholder="Additional notes about other items"></textarea>
+                <!-- ===== NAVIGATION ===== -->
+                <div class="wizard-nav">
+                  <button type="button" class="btn btn-outline" id="projPrevBtn"
+                    onclick="changeWizardStep('projects', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                  <div style="display:flex; gap:0.8rem;">
+                    <button type="button" class="btn btn-outline" id="projSaveBtn"
+                      onclick="alert('Save functionality to be implemented');"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-primary" id="projNextBtn"
+                      onclick="changeWizardStep('projects', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                    <button type="submit" class="btn btn-success hidden" id="projSubmitBtn"><i class="fas fa-check"></i>
+                      Submit</button>
                   </div>
                 </div>
-              </div>
-
-              <!-- STEP 5: Summary -->
-              <div class="step-content hidden" data-step="5">
-                <div class="step-title"><i class="fas fa-check-double"></i> 6. Summary & Submit</div>
-                <div class="form-grid">
-                  <div style="grid-column: 1 / -1; background: #f1f5f9; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 0.5rem;">
-                    <p style="font-size: 0.85rem; color: #0f172a;"><i class="fas fa-info-circle" style="color:#2563eb;"></i> Please review all the entered information before submitting.</p>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-check-circle"></i> Ready to Submit?</label>
-                    <select name="readyToSubmit">
-                      <option value="yes">Yes, all fields are correct</option>
-                      <option value="no">I need to review again</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> Verified By</label>
-                    <input type="text" name="verifiedBy" placeholder="Your name" value="Rahul">
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-comment"></i> Final Remark</label>
-                    <textarea name="finalRemark" rows="2" placeholder="Any final comments"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <!-- navigation -->
-              <div class="wizard-nav">
-                <button type="button" class="btn btn-outline" id="invPrevBtn" onclick="changeWizardStep('inventory', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
-                <div style="display:flex; gap:0.8rem;">
-                  <button type="button" class="btn btn-primary" id="invNextBtn" onclick="changeWizardStep('inventory', 1)">Next <i class="fas fa-chevron-right"></i></button>
-                  <button type="submit" class="btn btn-success hidden" id="invSubmitBtn"><i class="fas fa-check"></i> Submit Inventory</button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
+              </form>
 
 
-        <!-- ==========================================================
-             PANEL: MAINTENANCE WIZARD
-             ========================================================== -->
-        <div id="panel-maintenance" class="app-panel hidden">
-          <div class="wizard-panel-container">
-            
-            <div class="wizard-progress" id="maintenanceProgress">
-              <div class="step-indicator active" data-step="0">
-                <div class="step-circle">1</div>
-                <span class="step-label">Complaint</span>
-              </div>
-              <div class="step-indicator" data-step="1">
-                <div class="step-circle">2</div>
-                <span class="step-label">Company</span>
-              </div>
-              <div class="step-indicator" data-step="2">
-                <div class="step-circle">3</div>
-                <span class="step-label">Assign</span>
-              </div>
-              <div class="step-indicator" data-step="3">
-                <div class="step-circle">4</div>
-                <span class="step-label">Fiber</span>
-              </div>
-              <div class="step-indicator" data-step="4">
-                <div class="step-circle">5</div>
-                <span class="step-label">Closure</span>
-              </div>
-              <div class="step-indicator" data-step="5">
-                <div class="step-circle">6</div>
-                <span class="step-label">Perform</span>
-              </div>
-              <div class="step-indicator" data-step="6">
-                <div class="step-circle">7</div>
-                <span class="step-label">Reason</span>
-              </div>
-              <div class="step-indicator" data-step="7">
-                <div class="step-circle">8</div>
-                <span class="step-label">Delay</span>
-              </div>
-            </div>
-
-            <form id="maintenanceWizardForm" onsubmit="handleMaintenanceSubmit(event)">
-              
-              <!-- STEP 0: Complaint Registration -->
-              <div class="step-content" data-step="0">
-                <div class="step-title"><i class="fas fa-file-signature"></i> 1. Complaint Registration</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-hashtag"></i> Sr. No.</label>
-                    <input type="number" name="srNo" value="1" min="1">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-alt"></i> Month</label>
-                    <select name="month">
-                      <option>January</option><option>February</option><option>March</option><option>April</option>
-                      <option>May</option><option>June</option><option>July</option><option>August</option>
-                      <option>September</option><option>October</option><option>November</option><option>December</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar"></i> Year</label>
-                    <input type="number" name="year" value="2026" min="2020" max="2035">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> NOC Executive (registered)</label>
-                    <select name="registeredNocExecutive">
-                      <option>Aniket Baikar</option><option>Abhishek Gaikwad</option><option>Nitesh Pathak</option>
-                      <option>Rushikesh Angre</option><option>Rohit Shivale</option><option>Amol Jagadale</option>
-                      <option>Shyam Morale</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Received Date & Time</label>
-                    <input type="datetime-local" name="receivedDateTime" value="2026-06-28T09:30">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-day"></i> Received Date</label>
-                    <input type="date" name="receivedDate" value="2026-06-28">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-tag"></i> Type</label>
-                    <select name="type">
-                      <option>Complaint</option><option>Termination</option><option>Restoration</option>
-                      <option>Maintenance</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-code"></i> Evisions Complaint Code</label>
-                    <input type="text" name="evisionsComplaintCode" value="24047180">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 1: Company & Link -->
-              <div class="step-content hidden" data-step="1">
-                <div class="step-title"><i class="fas fa-building"></i> 2. Company & Link</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-building"></i> Company Name</label>
-                    <select name="companyName">
-                      <option>AIRTEL</option><option>VIL</option><option>GAZON</option><option>Railtel</option>
-                      <option>GBPS</option><option>POWERGRID</option><option>JIO</option><option>SUMASHILP</option>
-                      <option>HATHWAY</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-link"></i> Link Type</label>
-                    <select name="linkType">
-                      <option>FTTH</option><option>BACKBONE</option><option>SMALLCELL</option>
-                      <option>TRANSPORT</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-file-code"></i> Company Complaint Code</label>
-                    <input type="text" name="companyComplaintCode" value="INC000226909459">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-hashtag"></i> Unique Cut No.</label>
-                    <input type="text" name="uniqueCutNo" value="24047180">
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-link"></i> Link Name</label>
-                    <input type="text" name="linkName" value="1ZM TO TCG Panorama Ambegaon">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 2: Assignment -->
-              <div class="step-content hidden" data-step="2">
-                <div class="step-title"><i class="fas fa-user-check"></i> 3. Assignment</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-users"></i> Maintained By</label>
-                    <select name="maintainedBy">
-                      <option>Team 1</option><option>Team 2</option><option>Swarad Connect</option>
-                      <option>Anil Enterprises</option><option>Hyperband Infra</option><option>Dream Cable</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-flag"></i> Link Status</label>
-                    <select name="linkStatus">
-                      <option>NEED TO ASSIGN</option><option>ASSIGNED</option><option>WIP</option>
-                      <option>RESTORED</option><option>AUTO RESTORED</option>
-                      <option>ACCESS ISSUE - OUR SIDE</option><option>ACCESS ISSUE - COMPANY SIDE</option>
-                      <option>IGNORE</option><option>NO FIBER ISSUE</option>
-                      <option>CORE THROUGH</option><option>CONFIRMATION PENDING</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Call Assigned Date & Time</label>
-                    <input type="datetime-local" name="assignedDateTime" value="2026-06-28T09:45">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user-tie"></i> Team Leader (Evisions)</label>
-                    <select name="teamLeader">
-                      <option>Rahul Dilliwala</option><option>Sanket Kandhare</option>
-                      <option>Amar Belapurkar</option><option>Akash Pardeshi</option>
-                      <option>Sachin Khude</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> Splicer Name</label>
-                    <input type="text" name="splicerName" value="Karan">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-motorcycle"></i> Rider Name</label>
-                    <input type="text" name="riderName" value="Sameer">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 3: Fiber -->
-              <div class="step-content hidden" data-step="3">
-                <div class="step-title"><i class="fas fa-fiber"></i> 4. Fiber Details</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-question-circle"></i> Fiber Pulling Required?</label>
-                    <select name="fiberPullingRequired">
-                      <option>No</option><option>Yes</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-users"></i> Fiber Pulling Team Name</label>
-                    <input type="text" name="pullingTeamName" value="Amrut Rathod">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-circle-nodes"></i> Fibre Core</label>
-                    <select name="fiberCore">
-                      <option>6</option><option>12</option><option>24</option>
-                      <option>48</option><option>96</option><option>144</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-ruler"></i> Length of Fibre (Mtr)</label>
-                    <input type="number" name="fiberLength" value="200" step="0.01">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-globe"></i> Latitude</label>
-                    <input type="text" name="latitude" placeholder="e.g. 18.469960" value="18.469960">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-globe"></i> Longitude</label>
-                    <input type="text" name="longitude" placeholder="e.g. 73.811116" value="73.811116">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 4: Closure -->
-              <div class="step-content hidden" data-step="4">
-                <div class="step-title"><i class="fas fa-clock"></i> 5. Closure Details</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Evisions Closed Date & Time</label>
-                    <input type="datetime-local" name="evisionsClosedDateTime" value="2026-06-28T12:35">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-day"></i> Evisions Closed Date</label>
-                    <input type="date" name="evisionsClosedDate" value="2026-06-28">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Company Closed Date & Time</label>
-                    <input type="datetime-local" name="companyClosedDateTime" value="2026-06-28T12:45">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-calendar-day"></i> Company Closed Date</label>
-                    <input type="date" name="companyClosedDate" value="2026-06-28">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> NOC Executive (closed)</label>
-                    <select name="closedNocExecutive">
-                      <option>Aniket Baikar</option><option>Abhishek Gaikwad</option>
-                      <option>Nitesh Pathak</option><option>Rushikesh Angre</option>
-                      <option>Rohit Shivale</option><option>Amol Jagadale</option>
-                      <option>Shyam Morale</option><option>Other</option>
-                    </select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-hourglass-half"></i> Waiting for Confirmation</label>
-                    <input type="text" name="waitingForConfirmation" value="0:00:00">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 5: Performance -->
-              <div class="step-content hidden" data-step="5">
-                <div class="step-title"><i class="fas fa-chart-line"></i> 6. Performance Metrics</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Evisions MTTR</label>
-                    <input type="text" name="evisionsMttr" value="3:05:00">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-check-circle"></i> Evisions SLA</label>
-                    <select name="evisionsSla"><option>In</option><option>Out</option></select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Company MTTR</label>
-                    <input type="text" name="companyMttr" value="3:15:00">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-check-circle"></i> Company SLA</label>
-                    <select name="companySla"><option>In</option><option>Out</option></select>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-user"></i> 2nd Splicer Name</label>
-                    <input type="text" name="secondSplicerName" placeholder="2nd Splicer" value="">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-motorcycle"></i> 2nd Rider Name</label>
-                    <input type="text" name="secondRiderName" placeholder="2nd Rider" value="">
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 6: Reason -->
-              <div class="step-content hidden" data-step="6">
-                <div class="step-title"><i class="fas fa-exclamation-triangle"></i> 7. Reason for Outage</div>
-                <div class="form-grid">
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-info-circle"></i> Reason for Outage</label>
-                    <select name="outageReason">
-                      <option>Evisions Fiber Issue</option><option>Company Fiber Issue</option>
-                      <option>CLOSURE DISTURBED</option><option>FIBER CUT DUE TO VEHICLE</option>
-                      <option>DOG BITE</option><option>FIBER CUT DUE TO RAT BITE</option>
-                      <option>PMC ACTIVITY</option><option>POWER ISSUE</option><option>NO FIBER ISSUE</option>
-                    </select>
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-tag"></i> Reason for Outage - Type</label>
-                    <select name="outageReasonType">
-                      <option>FIBER DAMAGE</option><option>CLOSURE DISTURBED</option>
-                      <option>FIBER CUT DUE TO VEHICLE</option><option>DOG BITE</option>
-                      <option>FIBER CUT DUE TO RAT BITE</option><option>METRO WORK</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- STEP 7: Delay -->
-              <div class="step-content hidden" data-step="7">
-                <div class="step-title"><i class="fas fa-hourglass-end"></i> 8. Delay & Remarks</div>
-                <div class="form-grid">
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Delay time for aligning Team</label>
-                    <input type="text" name="delayTimeAligning" value="00:00:00">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-info-circle"></i> Reason for Delay</label>
-                    <input type="text" name="delayReason" placeholder="Reason for delay" value="None">
-                  </div>
-                  <div class="field-group" style="grid-column: 1 / -1;">
-                    <label><i class="fas fa-comment"></i> Remarks</label>
-                    <textarea name="remarks" rows="2">NA</textarea>
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> Aging</label>
-                    <input type="text" name="aging" value="3:05:00">
-                  </div>
-                  <div class="field-group">
-                    <label><i class="fas fa-clock"></i> New Aging</label>
-                    <input type="text" name="newAging" value="3:05:00">
-                  </div>
-                </div>
-              </div>
-
-              <!-- navigation -->
-              <div class="wizard-nav">
-                <button type="button" class="btn btn-outline" id="maintPrevBtn" onclick="changeWizardStep('maintenance', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
-                <div style="display:flex; gap:0.8rem;">
-                  <button type="button" class="btn btn-primary" id="maintNextBtn" onclick="changeWizardStep('maintenance', 1)">Next <i class="fas fa-chevron-right"></i></button>
-                  <button type="submit" class="btn btn-success hidden" id="maintSubmitBtn"><i class="fas fa-check"></i> Submit Complaint</button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
-
-
-        <!-- ==========================================================
-             PANEL: RECORDS LIST
-             ========================================================== -->
-        <div id="panel-records" class="app-panel hidden">
-          <div class="wizard-panel-container">
-            
-            <div class="records-tabs" id="records-tab-headers">
-              <button class="record-tab-btn active" id="tab-btn-projects" onclick="switchRecordsTab('projects')">Project Sheets</button>
-              <button class="record-tab-btn" id="tab-btn-inventory" onclick="switchRecordsTab('inventory')">Inventory Receipts</button>
-              <button class="record-tab-btn" id="tab-btn-complaints" onclick="switchRecordsTab('complaints')">NOC Complaint Tickets</button>
-            </div>
-
-            <div class="controls-row">
-              <div class="search-wrapper">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="records-search" placeholder="Search records by keywords..." oninput="handleSearchFilter()">
-              </div>
-              
-              <div class="filters-wrapper" id="filters-container">
-                <!-- Dropdown selectors dynamically populated based on active tab -->
-              </div>
-            </div>
-
-            <div class="table-container">
-              <table class="data-table" id="master-records-table">
-                <thead id="records-table-head">
-                  <!-- Dynamic Headers -->
-                </thead>
-                <tbody id="records-table-body">
-                  <!-- Dynamic Rows -->
-                </tbody>
-              </table>
-              <div id="records-empty-state" class="empty-state hidden">
-                <i class="fa-solid fa-folder-open"></i>
-                <p>No records found matching your filters.</p>
-              </div>
             </div>
 
           </div>
         </div>
-
       </div>
 
-    </main>
+      <!-- ==========================================================
+             PANEL: BILLING & PAYMENT
+             ========================================================== -->
+      <div id="panel-billing" class="app-panel hidden">
+        <div class="wizard-panel-container">
+          <div class="container">
+            <h1>
+              <i class="fas fa-file-invoice-dollar" style="color:#2563eb;"></i> Billing Manager
+              <small>multiple bills per work order</small>
+            </h1>
+
+            <div class="step-content" style="margin-bottom: 2rem;">
+              <div class="step-title"><i class="fas fa-search"></i> Select Work Order</div>
+              <div class="form-grid" style="grid-template-columns: 1fr auto auto; align-items: end;">
+                <div class="field-group">
+                  <label><i class="fas fa-file-signature"></i> Work Order (WO)</label>
+                  <select id="billingSearchWO" onchange="loadBillingForWO()">
+                    <option value="">-- Select a Work Order --</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="loadBillingForWO()"><i class="fas fa-sync"></i>
+                  Load Bills</button>
+                <button type="button" class="btn btn-success" id="btnAddNewBillTop" onclick="addBillingCard()"
+                  style="display:none;"><i class="fas fa-plus"></i> Add New Bill</button>
+              </div>
+            </div>
+
+            <!-- Container for Bills -->
+            <div id="billingListContainer" class="hidden">
+              <!-- Table View -->
+              <div id="billingTableWrapper">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <h3 style="font-weight: 700; color: var(--primary);"><i class="fas fa-list"></i> Associated Bills</h3>
+                </div>
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Bill #</th>
+                        <th>PO No.</th>
+                        <th>Invoice No.</th>
+                        <th>Base Amt</th>
+                        <th>Final Amt</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th style="text-align: right;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="billingTableBody">
+                      <!-- Populated via JS -->
+                    </tbody>
+                  </table>
+                </div>
+                <div id="billingTableEmpty" class="hidden"
+                  style="text-align: center; padding: 2rem; color: var(--text-muted); background: white; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 1rem;">
+                  <i class="fas fa-file-invoice-dollar"
+                    style="font-size: 2.5rem; margin-bottom: 1rem; color: #e2e8f0;"></i>
+                  <p style="margin: 0; font-weight: 500;">No bills found for this Work Order.</p>
+                  <p style="font-size: 0.85rem; margin-top: 0.25rem;">Click 'Add New Bill' to create one.</p>
+                </div>
+                <div class="wizard-nav" style="margin-top: 2rem;">
+                  <button type="button" class="btn btn-primary" onclick="saveBillingForWO()"><i class="fas fa-save"></i>
+                    Save All Bills</button>
+                </div>
+              </div>
+
+              <!-- Form View -->
+              <div id="billingFormWrapper" class="hidden"
+                style="background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+             PANEL: INVENTORY WIZARD
+             ========================================================== -->
+      <div id="panel-inventory" class="app-panel hidden">
+        <div class="wizard-panel-container">
+
+          <div class="wizard-progress" id="inventoryProgress">
+            <div class="step-indicator active" data-step="0">
+              <div class="step-circle">1</div>
+              <span class="step-label">Receipt</span>
+            </div>
+            <div class="step-indicator" data-step="1">
+              <div class="step-circle">2</div>
+              <span class="step-label">Material</span>
+            </div>
+            <div class="step-indicator" data-step="2">
+              <div class="step-circle">3</div>
+              <span class="step-label">Fiber</span>
+            </div>
+            <div class="step-indicator" data-step="3">
+              <div class="step-circle">4</div>
+              <span class="step-label">Cable</span>
+            </div>
+            <div class="step-indicator" data-step="4">
+              <div class="step-circle">5</div>
+              <span class="step-label">Summary</span>
+            </div>
+          </div>
+
+          <form id="inventoryWizardForm" onsubmit="handleInventorySubmit(event)">
+
+            <!-- STEP 0: Receipt -->
+            <div class="step-content" data-step="0">
+              <div class="step-title"><i class="fas fa-receipt"></i> 1. Receipt Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-hashtag"></i> Sr. No.</label>
+                  <input type="number" name="srNo" value="1" min="1">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-day"></i> Material Received Date</label>
+                  <input type="date" name="receivedDate" value="2026-06-28">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-day"></i> Invoice Date</label>
+                  <input type="date" name="invoiceDate" value="2026-06-27">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-file-invoice"></i> Invoice No.</label>
+                  <input type="text" name="invoiceNo" value="INV-99882">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-truck"></i> Material Received from</label>
+                  <select name="receivedFrom">
+                    <option value="Airtel">Airtel</option>
+                    <option value="Cable Contact">Cable Contact</option>
+                    <option value="Chetna Technology">Chetna Technology</option>
+                    <option value="Sterlite">Sterlite</option>
+                    <option value="Birla">Birla</option>
+                    <option value="HPCL">HPCL</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-city"></i> City</label>
+                  <select name="city">
+                    <option value="Pune">Pune</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 1: Material -->
+            <div class="step-content hidden" data-step="1">
+              <div class="step-title"><i class="fas fa-tag"></i> 2. Material Type</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-layer-group"></i> Material Type</label>
+                  <select name="materialType">
+                    <option value="Fiber">Fiber</option>
+                    <option value="Closure Box">Closure Box</option>
+                    <option value="Bamboo Closure">Bamboo Closure</option>
+                    <option value="Rope Wire">Rope Wire</option>
+                    <option value="Sleeves (Packets)">Sleeves (Packets)</option>
+                    <option value="Isopropyl Liquid (Cans)">Isopropyl Liquid (Cans)</option>
+                    <option value="Zip Ties (Packets)">Zip Ties (Packets)</option>
+                    <option value="Tissue Paper (Packets)">Tissue Paper (Packets)</option>
+                    <option value="Splicing Machine">Splicing Machine</option>
+                    <option value="OTDR Machine">OTDR Machine</option>
+                    <option value="Power Meter">Power Meter</option>
+                    <option value="Head Torch">Head Torch</option>
+                    <option value="Masking Tape">Masking Tape</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-building"></i> Fiber Company Name</label>
+                  <select name="fiberCompany">
+                    <option value="Sterlite">Sterlite</option>
+                    <option value="Birla">Birla</option>
+                    <option value="HPCL">HPCL</option>
+                    <option value="Nexans">Nexans</option>
+                    <option value="Corning">Corning</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-shield"></i> Fibre Type</label>
+                  <select name="fiberType">
+                    <option value="Armoured">Armoured</option>
+                    <option value="Unarmoured">Unarmoured</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-circle"></i> Coil / Drum</label>
+                  <select name="coilDrum">
+                    <option value="Coil">Coil</option>
+                    <option value="Drum">Drum</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-circle-nodes"></i> Fiber Core</label>
+                  <select name="fiberCore">
+                    <option value="6F">6F</option>
+                    <option value="12F">12F</option>
+                    <option value="24F">24F</option>
+                    <option value="48F">48F</option>
+                    <option value="96F">96F</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-ruler"></i> Unit of Measurement</label>
+                  <select name="uom">
+                    <option value="Meter">Meter</option>
+                    <option value="Nos.">Nos.</option>
+                    <option value="Litre">Litre</option>
+                    <option value="Packet">Packet</option>
+                    <option value="Can">Can</option>
+                    <option value="Roll">Roll</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-sort-numeric-up"></i> Quantity</label>
+                  <input type="number" name="quantity" value="1600" min="0" step="0.01">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Fiber details -->
+            <div class="step-content hidden" data-step="2">
+              <div class="step-title"><i class="fas fa-wave-square"></i> 3. Fiber / Cable Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-barcode"></i> Cable Id No.</label>
+                  <input type="text" name="cableIdNo" value="CBL-9923">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-ruler-horizontal"></i> Cable length as per invoice / tag</label>
+                  <input type="number" name="invoiceCableLength" value="1600" step="0.01">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-play"></i> Start Reading of Fiber</label>
+                  <input type="number" name="startReading" value="0" step="0.01">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-stop"></i> End Reading of Fiber</label>
+                  <input type="number" name="endReading" value="1600" step="0.01">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-arrows-left-right"></i> Total Cable Length</label>
+                  <input type="number" name="totalCableLength" value="1600" step="0.01">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: Cable inspection -->
+            <div class="step-content hidden" data-step="3">
+              <div class="step-title"><i class="fas fa-clipboard-check"></i> 4. Cable Inspection</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-question-circle"></i> Is the cable short?</label>
+                  <select name="cableShort">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calculator"></i> Difference in start & end reading</label>
+                  <input type="text" name="differenceReading" value="No" placeholder="e.g. -50 or No">
+                </div>
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-comment"></i> Remark</label>
+                  <textarea name="inspectionRemark" rows="2" placeholder="Any remarks about the material"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: Summary -->
+            <div class="step-content hidden" data-step="4">
+              <div class="step-title"><i class="fas fa-check-double"></i> 5. Summary & Submit</div>
+              <div class="form-grid">
+                <div
+                  style="grid-column: 1 / -1; background: #f1f5f9; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 0.5rem;">
+                  <p style="font-size: 0.85rem; color: #0f172a;"><i class="fas fa-info-circle"
+                      style="color:#2563eb;"></i> Please review all the entered information before submitting.</p>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-check-circle"></i> Ready to Submit?</label>
+                  <select name="readyToSubmit">
+                    <option value="yes">Yes, all fields are correct</option>
+                    <option value="no">I need to review again</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user"></i> Verified By</label>
+                  <input type="text" name="verifiedBy" placeholder="Your name" value="Rahul">
+                </div>
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-comment"></i> Final Remark</label>
+                  <textarea name="finalRemark" rows="2" placeholder="Any final comments"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- navigation -->
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline" id="invPrevBtn"
+                onclick="changeWizardStep('inventory', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+              <div style="display:flex; gap:0.8rem;">
+                <button type="button" class="btn btn-outline" id="invSaveBtn"
+                  onclick="alert('Save functionality to be implemented');"><i class="fas fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary" id="invNextBtn"
+                  onclick="changeWizardStep('inventory', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                <button type="submit" class="btn btn-success hidden" id="invSubmitBtn"><i class="fas fa-check"></i>
+                  Submit Inventory</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+
+      <!-- ==========================================================
+             PANEL: MAINTENANCE WIZARD
+             ========================================================== -->
+      <!-- ==========================================================
+             PANEL: OUTWARD INVENTORY
+             ========================================================== -->
+      <div id="panel-outward-inventory" class="app-panel hidden">
+        <div class="wizard-panel-container">
+          <div class="wizard-progress" id="outward-inventoryProgress">
+            <div class="step-indicator active" data-step="0">
+              <div class="step-circle">1</div>
+              <span class="step-label">General</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-indicator" data-step="1">
+              <div class="step-circle">2</div>
+              <span class="step-label">Vendor</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-indicator" data-step="2">
+              <div class="step-circle">3</div>
+              <span class="step-label">Material</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-indicator" data-step="3">
+              <div class="step-circle">4</div>
+              <span class="step-label">Cable</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-indicator" data-step="4">
+              <div class="step-circle">5</div>
+              <span class="step-label">Summary</span>
+            </div>
+          </div>
+
+          <form id="outwardInventoryWizardForm" onsubmit="handleOutwardInventorySubmit(event)">
+            <!-- STEP 0: General Information -->
+            <div class="step-content active" data-step="0">
+              <div class="step-title"><i class="fas fa-info-circle"></i> 1. General Information</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-hashtag"></i> Sr. No.</label>
+                  <input type="text" name="srNo" placeholder="Enter Sr. No.">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                  <select name="location">
+                    <option value="">Select Location</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Mumbai">Mumbai</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar"></i> Date</label>
+                  <input type="date" name="outwardDate">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-project-diagram"></i> Project / Maintenance</label>
+                  <select name="projectMaintenance">
+                    <option value="">Select Option</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Project">Project</option>
+                    <option value="Other">Other</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-building"></i> Company Name</label>
+                  <select name="companyName">
+                    <option value="">Select Company</option>
+                    <option value="Airtel FTTH">Airtel FTTH</option>
+                    <option value="AIRTEL Transport">AIRTEL Transport</option>
+                    <option value="VIL FTTH">VIL FTTH</option>
+                    <option value="VIL Smallcell">VIL Smallcell</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 1: Team & Vendor Details -->
+            <div class="step-content hidden" data-step="1">
+              <div class="step-title"><i class="fas fa-users-cog"></i> 2. Team & Vendor Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-users"></i> Evisions Team Name</label>
+                  <select name="evisionsTeamName">
+                    <option value="">Select Team</option>
+                    <option value="Team 1">Team 1</option>
+                    <option value="Team 2">Team 2</option>
+                    <option value="Team 3">Team 3</option>
+                    <option value="Team 4">Team 4</option>
+                    <option value="Team 5">Team 5</option>
+                    <option value="Team 6">Team 6</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-store"></i> Vendor Name</label>
+                  <select name="vendorName">
+                    <option value="">Select Vendor</option>
+                    <option value="Swarad Connect">Swarad Connect</option>
+                    <option value="Anil Enterprises">Anil Enterprises</option>
+                    <option value="Anjali Communication">Anjali Communication</option>
+                    <option value="AS Communication">AS Communication</option>
+                    <option value="Ashfaque Shaikh">Ashfaque Shaikh</option>
+                    <option value="BS Tel Digital Solution">BS Tel Digital Solution</option>
+                    <option value="Dream Cable">Dream Cable</option>
+                    <option value="G V Enterprises">G V Enterprises</option>
+                    <option value="Goodlink Communication">Goodlink Communication</option>
+                    <option value="Goodwill Enterprises">Goodwill Enterprises</option>
+                    <option value="Harshad More">Harshad More</option>
+                    <option value="Hashtag Services">Hashtag Services</option>
+                    <option value="Hyperband Infra and Technologies">Hyperband Infra and Technologies</option>
+                    <option value="ICC Broadband">ICC Broadband</option>
+                    <option value="J R Communication">J R Communication</option>
+                    <option value="Jay Ganesh Enterprises">Jay Ganesh Enterprises</option>
+                    <option value="Manjara Network">Manjara Network</option>
+                    <option value="Om Enterprises">Om Enterprises</option>
+                    <option value="Prasad Cable Network">Prasad Cable Network</option>
+                    <option value="Pruthvi Enterprises">Pruthvi Enterprises</option>
+                    <option value="Purple Enterprises">Purple Enterprises</option>
+                    <option value="Ramchandra Tukaram Bodke">Ramchandra Tukaram Bodke</option>
+                    <option value="Reliable Systems & Network Services">Reliable Systems & Network Services</option>
+                    <option value="Sanavi Network">Sanavi Network</option>
+                    <option value="Shafiq Salim Shaikh">Shafiq Salim Shaikh</option>
+                    <option value="Shaurya Network">Shaurya Network</option>
+                    <option value="Shital Enterprises">Shital Enterprises</option>
+                    <option value="Shiv Enterprises">Shiv Enterprises</option>
+                    <option value="Shree Swami Samarth Net Services">Shree Swami Samarth Net Services</option>
+                    <option value="Shrinath Enterprises">Shrinath Enterprises</option>
+                    <option value="Skyline Technology">Skyline Technology</option>
+                    <option value="Spine Teleinfra Pvt. Ltd.">Spine Teleinfra Pvt. Ltd.</option>
+                    <option value="Star Entertainment">Star Entertainment</option>
+                    <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable Services
+                    </option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-truck"></i> Fiber Pulling Team (FPT) Name</label>
+                  <select name="fptName">
+                    <option value="">Select FPT Name</option>
+                    <option value="Amrut Rathod">Amrut Rathod</option>
+                    <option value="Harilal Rathod">Harilal Rathod</option>
+                    <option value="Prakash Rathod">Prakash Rathod</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Personnel & Material Issued -->
+            <div class="step-content hidden" data-step="2">
+              <div class="step-title"><i class="fas fa-toolbox"></i> 3. Personnel & Material Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-user-tag"></i> Name of the Person (who took material)</label>
+                  <input type="text" name="personTaken" placeholder="Name">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-id-badge"></i> Material Issued by</label>
+                  <select name="issuedBy">
+                    <option value="">Select Issuer</option>
+                    <option value="Rohit">Rohit</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-box"></i> Material Type</label>
+                  <select name="materialType">
+                    <option value="">Select Material Type</option>
+                    <option value="Fiber">Fiber</option>
+                    <option value="Closure Box">Closure Box</option>
+                    <option value="Bamboo Closure">Bamboo Closure</option>
+                    <option value="Rope Wire">Rope Wire</option>
+                    <option value="Sleeves (Packets)">Sleeves (Packets)</option>
+                    <option value="Zip Ties (Packets)">Zip Ties (Packets)</option>
+                    <option value="Tissue Paper (Packets)">Tissue Paper (Packets)</option>
+                    <option value="Splicing Machine">Splicing Machine</option>
+                    <option value="OTDR Machine">OTDR Machine</option>
+                    <option value="Power Meter">Power Meter</option>
+                    <option value="Head Torch">Head Torch</option>
+                    <option value="Masking Tape">Masking Tape</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-network-wired"></i> Fiber Core</label>
+                  <select name="fiberCore">
+                    <option value="">Select Fiber Core</option>
+                    <option value="6F">6F</option>
+                    <option value="12F">12F</option>
+                    <option value="24F">24F</option>
+                    <option value="48F">48F</option>
+                    <option value="96F">96F</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-sort-numeric-up"></i> Quantity Taken</label>
+                  <input type="text" name="quantityTaken" placeholder="Enter Quantity">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: Cable & Link Details -->
+            <div class="step-content hidden" data-step="3">
+              <div class="step-title"><i class="fas fa-link"></i> 4. Cable & Link Details (If applicable)</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-barcode"></i> Cable Id No.</label>
+                  <input type="text" name="cableIdNo" placeholder="Enter Cable Id No.">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-play"></i> Start Reading</label>
+                  <input type="number" name="startReading" placeholder="0">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-stop"></i> End Reading</label>
+                  <input type="number" name="endReading" placeholder="0">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-ruler-horizontal"></i> Total Cable Length (In Mtr)</label>
+                  <input type="number" name="totalCableLength" placeholder="0">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-link"></i> Link ID No.</label>
+                  <input type="text" name="linkIdNo" placeholder="Enter Link ID">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-map-marker-alt"></i> A (SITE) End</label>
+                  <input type="text" name="aSiteEnd" placeholder="Enter A End">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-map-marker-alt"></i> B End</label>
+                  <input type="text" name="bEnd" placeholder="Enter B End">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-map-signs"></i> Area</label>
+                  <input type="text" name="area" placeholder="Enter Area">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: Summary -->
+            <div class="step-content hidden" data-step="4">
+              <div class="step-title"><i class="fas fa-check-double"></i> 5. Summary & Submit</div>
+              <div class="form-grid">
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <p>Please review the details before submitting the outward inventory record.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline" id="outwardInvPrevBtn"
+                onclick="changeWizardStep('outward-inventory', -1)"><i class="fas fa-chevron-left"></i>
+                Previous</button>
+              <div style="display:flex; gap:0.8rem;">
+                <button type="button" class="btn btn-outline" id="outwardInvSaveBtn"
+                  onclick="alert('Save functionality to be implemented');"><i class="fas fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary" id="outwardInvNextBtn"
+                  onclick="changeWizardStep('outward-inventory', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                <button type="submit" class="btn btn-success hidden" id="outwardInvSubmitBtn"><i
+                    class="fas fa-check"></i>
+                  Submit Inventory</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="panel-maintenance" class="app-panel hidden">
+        <div class="wizard-panel-container">
+
+          <div class="wizard-progress" id="maintenanceProgress">
+            <div class="step-indicator active" data-step="0">
+              <div class="step-circle">1</div>
+              <span class="step-label">Complaint</span>
+            </div>
+            <div class="step-indicator" data-step="1">
+              <div class="step-circle">2</div>
+              <span class="step-label">Company</span>
+            </div>
+            <div class="step-indicator" data-step="2">
+              <div class="step-circle">3</div>
+              <span class="step-label">Assign</span>
+            </div>
+            <div class="step-indicator" data-step="3">
+              <div class="step-circle">4</div>
+              <span class="step-label">Fiber</span>
+            </div>
+            <div class="step-indicator" data-step="4">
+              <div class="step-circle">5</div>
+              <span class="step-label">Closure</span>
+            </div>
+            <div class="step-indicator" data-step="5">
+              <div class="step-circle">6</div>
+              <span class="step-label">Perform</span>
+            </div>
+            <div class="step-indicator" data-step="6">
+              <div class="step-circle">7</div>
+              <span class="step-label">Reason</span>
+            </div>
+            <div class="step-indicator" data-step="7">
+              <div class="step-circle">8</div>
+              <span class="step-label">Delay</span>
+            </div>
+          </div>
+
+          <form id="maintenanceWizardForm" onsubmit="handleMaintenanceSubmit(event)">
+
+            <!-- STEP 0: Complaint Registration -->
+            <div class="step-content" data-step="0">
+              <div class="step-title"><i class="fas fa-file-signature"></i> 1. Complaint Registration</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-hashtag"></i> Sr. No.</label>
+                  <input type="number" name="srNo" value="1" min="1">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-alt"></i> Month</label>
+                  <select name="month">
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar"></i> Year</label>
+                  <input type="number" name="year" value="2026" min="2020" max="2035">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user"></i> NOC Executive (registered)</label>
+                  <select name="registeredNocExecutive">
+                    <option>Aniket Baikar</option>
+                    <option>Abhishek Gaikwad</option>
+                    <option>Nitesh Pathak</option>
+                    <option>Rushikesh Angre</option>
+                    <option>Rohit Shivale</option>
+                    <option>Amol Jagadale</option>
+                    <option>Shyam Morale</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Received Date & Time</label>
+                  <input type="date" name="receivedDateTime" value="2026-06-28T09:30">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-day"></i> Received Date</label>
+                  <input type="date" name="receivedDate" value="2026-06-28">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-tag"></i> Type</label>
+                  <select name="type">
+                    <option>Complaint</option>
+                    <option>Termination</option>
+                    <option>Restoration</option>
+                    <option>Maintenance</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-code"></i> Evisions Complaint Code</label>
+                  <input type="text" name="evisionsComplaintCode" value="24047180">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 1: Company & Link -->
+            <div class="step-content hidden" data-step="1">
+              <div class="step-title"><i class="fas fa-building"></i> 2. Company & Link</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-building"></i> Company Name</label>
+                  <select name="companyName">
+                    <option>AIRTEL</option>
+                    <option>VIL</option>
+                    <option>GAZON</option>
+                    <option>Railtel</option>
+                    <option>GBPS</option>
+                    <option>POWERGRID</option>
+                    <option>JIO</option>
+                    <option>SUMASHILP</option>
+                    <option>HATHWAY</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-link"></i> Link Type</label>
+                  <select name="linkType">
+                    <option>FTTH</option>
+                    <option>BACKBONE</option>
+                    <option>SMALLCELL</option>
+                    <option>TRANSPORT</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-file-code"></i> Company Complaint Code</label>
+                  <input type="text" name="companyComplaintCode" value="INC000226909459">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-hashtag"></i> Unique Cut No.</label>
+                  <input type="text" name="uniqueCutNo" value="24047180">
+                </div>
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-link"></i> Link Name</label>
+                  <input type="text" name="linkName" value="1ZM TO TCG Panorama Ambegaon">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Assignment -->
+            <div class="step-content hidden" data-step="2">
+              <div class="step-title"><i class="fas fa-user-check"></i> 3. Assignment</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-users"></i> Maintained By</label>
+                  <select name="maintainedBy">
+                    <option>Team 1</option>
+                    <option>Team 2</option>
+                    <option>Swarad Connect</option>
+                    <option>Anil Enterprises</option>
+                    <option>Hyperband Infra</option>
+                    <option>Dream Cable</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-flag"></i> Link Status</label>
+                  <select name="linkStatus">
+                    <option>NEED TO ASSIGN</option>
+                    <option>ASSIGNED</option>
+                    <option>WIP</option>
+                    <option>RESTORED</option>
+                    <option>AUTO RESTORED</option>
+                    <option>ACCESS ISSUE - OUR SIDE</option>
+                    <option>ACCESS ISSUE - COMPANY SIDE</option>
+                    <option>IGNORE</option>
+                    <option>NO FIBER ISSUE</option>
+                    <option>CORE THROUGH</option>
+                    <option>CONFIRMATION PENDING</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Call Assigned Date & Time</label>
+                  <input type="date" name="assignedDateTime" value="2026-06-28T09:45">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user-tie"></i> Team Leader (Evisions)</label>
+                  <select name="teamLeader">
+                    <option>Rahul Dilliwala</option>
+                    <option>Sanket Kandhare</option>
+                    <option>Amar Belapurkar</option>
+                    <option>Akash Pardeshi</option>
+                    <option>Sachin Khude</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user"></i> Splicer Name</label>
+                  <input type="text" name="splicerName" value="Karan">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-motorcycle"></i> Rider Name</label>
+                  <input type="text" name="riderName" value="Sameer">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: Fiber -->
+            <div class="step-content hidden" data-step="3">
+              <div class="step-title"><i class="fas fa-fiber"></i> 4. Fiber Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-question-circle"></i> Fiber Pulling?</label>
+                  <select name="fiberPullingRequired">
+                    <option>No</option>
+                    <option>Yes</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-users"></i> Fiber Pulling Team Name</label>
+                  <input type="text" name="pullingTeamName" value="Amrut Rathod">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-circle-nodes"></i> Fibre Core</label>
+                  <select name="fiberCore">
+                    <option>6</option>
+                    <option>12</option>
+                    <option>24</option>
+                    <option>48</option>
+                    <option>96</option>
+                    <option>144</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-ruler"></i> Length of Fibre (Mtr)</label>
+                  <input type="number" name="fiberLength" value="200" step="0.01">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-globe"></i> Latitude</label>
+                  <input type="text" name="latitude" placeholder="e.g. 18.469960" value="18.469960">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-globe"></i> Longitude</label>
+                  <input type="text" name="longitude" placeholder="e.g. 73.811116" value="73.811116">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: Closure -->
+            <div class="step-content hidden" data-step="4">
+              <div class="step-title"><i class="fas fa-clock"></i> 5. Closure Details</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Evisions Closed Date & Time</label>
+                  <input type="date" name="evisionsClosedDateTime" value="2026-06-28T12:35">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-day"></i> Evisions Closed Date</label>
+                  <input type="date" name="evisionsClosedDate" value="2026-06-28">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Company Closed Date & Time</label>
+                  <input type="date" name="companyClosedDateTime" value="2026-06-28T12:45">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-calendar-day"></i> Company Closed Date</label>
+                  <input type="date" name="companyClosedDate" value="2026-06-28">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user"></i> NOC Executive (closed)</label>
+                  <select name="closedNocExecutive">
+                    <option>Aniket Baikar</option>
+                    <option>Abhishek Gaikwad</option>
+                    <option>Nitesh Pathak</option>
+                    <option>Rushikesh Angre</option>
+                    <option>Rohit Shivale</option>
+                    <option>Amol Jagadale</option>
+                    <option>Shyam Morale</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-hourglass-half"></i> Waiting for Confirmation</label>
+                  <input type="text" name="waitingForConfirmation" value="0:00:00">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 5: Performance -->
+            <div class="step-content hidden" data-step="5">
+              <div class="step-title"><i class="fas fa-chart-line"></i> 6. Performance Metrics</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Evisions MTTR</label>
+                  <input type="text" name="evisionsMttr" value="3:05:00">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-check-circle"></i> Evisions SLA</label>
+                  <select name="evisionsSla">
+                    <option>In</option>
+                    <option>Out</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Company MTTR</label>
+                  <input type="text" name="companyMttr" value="3:15:00">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-check-circle"></i> Company SLA</label>
+                  <select name="companySla">
+                    <option>In</option>
+                    <option>Out</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-user"></i> 2nd Splicer Name</label>
+                  <input type="text" name="secondSplicerName" placeholder="2nd Splicer" value="">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-motorcycle"></i> 2nd Rider Name</label>
+                  <input type="text" name="secondRiderName" placeholder="2nd Rider" value="">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 6: Reason -->
+            <div class="step-content hidden" data-step="6">
+              <div class="step-title"><i class="fas fa-exclamation-triangle"></i> 7. Reason for Outage</div>
+              <div class="form-grid">
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-info-circle"></i> Reason for Outage</label>
+                  <select name="outageReason">
+                    <option>Evisions Fiber Issue</option>
+                    <option>Company Fiber Issue</option>
+                    <option>CLOSURE DISTURBED</option>
+                    <option>FIBER CUT DUE TO VEHICLE</option>
+                    <option>DOG BITE</option>
+                    <option>FIBER CUT DUE TO RAT BITE</option>
+                    <option>PMC ACTIVITY</option>
+                    <option>POWER ISSUE</option>
+                    <option>NO FIBER ISSUE</option>
+                  </select>
+                </div>
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-tag"></i> Reason for Outage - Type</label>
+                  <select name="outageReasonType">
+                    <option>FIBER DAMAGE</option>
+                    <option>CLOSURE DISTURBED</option>
+                    <option>FIBER CUT DUE TO VEHICLE</option>
+                    <option>DOG BITE</option>
+                    <option>FIBER CUT DUE TO RAT BITE</option>
+                    <option>METRO WORK</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 7: Delay -->
+            <div class="step-content hidden" data-step="7">
+              <div class="step-title"><i class="fas fa-hourglass-end"></i> 8. Delay & Remarks</div>
+              <div class="form-grid">
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Delay time for aligning Team</label>
+                  <input type="text" name="delayTimeAligning" value="00:00:00">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-info-circle"></i> Reason for Delay</label>
+                  <input type="text" name="delayReason" placeholder="Reason for delay" value="None">
+                </div>
+                <div class="field-group" style="grid-column: 1 / -1;">
+                  <label><i class="fas fa-comment"></i> Remarks</label>
+                  <textarea name="remarks" rows="2">NA</textarea>
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> Aging</label>
+                  <input type="text" name="aging" value="3:05:00">
+                </div>
+                <div class="field-group">
+                  <label><i class="fas fa-clock"></i> New Aging</label>
+                  <input type="text" name="newAging" value="3:05:00">
+                </div>
+              </div>
+            </div>
+
+            <!-- navigation -->
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline" id="maintPrevBtn"
+                onclick="changeWizardStep('maintenance', -1)"><i class="fas fa-chevron-left"></i> Previous</button>
+              <div style="display:flex; gap:0.8rem;">
+                <button type="button" class="btn btn-outline" id="maintSaveBtn"
+                  onclick="alert('Save functionality to be implemented');"><i class="fas fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary" id="maintNextBtn"
+                  onclick="changeWizardStep('maintenance', 1)">Next <i class="fas fa-chevron-right"></i></button>
+                <button type="submit" class="btn btn-success hidden" id="maintSubmitBtn"><i class="fas fa-check"></i>
+                  Submit Complaint</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+
+      <!-- ==========================================================
+             PANEL: RECORDS LIST
+             ========================================================== -->
+      <div id="panel-records" class="app-panel hidden">
+        <div class="wizard-panel-container">
+
+          <div class="records-tabs" id="records-tab-headers">
+            <button class="record-tab-btn active" id="tab-btn-projects" onclick="switchRecordsTab('projects')">Project
+              Sheets</button>
+            <button class="record-tab-btn" id="tab-btn-inventory" onclick="switchRecordsTab('inventory')">Inward
+              Inventory</button>
+            <button class="record-tab-btn" id="tab-btn-outward-inventory"
+              onclick="switchRecordsTab('outward-inventory')">Outward Inventory</button>
+            <button class="record-tab-btn" id="tab-btn-complaints" onclick="switchRecordsTab('complaints')">NOC
+              Complaint Tickets</button>
+          </div>
+
+          <div class="controls-row">
+            <div class="search-wrapper">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="records-search" placeholder="Search records by keywords..."
+                oninput="handleSearchFilter()">
+            </div>
+
+            <div class="filters-wrapper" id="filters-container">
+              <!-- Dropdown selectors dynamically populated based on active tab -->
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="master-records-table">
+              <thead id="records-table-head">
+                <!-- Dynamic Headers -->
+              </thead>
+              <tbody id="records-table-body">
+                <!-- Dynamic Rows -->
+              </tbody>
+            </table>
+            <div id="records-empty-state" class="empty-state hidden">
+              <i class="fa-solid fa-folder-open"></i>
+              <p>No records found matching your filters.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+  </div>
+
+  </main>
   </div>
 
   <!-- ==========================================================================
@@ -2141,17 +2676,44 @@
        SCRIPT ACTIONS
        ========================================================================== -->
   <script>
+    // ===== RECORDS EDIT SYSTEM =====
+    window.editingRecord = null;
+
+    function editRecord(tab, id) {
+      const key = 'ofp_' + tab.replace('-', '_');
+      const db = JSON.parse(localStorage.getItem(key) || '[]');
+      const record = db.find(item => item.id === id);
+      if (!record) return;
+
+      window.editingRecord = { tab, id };
+      const formId = tab === 'projects' ? 'projectWizardForm' : (tab === 'inventory' ? 'inventoryWizardForm' : (tab === 'outward-inventory' ? 'outwardInventoryWizardForm' : 'maintenanceWizardForm'));
+      const form = document.getElementById(formId);
+
+      if (form) {
+        Object.keys(record).forEach(field => {
+          const input = form.elements[field];
+          if (input) {
+            input.value = record[field];
+          }
+        });
+      }
+
+      initWizardState(tab);
+      navigateTo(tab);
+    }
+
     // ===== SYSTEM STATE =====
     let currentUser = null;
     let currentPanel = 'dashboard';
-    
-    // Wizards Step States
+
+    // Wizard Step States
     const wizardSteps = {
-      projects: { current: 0, total: 9 },
-      inventory: { current: 0, total: 6 },
+      projects: { current: 0, total: 5 },
+      inventory: { current: 0, total: 5 },
+      'outward-inventory': { current: 0, total: 5 },
       maintenance: { current: 0, total: 8 }
     };
-    
+
     // Master Records Tab State
     let activeRecordsTab = 'projects';
 
@@ -2177,6 +2739,11 @@
       { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
     ];
 
+    const defaultMockOutwardInventory = [
+      { id: "OI-1", srNo: "1", location: "Pune", outwardDate: "2026-06-25", projectMaintenance: "Maintenance", companyName: "Airtel FTTH", evisionsTeamName: "Team 1", vendorName: "Swarad Connect", fptName: "Amrut Rathod", materialTakenBy: "AA", issuedBy: "Rohit", materialType: "Fiber", fiberCore: "6F", quantityTaken: "100", uom: "Meter", cableIdNo: "12345", startReading: "0", endReading: "100", totalCableLength: "100", linkIdNo: "567789", aEnd: "Karve Putla", bEnd: "Shivaji Putla", area: "Kothrud" },
+      { id: "OI-2", srNo: "2", location: "Mumbai", outwardDate: "2026-06-26", projectMaintenance: "Project", companyName: "AIRTEL Transport", evisionsTeamName: "Team 2", vendorName: "Anil Enterprises", fptName: "Harilal Rathod", materialTakenBy: "BB", issuedBy: "Rohit", materialType: "Closure Box", fiberCore: "12F", quantityTaken: "5", uom: "Nos.", cableIdNo: "NA", startReading: "", endReading: "", totalCableLength: "", linkIdNo: "", aEnd: "", bEnd: "", area: "" }
+    ];
+
     const defaultMockComplaints = [
       { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
       { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
@@ -2192,6 +2759,10 @@
       if (!localStorage.getItem('ofp_inventory')) {
         localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
       }
+      const existingOutward = localStorage.getItem('ofp_outward_inventory');
+      if (!existingOutward || existingOutward === '[]') {
+        localStorage.setItem('ofp_outward_inventory', JSON.stringify(defaultMockOutwardInventory));
+      }
       if (!localStorage.getItem('ofp_complaints')) {
         localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
       }
@@ -2200,7 +2771,12 @@
     // Authentication handlers moved to login.js
 
     // ===== NAVIGATION / ROUTING =====
-    function navigateTo(panelId) {
+    function navigateToRecord(tabId, menuId) {
+      activeRecordsTab = tabId;
+      document.querySelector('.records-tabs').style.display = 'none';
+      navigateTo('records', menuId);
+    }
+    function navigateTo(panelId, overrideMenuId = null) {
       // Close mobile sidebar menu if open
       if (typeof window.closeMobileSidebar === 'function') {
         window.closeMobileSidebar();
@@ -2210,9 +2786,9 @@
       if (currentUser) {
         if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
           panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records'].includes(panelId)) {
+        } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records', 'billing'].includes(panelId)) {
           panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'records'].includes(panelId)) {
+        } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'outward-inventory', 'records'].includes(panelId)) {
           panelId = 'dashboard';
         } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
           panelId = 'dashboard';
@@ -2220,7 +2796,8 @@
       }
 
       currentPanel = panelId;
-      
+      localStorage.setItem('ofp_active_panel', panelId);
+
       // Hide all panels
       document.querySelectorAll('.app-panel').forEach(p => p.classList.add('hidden'));
       // Show active panel
@@ -2228,7 +2805,14 @@
 
       // Update sidebar active class
       document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-      const activeMenuItem = document.getElementById('menu-' + panelId);
+      const activeMenuItem = document.getElementById(overrideMenuId || ('menu-' + panelId));
+
+      const recordsTabs = document.querySelector('.records-tabs');
+      if (recordsTabs) {
+        if (panelId === 'records' && !overrideMenuId) {
+          recordsTabs.style.display = 'flex';
+        }
+      }
       if (activeMenuItem) {
         activeMenuItem.classList.add('active');
       }
@@ -2249,6 +2833,10 @@
         title.textContent = 'Inventory Management';
         subtitle.textContent = 'Material receipt registry and cable quality checks.';
         initWizardState('inventory');
+      } else if (panelId === 'outward-inventory') {
+        title.textContent = 'Outward Inventory';
+        subtitle.textContent = 'Manage outward material, cable issuance, and field team tracking.';
+        initWizardState('outward-inventory');
       } else if (panelId === 'maintenance') {
         title.textContent = 'NOC Maintenance Wizard';
         subtitle.textContent = 'NOC Complaint registration, assignment, and MTTR log.';
@@ -2257,6 +2845,10 @@
         title.textContent = 'Master Records Center';
         subtitle.textContent = 'Search, filter, and inspect completed operations sheets.';
         switchRecordsTab(activeRecordsTab);
+      } else if (panelId === 'billing') {
+        title.textContent = 'Billing & Payments';
+        subtitle.textContent = 'Manage multiple invoices against work orders.';
+        populateBillingWO();
       }
     }
 
@@ -2277,8 +2869,8 @@
 
     function updateWizardUI(type) {
       const stepState = wizardSteps[type];
-      const formEl = document.getElementById(type === 'projects' ? 'projectWizardForm' : (type === 'inventory' ? 'inventoryWizardForm' : 'maintenanceWizardForm'));
-      
+      const formEl = document.getElementById(type === 'projects' ? 'projectWizardForm' : (type === 'inventory' ? 'inventoryWizardForm' : (type === 'outward-inventory' ? 'outwardInventoryWizardForm' : 'maintenanceWizardForm')));
+
       // Toggle hidden content sections
       formEl.querySelectorAll('.step-content').forEach(el => {
         el.classList.add('hidden');
@@ -2299,7 +2891,11 @@
       });
 
       // Buttons check
-      const prefix = type === 'projects' ? 'proj' : (type === 'inventory' ? 'inv' : 'maint');
+      let prefix;
+      if (type === 'projects') prefix = 'proj';
+      else if (type === 'inventory') prefix = 'inv';
+      else if (type === 'outward-inventory') prefix = 'outwardInv';
+      else prefix = 'maint';
       const prevBtn = document.getElementById(prefix + 'PrevBtn');
       const nextBtn = document.getElementById(prefix + 'NextBtn');
       const submitBtn = document.getElementById(prefix + 'SubmitBtn');
@@ -2343,19 +2939,30 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      // Add metadata
-      data.id = "P-" + Date.now();
-      data.dateCreated = new Date().toISOString().split('T')[0];
-
-      // Retrieve database
       const db = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
-      db.unshift(data);
-      localStorage.setItem('ofp_projects', JSON.stringify(db));
 
-      alert('✅ Project Sheet successfully submitted and saved!');
+      if (window.editingRecord && window.editingRecord.tab === 'projects') {
+        data.id = window.editingRecord.id;
+        const idx = db.findIndex(item => item.id === data.id);
+        if (idx !== -1) {
+          data.dateCreated = db[idx].dateCreated;
+          db[idx] = data;
+        } else {
+          db.unshift(data);
+        }
+        window.editingRecord = null;
+        alert('✨ Project Sheet successfully updated!');
+      } else {
+        data.id = "P-" + Date.now();
+        data.dateCreated = new Date().toISOString().split('T')[0];
+        db.unshift(data);
+        alert('✨ Project Sheet successfully submitted and saved!');
+      }
+
+      localStorage.setItem('ofp_projects', JSON.stringify(db));
       form.reset();
       initWizardState('projects');
-      navigateTo('dashboard');
+      navigateTo('records');
     }
 
     function handleInventorySubmit(e) {
@@ -2364,17 +2971,62 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      data.id = "I-" + Date.now();
-      data.dateCreated = new Date().toISOString().split('T')[0];
-
       const db = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
-      db.unshift(data);
-      localStorage.setItem('ofp_inventory', JSON.stringify(db));
 
-      alert('✅ Material Receipt Record saved successfully!');
+      if (window.editingRecord && window.editingRecord.tab === 'inventory') {
+        data.id = window.editingRecord.id;
+        const idx = db.findIndex(item => item.id === data.id);
+        if (idx !== -1) {
+          data.dateCreated = db[idx].dateCreated;
+          db[idx] = data;
+        } else {
+          db.unshift(data);
+        }
+        window.editingRecord = null;
+        alert('✨ Material Receipt Record updated successfully!');
+      } else {
+        data.id = "I-" + Date.now();
+        data.dateCreated = new Date().toISOString().split('T')[0];
+        db.unshift(data);
+        alert('✨ Material Receipt Record saved successfully!');
+      }
+
+      localStorage.setItem('ofp_inventory', JSON.stringify(db));
       form.reset();
       initWizardState('inventory');
-      navigateTo('dashboard');
+      navigateTo('records');
+    }
+
+    function handleOutwardInventorySubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const db = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
+
+      if (window.editingRecord && window.editingRecord.tab === 'outward-inventory') {
+        data.id = window.editingRecord.id;
+        const idx = db.findIndex(item => item.id === data.id);
+        if (idx !== -1) {
+          data.dateCreated = db[idx].dateCreated;
+          db[idx] = data;
+        } else {
+          db.unshift(data);
+        }
+        window.editingRecord = null;
+        alert('✨ Outward Inventory Record updated successfully!');
+      } else {
+        data.id = "OI-" + Date.now();
+        data.dateCreated = new Date().toISOString().split('T')[0];
+        db.unshift(data);
+        alert('✨ Outward Inventory Record saved successfully!');
+      }
+
+      localStorage.setItem('ofp_outward_inventory', JSON.stringify(db));
+      form.reset();
+      initWizardState('outward-inventory');
+      navigateTo('records');
     }
 
     function handleMaintenanceSubmit(e) {
@@ -2383,23 +3035,36 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      data.id = "M-" + Date.now();
-      data.dateCreated = new Date().toISOString().split('T')[0];
-
       const db = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
-      db.unshift(data);
-      localStorage.setItem('ofp_complaints', JSON.stringify(db));
 
-      alert('✅ NOC Maintenance Ticket successfully recorded!');
+      if (window.editingRecord && window.editingRecord.tab === 'maintenance') {
+        data.id = window.editingRecord.id;
+        const idx = db.findIndex(item => item.id === data.id);
+        if (idx !== -1) {
+          data.dateCreated = db[idx].dateCreated;
+          db[idx] = data;
+        } else {
+          db.unshift(data);
+        }
+        window.editingRecord = null;
+        alert('✨ NOC Maintenance Ticket successfully updated!');
+      } else {
+        data.id = "M-" + Date.now();
+        data.dateCreated = new Date().toISOString().split('T')[0];
+        db.unshift(data);
+        alert('✨ NOC Maintenance Ticket successfully recorded!');
+      }
+
+      localStorage.setItem('ofp_complaints', JSON.stringify(db));
       form.reset();
       initWizardState('maintenance');
-      navigateTo('dashboard');
+      navigateTo('records');
     }
 
     // ===== RECORDS TAB SYSTEM =====
     function switchRecordsTab(tab) {
       activeRecordsTab = tab;
-      
+
       // Update Tab Headers
       document.querySelectorAll('.record-tab-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -2451,6 +3116,13 @@
           <option value="Isopropyl Liquid (Cans)">Isopropyl Liquid (Cans)</option>
         `;
         filterBox.appendChild(select);
+      } else if (activeRecordsTab === 'outward-inventory') {
+        select.innerHTML = `
+          <option value="all">All Locations</option>
+          <option value="Pune">Pune</option>
+          <option value="Mumbai">Mumbai</option>
+        `;
+        filterBox.appendChild(select);
       } else if (activeRecordsTab === 'complaints') {
         select.innerHTML = `
           <option value="all">All SLA Statuses</option>
@@ -2479,6 +3151,8 @@
         data = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
       } else if (activeRecordsTab === 'inventory') {
         data = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      } else if (activeRecordsTab === 'outward-inventory') {
+        data = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
       } else if (activeRecordsTab === 'complaints') {
         data = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
       }
@@ -2492,7 +3166,7 @@
         // Search filter
         let matchSearch = true;
         if (searchQuery) {
-          matchSearch = Object.values(item).some(val => 
+          matchSearch = Object.values(item).some(val =>
             String(val).toLowerCase().includes(searchQuery)
           );
         }
@@ -2564,6 +3238,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('projects', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                <button class="action-btn" title="Edit record" onclick="editRecord('projects', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('projects', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -2601,7 +3276,46 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                <button class="action-btn" title="Edit record" onclick="editRecord('inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
+      } else if (activeRecordsTab === 'outward-inventory') {
+        head.innerHTML = `
+          <tr>
+            <th class="dtr-control-th"></th>
+            <th>Date</th>
+            <th class="mobile-hide">Location</th>
+            <th class="mobile-hide">Team/Vendor</th>
+            <th class="mobile-hide">Material</th>
+            <th class="mobile-hide">Quantity</th>
+            <th>Issued By</th>
+            <th style="width: 100px; text-align: right;">Actions</th>
+          </tr>
+        `;
+
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="dtr-control-td">
+              <button type="button" class="dtr-control-btn" onclick="toggleRowDetails(this, '${item.id}', 'outward-inventory')" title="Toggle Info">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
+            <td><strong>${item.outwardDate || 'N/A'}</strong></td>
+            <td class="mobile-hide">${item.location || 'N/A'}</td>
+            <td class="mobile-hide">${item.evisionsTeamName || item.vendorName || 'N/A'}</td>
+            <td class="mobile-hide"><span class="badge badge-info">${item.materialType || 'N/A'}</span></td>
+            <td class="mobile-hide">${item.quantityTaken || '0'}</td>
+            <td>${item.issuedBy || 'N/A'}</td>
+            <td style="text-align: right;">
+              <div class="action-btn-group" style="justify-content: flex-end;">
+                <button class="action-btn" title="View details" onclick="showRecordDetails('outward-inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                <button class="action-btn" title="Edit record" onclick="editRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
+                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
           `;
@@ -2640,6 +3354,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('complaints', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                <button class="action-btn" title="Edit record" onclick="editRecord('maintenance', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('complaints', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -2649,10 +3364,10 @@
       }
     }
 
-    window.toggleRowDetails = function(btn, rowId, type) {
+    window.toggleRowDetails = function (btn, rowId, type) {
       const row = btn.closest('tr');
       const nextRow = row.nextElementSibling;
-      
+
       if (nextRow && nextRow.classList.contains('child-row')) {
         nextRow.remove();
         btn.classList.remove('expanded');
@@ -2660,16 +3375,16 @@
       } else {
         btn.classList.add('expanded');
         btn.innerHTML = '<i class="fa-solid fa-minus"></i>';
-        
-        const dbKey = type === 'projects' ? 'ofp_projects' : (type === 'inventory' ? 'ofp_inventory' : 'ofp_complaints');
+
+        const dbKey = 'ofp_' + type.replace('-', '_');
         const data = JSON.parse(localStorage.getItem(dbKey) || '[]');
         const item = data.find(x => x.id === rowId);
-        
+
         if (!item) return;
-        
+
         const childRow = document.createElement('tr');
         childRow.className = 'child-row';
-        
+
         let detailsHtml = '';
         if (type === 'projects') {
           detailsHtml = `
@@ -2685,6 +3400,13 @@
             <li><span class="dtr-title">Quantity</span><span class="dtr-val">${item.quantity || '0'} ${item.uom || ''}</span></li>
             <li><span class="dtr-title">Verified By</span><span class="dtr-val">${item.verifiedBy || '—'}</span></li>
           `;
+        } else if (type === 'outward-inventory') {
+          detailsHtml = `
+            <li><span class="dtr-title">Location</span><span class="dtr-val">${item.location || '—'}</span></li>
+            <li><span class="dtr-title">Outward Date</span><span class="dtr-val">${item.outwardDate || '—'}</span></li>
+            <li><span class="dtr-title">Material</span><span class="dtr-val">${item.materialType || '—'}</span></li>
+            <li><span class="dtr-title">Qty</span><span class="dtr-val">${item.quantityTaken || '0'}</span></li>
+          `;
         } else if (type === 'complaints') {
           detailsHtml = `
             <li><span class="dtr-title">Outage Company</span><span class="dtr-val">${item.companyName || '—'}</span></li>
@@ -2693,9 +3415,9 @@
             <li><span class="dtr-title">Evisions SLA</span><span class="dtr-val">${item.evisionsSla || '—'}</span></li>
           `;
         }
-        
+
         const visibleCols = row.querySelectorAll('td').length;
-        
+
         childRow.innerHTML = `
           <td colspan="${visibleCols}" style="padding:0;">
             <div class="dtr-details">
@@ -2705,14 +3427,14 @@
             </div>
           </td>
         `;
-        
+
         row.parentNode.insertBefore(childRow, row.nextSibling);
       }
     }
 
     function deleteRecord(tab, id) {
       if (!confirm('Are you sure you want to permanently delete this record?')) return;
-      const key = 'ofp_' + tab;
+      const key = 'ofp_' + tab.replace('-', '_');
       const db = JSON.parse(localStorage.getItem(key) || '[]');
       const filtered = db.filter(item => item.id !== id);
       localStorage.setItem(key, JSON.stringify(filtered));
@@ -2721,17 +3443,17 @@
     }
 
     function showRecordDetails(tab, id) {
-      const key = 'ofp_' + tab;
+      const key = 'ofp_' + tab.replace('-', '_');
       const db = JSON.parse(localStorage.getItem(key) || '[]');
       const record = db.find(item => item.id === id);
       if (!record) return;
 
       const modal = document.getElementById('detail-modal');
       const content = document.getElementById('modal-body-content');
-      document.getElementById('modal-title').textContent = `${tab.substring(0,1).toUpperCase() + tab.substring(1)} Details (${record.id})`;
+      document.getElementById('modal-title').textContent = `${tab.substring(0, 1).toUpperCase() + tab.substring(1)} Details (${record.id})`;
 
       let html = '<div class="detail-grid">';
-      
+
       const keyLabels = {
         id: "Unique System ID",
         dateCreated: "System Saved Date",
@@ -2769,7 +3491,7 @@
         siteStatus: "Current Site Status",
         workCompletedDate: "Rollout Completion Date",
         suggestion: "Engineering Suggestions",
-        reworkRequired: "Rework Required State",
+        reworkRequired: "Rework State",
         reworkDate: "Rework Schedule Date",
         rfsStatus: "Ready For Service Status",
         rfsMonth: "RFS Month Target",
@@ -2794,7 +3516,23 @@
         paymentDueDate: "Payment Due Date",
         paymentStatus: "Invoice Payment Status",
         finalRemark: "Final Operational Remarks",
-        
+
+        // Outward Inventory
+        location: "Warehouse Location",
+        outwardDate: "Outward Date",
+        projectMaintenance: "Project / Maintenance",
+        evisionsTeamName: "Evisions Team Name",
+        vendorName: "Vendor Name",
+        fptName: "Fiber Pulling Team (FPT)",
+        personTaken: "Material Taken By",
+        materialTakenBy: "Material Taken By",
+        issuedBy: "Material Issued By",
+        quantityTaken: "Quantity Issued",
+        totalCableLength: "Total Cable Length",
+        aSiteEnd: "A (SITE) End",
+        aEnd: "A (SITE) End",
+        bEnd: "B End",
+
         // Inventory
         srNo: "Sheet Serial Number",
         receivedDate: "Receipt Date",
@@ -2825,7 +3563,7 @@
         otherRemarks: "Inventory Dispatch Notes",
         readyToSubmit: "Review Checkbox Passed",
         verifiedBy: "Verifying Store Officer",
-        
+
         // Maintenance
         month: "Registered Month",
         year: "Registered Year",
@@ -2866,6 +3604,14 @@
       };
 
       for (const [key, val] of Object.entries(record)) {
+        // Exclude fields not relevant to Outward Inventory if we are on that tab
+        if (tab === 'outward-inventory') {
+          if (['id', 'dateCreated', 'readyToSubmit', 'verifiedBy'].includes(key)) continue;
+        } else {
+          // Generic exclusions for other tabs if needed
+          if (key === 'id') continue;
+        }
+
         const label = keyLabels[key] || key;
         html += `
           <div class="detail-item">
@@ -2908,7 +3654,7 @@
       const totalComplaints = complaints.length;
       const resolvedComplaints = complaints.filter(c => c.linkStatus === 'RESTORED').length;
       const activeComplaints = complaints.filter(c => c.linkStatus === 'WIP' || c.linkStatus === 'ASSIGNED').length;
-      
+
       const slaInCount = complaints.filter(c => c.evisionsSla === 'In').length;
       const slaPercent = totalComplaints > 0 ? Math.round((slaInCount / totalComplaints) * 100) : 100;
 
@@ -3027,7 +3773,7 @@
       // 3. Render Custom SVG Donut SLA
       const circleEl = document.getElementById('donut-compliance-circle');
       const textVal = document.getElementById('donut-compliance-val');
-      
+
       textVal.textContent = slaPercent + '%';
       // Circle radius is 70, circumference is 2 * PI * 70 = 439.8
       const offset = 439.8 - (slaPercent / 100) * 439.8;
@@ -3059,9 +3805,9 @@
 
       // Find max value to calibrate height percentage
       let maxVal = Math.max(...Object.values(carrierGroup), 1);
-      
+
       const carriers = Object.keys(carrierGroup).length > 0 ? Object.keys(carrierGroup) : ['AIRTEL', 'VIL', 'GAZON'];
-      
+
       carriers.forEach(carrier => {
         const count = carrierGroup[carrier] || 0;
         const pctHeight = Math.max((count / maxVal) * 80, 5); // scale between 5% and 80%
@@ -3113,7 +3859,7 @@
       });
 
       // Sort by date created desc
-      allItems.sort((a,b) => new Date(b.date) - new Date(a.date));
+      allItems.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       // Append top 5
       const limit = allItems.slice(0, 5);
@@ -3134,6 +3880,200 @@
       }
     }
 
+    // ===== BILLING MANAGER =====
+    let currentBillingWO = '';
+    let currentBills = [];
+
+    function populateBillingWO() {
+      const select = document.getElementById('billingSearchWO');
+      if (!select) return;
+      const projects = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
+      const currentVal = select.value;
+      select.innerHTML = '<option value="">-- Select a Work Order --</option>';
+      projects.forEach(p => {
+        if (p.workOrder) {
+          const opt = document.createElement('option');
+          opt.value = p.workOrder;
+          opt.textContent = p.workOrder + ' (' + (p.city || 'Unknown') + ')';
+          select.appendChild(opt);
+        }
+      });
+      if (currentVal) select.value = currentVal;
+    }
+
+    function loadBillingForWO() {
+      const woInput = document.getElementById('billingSearchWO');
+      const wo = woInput.value.trim();
+      const btnAdd = document.getElementById('btnAddNewBillTop');
+      const container = document.getElementById('billingListContainer');
+
+      if (!wo) {
+        alert('Please select a Work Order.');
+        if (btnAdd) btnAdd.style.display = 'none';
+        if (container) container.classList.add('hidden');
+        return;
+      }
+
+      if (btnAdd) btnAdd.style.display = 'inline-flex';
+
+      currentBillingWO = wo;
+      const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
+      currentBills = allBills[wo] || [];
+
+      if (container) container.classList.remove('hidden');
+      renderBillingTable();
+    }
+
+    let editingBillIndex = -1;
+
+    function renderBillingTable() {
+      const tbody = document.getElementById('billingTableBody');
+      const emptyState = document.getElementById('billingTableEmpty');
+      const tableWrapper = document.getElementById('billingTableWrapper');
+      const formWrapper = document.getElementById('billingFormWrapper');
+
+      formWrapper.classList.add('hidden');
+      tableWrapper.classList.remove('hidden');
+
+      tbody.innerHTML = '';
+
+      if (currentBills.length === 0) {
+        emptyState.classList.remove('hidden');
+        tbody.parentElement.classList.add('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+        tbody.parentElement.classList.remove('hidden');
+      }
+
+      currentBills.forEach((bill, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>#${index + 1}</strong></td>
+          <td>${bill.poNo || '-'}</td>
+          <td>${bill.invoiceNo || '-'}</td>
+          <td>${bill.baseAmount ? '₹' + bill.baseAmount : '-'}</td>
+          <td>${bill.finalAmount ? '₹' + bill.finalAmount : '-'}</td>
+          <td><span class="badge ${bill.status === 'Done' ? 'badge-success' : 'badge-warning'}">${bill.status || '-'}</span></td>
+          <td><span class="badge ${bill.paymentStatus === 'Fully Received' ? 'badge-success' : (bill.paymentStatus === 'Overdue' ? 'badge-danger' : 'badge-warning')}">${bill.paymentStatus || '-'}</span></td>
+          <td style="text-align: right;">
+            <div class="action-btn-group" style="justify-content: flex-end;">
+              <button class="action-btn" title="Edit Bill" onclick="showBillingForm(${index})"><i class="fa-solid fa-pencil"></i></button>
+              <button class="action-btn delete-btn" title="Delete Bill" onclick="removeBillingCard(${index})"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function showBillingForm(index) {
+      editingBillIndex = index;
+
+      const tableWrapper = document.getElementById('billingTableWrapper');
+      const formWrapper = document.getElementById('billingFormWrapper');
+
+      tableWrapper.classList.add('hidden');
+      formWrapper.classList.remove('hidden');
+
+      let bill = {};
+      if (index >= 0) {
+        bill = currentBills[index];
+      } else {
+        bill = {
+          status: 'Done', poDate: '', poNo: '', invoiceDate: '', invoiceNo: '',
+          invoiceSent: 'Yes', baseAmount: '', gst: '', finalAmount: '', arn: '',
+          approver: '', paymentDueDate: '', paymentStatus: 'Not Received', finalRemark: ''
+        };
+      }
+
+      formWrapper.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+          <h4 style="font-weight: 600; color: #1e293b; font-size: 1.1rem; display: flex; align-items: center; gap: 0.6rem;">
+            <div style="background:var(--accent); color:white; width: 28px; height: 28px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-size:0.8rem;">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
+            ${index >= 0 ? 'Edit Bill #' + (index + 1) : 'Add New Bill'}
+          </h4>
+        </div>
+        <form id="billingForm" onsubmit="saveSingleBill(event)">
+          <div class="form-grid">
+            <div class="field-group"><label><i class="fa-solid fa-circle-check"></i> BILLING STATUS</label>
+              <select name="status">
+                <option value="Done" ${bill.status === 'Done' ? 'selected' : ''}>Done</option>
+                <option value="Pending" ${bill.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option value="Not Started" ${bill.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+              </select>
+            </div>
+            <div class="field-group"><label><i class="fa-regular fa-calendar-days"></i> PO DATE</label><input type="date" name="poDate" value="${bill.poDate || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-file-invoice"></i> PO NO.</label><input type="text" name="poNo" value="${bill.poNo || ''}"></div>
+            <div class="field-group"><label><i class="fa-regular fa-calendar-days"></i> INVOICE DATE</label><input type="date" name="invoiceDate" value="${bill.invoiceDate || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-hashtag"></i> INVOICE NO.</label><input type="text" name="invoiceNo" value="${bill.invoiceNo || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-paper-plane"></i> INVOICE SENT</label>
+              <select name="invoiceSent">
+                <option value="Yes" ${bill.invoiceSent === 'Yes' ? 'selected' : ''}>Yes</option>
+                <option value="No" ${bill.invoiceSent === 'No' ? 'selected' : ''}>No</option>
+              </select>
+            </div>
+            <div class="field-group"><label><i class="fa-solid fa-coins"></i> BASE AMOUNT</label><input type="number" name="baseAmount" placeholder="0.00" value="${bill.baseAmount || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-percent"></i> GST</label><input type="number" name="gst" placeholder="0.00" value="${bill.gst || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-money-bill-wave"></i> FINAL AMOUNT</label><input type="number" name="finalAmount" placeholder="0.00" value="${bill.finalAmount || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-hashtag"></i> ARN</label><input type="text" name="arn" value="${bill.arn || ''}"></div>
+            <div class="field-group"><label><i class="fa-solid fa-user-check"></i> APPROVER</label><input type="text" name="approver" value="${bill.approver || ''}"></div>
+            <div class="field-group"><label><i class="fa-regular fa-calendar-days"></i> PAYMENT DUE</label><input type="date" name="paymentDueDate" value="${bill.paymentDueDate || ''}"></div>
+            <div class="field-group"><label><i class="fa-regular fa-credit-card"></i> PAYMENT STATUS</label>
+              <select name="paymentStatus">
+                <option value="Not Received" ${bill.paymentStatus === 'Not Received' ? 'selected' : ''}>Not Received</option>
+                <option value="Fully Received" ${bill.paymentStatus === 'Fully Received' ? 'selected' : ''}>Fully Received</option>
+                <option value="Overdue" ${bill.paymentStatus === 'Overdue' ? 'selected' : ''}>Overdue</option>
+              </select>
+            </div>
+            <div class="field-group"><label><i class="fa-solid fa-comment-dots"></i> FINAL REMARK</label>
+              <textarea style="width:100%; border:1px solid var(--border-color); border-radius:8px; padding:0.75rem; outline:none; font-family:inherit; min-height: 48px; resize: vertical;" name="finalRemark">${bill.finalRemark || ''}</textarea>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: flex-end;">
+            <button type="button" class="btn btn-secondary" onclick="renderBillingTable()">Cancel</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> ${index >= 0 ? 'Update Bill' : 'Add Bill'}</button>
+          </div>
+        </form>
+      `;
+    }
+
+    function saveSingleBill(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      if (editingBillIndex >= 0) {
+        currentBills[editingBillIndex] = data;
+      } else {
+        currentBills.push(data);
+      }
+
+      renderBillingTable();
+    }
+
+    function addBillingCard() {
+      showBillingForm(-1);
+    }
+
+    function removeBillingCard(index) {
+      if (confirm('Are you sure you want to remove this bill?')) {
+        currentBills.splice(index, 1);
+        renderBillingTable();
+      }
+    }
+
+    function saveBillingForWO() {
+      if (!currentBillingWO) return;
+      const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
+      allBills[currentBillingWO] = currentBills;
+      localStorage.setItem('ofp_billing', JSON.stringify(allBills));
+      alert('Bills saved successfully for Work Order: ' + currentBillingWO);
+    }
+
     // ===== ON LOAD INITIALIZER =====
     window.addEventListener('DOMContentLoaded', () => {
       checkAuthOnLoad();
@@ -3144,4 +4084,5 @@
   <!-- Sidebar JS Dynamic Controls -->
   <script src="sidebar.js"></script>
 </body>
+
 </html>
