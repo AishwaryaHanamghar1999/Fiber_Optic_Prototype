@@ -180,8 +180,8 @@
 
     /* Content Area */
     .content-body {
-      padding: 2rem;
-      flex-grow: 1;
+      padding: 1rem;
+      /* flex-grow: 1; */
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -908,8 +908,132 @@
       gap: 1rem 2rem;
     }
 
+    .app-panel {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .content-body {
+      overflow-x: hidden;
+    }
+
+    .wizard-panel-header,
+    .controls-row,
+    .wizard-nav {
+      gap: 1rem;
+    }
+
+    .wizard-panel-header {
+      flex-wrap: wrap;
+    }
+
+    .wizard-progress {
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      scrollbar-width: thin;
+    }
+
+    .step-indicator {
+      min-width: 72px;
+    }
+
+    .form-grid {
+      align-items: start;
+    }
+
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      min-height: 42px;
+    }
+
+    .table-container {
+      border-radius: 18px;
+    }
+
+    .data-table th,
+    .data-table td {
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1024px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wizard-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .app-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .header-left {
+        width: 100%;
+      }
+
+      .header-left h2 {
+        font-size: 1.15rem;
+      }
+
+      .header-right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .content-body {
+        padding: 1rem;
+      }
+
+      .wizard-panel-container {
+        padding: 1rem;
+      }
+
+      .wizard-progress {
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+
+      .wizard-nav {
+        flex-direction: column-reverse;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .kpi-card,
+      .chart-card,
+      .recent-activity-card {
+        padding: 1.1rem;
+      }
+    }
+
     @media (max-width: 640px) {
       .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step-content {
+        padding: 1rem;
+      }
+
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filters-wrapper {
+        display: grid;
         grid-template-columns: 1fr;
       }
     }
@@ -1184,18 +1308,7 @@
             <span>All Records</span>
           </a>
         </li>
-        <li class="menu-item hidden" id="menu-records-inward">
-          <a onclick="navigateToRecord('inventory', 'menu-records-inward')">
-            <i class="fas fa-boxes"></i>
-            <span>Inward Records</span>
-          </a>
-        </li>
-        <li class="menu-item hidden" id="menu-records-outward">
-          <a onclick="navigateToRecord('outward-inventory', 'menu-records-outward')">
-            <i class="fas fa-dolly"></i>
-            <span>Outward Records</span>
-          </a>
-        </li>
+
       </ul>
 
       <div class="user-profile">
@@ -1294,9 +1407,9 @@
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Category</th>
+                    <th class="mobile-hide">Category</th>
                     <th>Key Identifier</th>
-                    <th>Responsible Party</th>
+                    <th class="mobile-hide">Responsible Party</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -1487,8 +1600,7 @@
                         <option value="Skyline Technology">Skyline Technology</option>
                         <option value="Spine Teleinfra Pvt. Ltd.">Spine Teleinfra Pvt. Ltd.</option>
                         <option value="Star Entertainment">Star Entertainment</option>
-                        <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable
-                          Services
+                        <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable Services
                         </option>
                       </select>
                     </div>
@@ -1616,7 +1728,7 @@
 
             <div class="step-content" style="margin-bottom: 2rem;">
               <div class="step-title"><i class="fas fa-search"></i> Select Work Order</div>
-              <div class="form-grid" style="grid-template-columns: 1fr auto auto; align-items: end;">
+              <div class="form-grid" style="align-items: end;">
                 <div class="field-group">
                   <label><i class="fas fa-file-signature"></i> Work Order (WO)</label>
                   <select id="billingSearchWO" onchange="loadBillingForWO()">
@@ -1637,17 +1749,17 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                   <h3 style="font-weight: 700; color: var(--primary);"><i class="fas fa-list"></i> Associated Bills</h3>
                 </div>
-                <div class="table-responsive">
+                <div class="table-container">
                   <table class="data-table">
                     <thead>
                       <tr>
                         <th>Bill #</th>
-                        <th>PO No.</th>
+                        <th class="mobile-hide">PO No.</th>
                         <th>Invoice No.</th>
-                        <th>Base Amt</th>
+                        <th class="mobile-hide">Base Amt</th>
                         <th>Final Amt</th>
-                        <th>Status</th>
-                        <th>Payment</th>
+                        <th class="mobile-hide">Status</th>
+                        <th class="mobile-hide">Payment</th>
                         <th style="text-align: right;">Actions</th>
                       </tr>
                     </thead>
@@ -2680,7 +2792,8 @@
     window.editingRecord = null;
 
     function editRecord(tab, id) {
-      const key = 'ofp_' + tab.replace('-', '_');
+      let key = 'ofp_' + tab.replace('-', '_');
+      if (tab === 'maintenance') key = 'ofp_complaints';
       const db = JSON.parse(localStorage.getItem(key) || '[]');
       const record = db.find(item => item.id === id);
       if (!record) return;
@@ -2751,6 +2864,25 @@
       { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
     ];
 
+    function readStoredData(key, fallback) {
+      try {
+        const stored = localStorage.getItem(key);
+        if (!stored) return fallback;
+        const parsed = JSON.parse(stored);
+        return Array.isArray(parsed) ? parsed : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function persistAppState(panelId = currentPanel, recordsTab = activeRecordsTab) {
+      localStorage.setItem('ofp_active_panel', panelId);
+      localStorage.setItem('ofp_active_records_tab', recordsTab);
+      if (currentUser) {
+        localStorage.setItem('ofp_logged_in_user', JSON.stringify(currentUser));
+      }
+    }
+
     // Initialize LocalStorage Data
     function initLocalStorage() {
       if (!localStorage.getItem('ofp_projects')) {
@@ -2796,7 +2928,7 @@
       }
 
       currentPanel = panelId;
-      localStorage.setItem('ofp_active_panel', panelId);
+      persistAppState(panelId, activeRecordsTab);
 
       // Hide all panels
       document.querySelectorAll('.app-panel').forEach(p => p.classList.add('hidden'));
@@ -2857,7 +2989,9 @@
       const clockEl = document.getElementById('live-clock');
       const now = new Date();
       const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-      clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', options)}`;
+      if (clockEl) {
+        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', options)}`;
+      }
     }
     setInterval(updateClock, 1000);
 
@@ -3064,6 +3198,7 @@
     // ===== RECORDS TAB SYSTEM =====
     function switchRecordsTab(tab) {
       activeRecordsTab = tab;
+      persistAppState(currentPanel, tab);
 
       // Update Tab Headers
       document.querySelectorAll('.record-tab-btn').forEach(btn => {
@@ -3633,9 +3768,9 @@
     // ===== DASHBOARD GENERATOR =====
     function renderDashboardData() {
       // 1. Load Data
-      const projects = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
-      const inventory = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
-      const complaints = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
+      const projects = readStoredData('ofp_projects', defaultMockProjects);
+      const inventory = readStoredData('ofp_inventory', defaultMockInventory);
+      const complaints = readStoredData('ofp_complaints', defaultMockComplaints);
 
       // 2. Render Cards based on Role
       const kpiContainer = document.getElementById('dashboard-kpis');
@@ -3870,9 +4005,9 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${item.date}</td>
-            <td><strong>${item.category}</strong></td>
+            <td class="mobile-hide"><strong>${item.category}</strong></td>
             <td><code>${item.identifier}</code></td>
-            <td>${item.actor}</td>
+            <td class="mobile-hide">${item.actor}</td>
             <td><span class="badge ${item.statusClass}">${item.status}</span></td>
           `;
           recentRows.appendChild(tr);
@@ -3950,14 +4085,14 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td><strong>#${index + 1}</strong></td>
-          <td>${bill.poNo || '-'}</td>
+          <td class="mobile-hide">${bill.poNo || '-'}</td>
           <td>${bill.invoiceNo || '-'}</td>
-          <td>${bill.baseAmount ? '₹' + bill.baseAmount : '-'}</td>
+          <td class="mobile-hide">${bill.baseAmount ? '₹' + bill.baseAmount : '-'}</td>
           <td>${bill.finalAmount ? '₹' + bill.finalAmount : '-'}</td>
-          <td><span class="badge ${bill.status === 'Done' ? 'badge-success' : 'badge-warning'}">${bill.status || '-'}</span></td>
-          <td><span class="badge ${bill.paymentStatus === 'Fully Received' ? 'badge-success' : (bill.paymentStatus === 'Overdue' ? 'badge-danger' : 'badge-warning')}">${bill.paymentStatus || '-'}</span></td>
-          <td style="text-align: right;">
-            <div class="action-btn-group" style="justify-content: flex-end;">
+          <td class="mobile-hide"><span class="badge ${bill.status === 'Done' ? 'badge-success' : 'badge-warning'}">${bill.status || '-'}</span></td>
+          <td class="mobile-hide"><span class="badge ${bill.paymentStatus === 'Fully Received' ? 'badge-success' : (bill.paymentStatus === 'Overdue' ? 'badge-danger' : 'badge-warning')}">${bill.paymentStatus || '-'}</span></td>
+          <td class="text-right">
+            <div class="action-btn-group">
               <button class="action-btn" title="Edit Bill" onclick="showBillingForm(${index})"><i class="fa-solid fa-pencil"></i></button>
               <button class="action-btn delete-btn" title="Delete Bill" onclick="removeBillingCard(${index})"><i class="fa-solid fa-trash-can"></i></button>
             </div>

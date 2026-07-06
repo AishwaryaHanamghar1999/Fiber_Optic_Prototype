@@ -120,14 +120,14 @@ function injectLayout() {
   if (!document.getElementById('login-screen')) {
     document.body.insertAdjacentHTML('afterbegin', sharedLayout.login);
   }
-  
+
   // Inject App Container if missing
   let appContainer = document.getElementById('app-container');
   if (!appContainer) {
     appContainer = document.createElement('div');
     appContainer.id = 'app-container';
     appContainer.className = 'hidden';
-    
+
     // We move nodes to preserve events and avoid innerHTML reset.
     const nodesToMove = [];
     Array.from(document.body.children).forEach(node => {
@@ -135,20 +135,20 @@ function injectLayout() {
         nodesToMove.push(node);
       }
     });
-    
+
     document.body.appendChild(appContainer);
     appContainer.insertAdjacentHTML('beforeend', sharedLayout.sidebar);
-    
+
     const mainWorkspace = document.createElement('main');
     mainWorkspace.className = 'main-workspace';
     mainWorkspace.innerHTML = sharedLayout.header;
-    
+
     const contentBody = document.createElement('div');
     contentBody.className = 'content-body';
-    
+
     nodesToMove.forEach(node => contentBody.appendChild(node));
     mainWorkspace.appendChild(contentBody);
-    
+
     appContainer.appendChild(mainWorkspace);
     appContainer.insertAdjacentHTML('beforeend', sharedLayout.modal);
   }

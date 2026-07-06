@@ -43,12 +43,13 @@ function handleFormLogin() {
       role: matchedRole,
       name: matchedName
     };
+    localStorage.setItem('ofp_active_panel', 'dashboard');
     localStorage.setItem('ofp_logged_in_user', JSON.stringify(currentUser));
     applyAuthLayout();
-    
+
     const loginScreen = document.getElementById('login-screen');
     const appContainer = document.getElementById('app-container');
-    
+
     if (loginScreen) {
       loginScreen.style.transform = 'translateY(-100%)';
       setTimeout(() => {
@@ -112,8 +113,6 @@ function applyAuthLayout() {
   const menuOutwardInventory = document.getElementById('menu-outward-inventory');
   const menuMaintenance = document.getElementById('menu-maintenance');
   const menuRecords = document.getElementById('menu-records');
-  const menuRecordsInward = document.getElementById('menu-records-inward');
-  const menuRecordsOutward = document.getElementById('menu-records-outward');
   const menuBilling = document.getElementById('menu-billing');
 
   // Reset menu defaults
@@ -123,8 +122,6 @@ function applyAuthLayout() {
   if (menuOutwardInventory) menuOutwardInventory.classList.remove('hidden');
   if (menuMaintenance) menuMaintenance.classList.remove('hidden');
   if (menuRecords) menuRecords.classList.remove('hidden');
-    if (menuRecordsInward) menuRecordsInward.classList.add('hidden');
-    if (menuRecordsOutward) menuRecordsOutward.classList.add('hidden');
   if (menuBilling) menuBilling.classList.remove('hidden');
 
   if (currentUser.role === ROLES.ADMIN) {
@@ -134,53 +131,47 @@ function applyAuthLayout() {
     if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
     if (menuBilling) menuBilling.classList.add('hidden');
-    
-    if (menuRecords) menuRecords.classList.add('hidden');
-    if (menuRecordsInward) menuRecordsInward.classList.remove('hidden');
-    if (menuRecordsOutward) menuRecordsOutward.classList.remove('hidden');
-    
+
     const tabProj = document.getElementById('tab-btn-projects');
     const tabInv = document.getElementById('tab-btn-inventory');
     const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
     const tabComp = document.getElementById('tab-btn-complaints');
-    
+
     if (tabProj) tabProj.classList.remove('hidden');
     if (tabInv) tabInv.classList.remove('hidden');
     if (tabOutwardInv) tabOutwardInv.classList.remove('hidden');
     if (tabComp) tabComp.classList.remove('hidden');
-    
+
     activeRecordsTab = 'projects';
     navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
     if (menuInventory) menuInventory.classList.add('hidden');
     if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
-    
+
     const tabInv = document.getElementById('tab-btn-inventory');
     const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
     const tabComp = document.getElementById('tab-btn-complaints');
-    
+
     if (tabInv) tabInv.classList.add('hidden');
     if (tabOutwardInv) tabOutwardInv.classList.add('hidden');
     if (tabComp) tabComp.classList.add('hidden');
-    
+
     activeRecordsTab = 'projects';
     navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.INVENTORY_MANAGER) {
     if (menuProjects) menuProjects.classList.add('hidden');
     if (menuMaintenance) menuMaintenance.classList.add('hidden');
     if (menuBilling) menuBilling.classList.add('hidden');
-    
-    if (menuRecords) menuRecords.classList.add('hidden');
-    if (menuRecordsInward) menuRecordsInward.classList.remove('hidden');
-    if (menuRecordsOutward) menuRecordsOutward.classList.remove('hidden');
-    
+
+
+
     const tabProj = document.getElementById('tab-btn-projects');
     const tabComp = document.getElementById('tab-btn-complaints');
-    
+
     if (tabProj) tabProj.classList.add('hidden');
     if (tabComp) tabComp.classList.add('hidden');
-    
+
     activeRecordsTab = 'inventory';
     navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
@@ -188,16 +179,16 @@ function applyAuthLayout() {
     if (menuInventory) menuInventory.classList.add('hidden');
     if (menuOutwardInventory) menuOutwardInventory.classList.add('hidden');
     if (menuBilling) menuBilling.classList.add('hidden');
-    
-    
+
+
     const tabProj = document.getElementById('tab-btn-projects');
     const tabInv = document.getElementById('tab-btn-inventory');
     const tabOutwardInv = document.getElementById('tab-btn-outward-inventory');
-    
+
     if (tabProj) tabProj.classList.add('hidden');
     if (tabInv) tabInv.classList.add('hidden');
     if (tabOutwardInv) tabOutwardInv.classList.add('hidden');
-    
+
     activeRecordsTab = 'complaints';
     navigateTo(localStorage.getItem('ofp_active_panel') || 'dashboard');
   }
@@ -208,7 +199,7 @@ function handleLogout() {
   currentUser = null;
   const loginScreen = document.getElementById('login-screen');
   const appContainer = document.getElementById('app-container');
-  
+
   if (loginScreen) {
     loginScreen.classList.remove('hidden');
     setTimeout(() => {
@@ -229,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     togglePassBtn.addEventListener('click', () => {
       const isPassword = passwordInput.getAttribute('type') === 'password';
       passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-      
+
       const icon = togglePassBtn.querySelector('i');
       if (icon) {
         if (isPassword) {

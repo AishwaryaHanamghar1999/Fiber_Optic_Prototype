@@ -1,276 +1,276 @@
 
-    // ===== SYSTEM STATE =====
-    let currentUser = null;
-    let currentPanel = 'dashboard';
+// ===== SYSTEM STATE =====
+let currentUser = null;
+let currentPanel = 'dashboard';
 
-    // Wizards Step States
-    const wizardSteps = {
-      projects: { current: 0, total: 5 },
-      inventory: { current: 0, total: 5 },
-      maintenance: { current: 0, total: 8 }
-    };
+// Wizards Step States
+const wizardSteps = {
+  projects: { current: 0, total: 5 },
+  inventory: { current: 0, total: 5 },
+  maintenance: { current: 0, total: 8 }
+};
 
-    // Master Records Tab State
-    let activeRecordsTab = 'projects';
+// Master Records Tab State
+let activeRecordsTab = 'projects';
 
-    // Role Matrix
-    const ROLES = {
-      ADMIN: 'admin',
-      PROJECT_MANAGER: 'pm',
-      INVENTORY_MANAGER: 'im',
-      MAINTENANCE_MANAGER: 'mm'
-    };
+// Role Matrix
+const ROLES = {
+  ADMIN: 'admin',
+  PROJECT_MANAGER: 'pm',
+  INVENTORY_MANAGER: 'im',
+  MAINTENANCE_MANAGER: 'mm'
+};
 
-    // Preloaded Mock Data
-    const defaultMockProjects = [
-      { id: "P-1", dateCreated: "2026-06-20", commDate: "2026-06-20", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346", airtelId: "PUN19054", city: "Pune", area: "Wadgaon Budruk", surveyDistance: 150, homePass: 8, siteStatus: "WIP", deploymentEngineer: "Suraj" },
-      { id: "P-2", dateCreated: "2026-06-22", commDate: "2026-06-22", company: "Airtel FTTH", projectType: "IBD", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/IBW/20062026/089753", airtelId: "PUN18921", city: "Pune", area: "Ambegaon", surveyDistance: 450, homePass: 48, siteStatus: "Completed", deploymentEngineer: "Ramesh" },
-      { id: "P-3", dateCreated: "2026-06-25", commDate: "2026-06-25", company: "Airtel FTTH", projectType: "Transport", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/TR/25062026/112233", airtelId: "PUN17429", city: "Mumbai", area: "Kothrud", surveyDistance: 1200, homePass: 0, siteStatus: "Completed", deploymentEngineer: "Suraj" },
-      { id: "P-4", dateCreated: "2026-06-27", commDate: "2026-06-27", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/OD/27062026/445566", airtelId: "PUN19050", city: "Pune", area: "Hadapsar", surveyDistance: 800, homePass: 24, siteStatus: "WIP", deploymentEngineer: "Vijay" }
-    ];
+// Preloaded Mock Data
+const defaultMockProjects = [
+  { id: "P-1", dateCreated: "2026-06-20", commDate: "2026-06-20", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346", airtelId: "PUN19054", city: "Pune", area: "Wadgaon Budruk", surveyDistance: 150, homePass: 8, siteStatus: "WIP", deploymentEngineer: "Suraj" },
+  { id: "P-2", dateCreated: "2026-06-22", commDate: "2026-06-22", company: "Airtel FTTH", projectType: "IBD", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/IBW/20062026/089753", airtelId: "PUN18921", city: "Pune", area: "Ambegaon", surveyDistance: 450, homePass: 48, siteStatus: "Completed", deploymentEngineer: "Ramesh" },
+  { id: "P-3", dateCreated: "2026-06-25", commDate: "2026-06-25", company: "Airtel FTTH", projectType: "Transport", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/TR/25062026/112233", airtelId: "PUN17429", city: "Mumbai", area: "Kothrud", surveyDistance: 1200, homePass: 0, siteStatus: "Completed", deploymentEngineer: "Suraj" },
+  { id: "P-4", dateCreated: "2026-06-27", commDate: "2026-06-27", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/OD/27062026/445566", airtelId: "PUN19050", city: "Pune", area: "Hadapsar", surveyDistance: 800, homePass: 24, siteStatus: "WIP", deploymentEngineer: "Vijay" }
+];
 
-    const defaultMockInventory = [
-      { id: "I-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", invoiceDate: "2026-06-19", invoiceNo: "INV-1234", receivedFrom: "Sterlite", city: "Pune", materialType: "Fiber", fiberCompany: "Sterlite", fiberType: "Armoured", quantity: 1600, uom: "Meter", cableIdNo: "CBL-5678", totalCableLength: 1600, cableShort: "No", verifiedBy: "Rahul" },
-      { id: "I-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", invoiceDate: "2026-06-22", invoiceNo: "INV-5678", receivedFrom: "Corning", city: "Pune", materialType: "Closure Box", fiberCompany: "Corning", quantity: 10, uom: "Nos.", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Amit" },
-      { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
-    ];
+const defaultMockInventory = [
+  { id: "I-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", invoiceDate: "2026-06-19", invoiceNo: "INV-1234", receivedFrom: "Sterlite", city: "Pune", materialType: "Fiber", fiberCompany: "Sterlite", fiberType: "Armoured", quantity: 1600, uom: "Meter", cableIdNo: "CBL-5678", totalCableLength: 1600, cableShort: "No", verifiedBy: "Rahul" },
+  { id: "I-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", invoiceDate: "2026-06-22", invoiceNo: "INV-5678", receivedFrom: "Corning", city: "Pune", materialType: "Closure Box", fiberCompany: "Corning", quantity: 10, uom: "Nos.", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Amit" },
+  { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
+];
 
-    const defaultMockOutwardInventory = [
-      { id: "OI-1", srNo: "1", location: "Pune", outwardDate: "2026-06-25", projectMaintenance: "Maintenance", companyName: "Airtel FTTH", evisionsTeamName: "Team 1", vendorName: "Swarad Connect", fptName: "Amrut Rathod", materialTakenBy: "AA", issuedBy: "Rohit", materialType: "Fiber", fiberCore: "6F", quantityTaken: "100", uom: "Meter", cableIdNo: "12345", startReading: "0", endReading: "100", totalCableLength: "100", linkIdNo: "567789", aEnd: "Karve Putla", bEnd: "Shivaji Putla", area: "Kothrud" },
-      { id: "OI-2", srNo: "2", location: "Mumbai", outwardDate: "2026-06-26", projectMaintenance: "Project", companyName: "AIRTEL Transport", evisionsTeamName: "Team 2", vendorName: "Anil Enterprises", fptName: "Harilal Rathod", materialTakenBy: "BB", issuedBy: "Rohit", materialType: "Closure Box", fiberCore: "12F", quantityTaken: "5", uom: "Nos.", cableIdNo: "NA", startReading: "", endReading: "", totalCableLength: "", linkIdNo: "", aEnd: "", bEnd: "", area: "" }
-    ];
+const defaultMockOutwardInventory = [
+  { id: "OI-1", srNo: "1", location: "Pune", outwardDate: "2026-06-25", projectMaintenance: "Maintenance", companyName: "Airtel FTTH", evisionsTeamName: "Team 1", vendorName: "Swarad Connect", fptName: "Amrut Rathod", materialTakenBy: "AA", issuedBy: "Rohit", materialType: "Fiber", fiberCore: "6F", quantityTaken: "100", uom: "Meter", cableIdNo: "12345", startReading: "0", endReading: "100", totalCableLength: "100", linkIdNo: "567789", aEnd: "Karve Putla", bEnd: "Shivaji Putla", area: "Kothrud" },
+  { id: "OI-2", srNo: "2", location: "Mumbai", outwardDate: "2026-06-26", projectMaintenance: "Project", companyName: "AIRTEL Transport", evisionsTeamName: "Team 2", vendorName: "Anil Enterprises", fptName: "Harilal Rathod", materialTakenBy: "BB", issuedBy: "Rohit", materialType: "Closure Box", fiberCore: "12F", quantityTaken: "5", uom: "Nos.", cableIdNo: "NA", startReading: "", endReading: "", totalCableLength: "", linkIdNo: "", aEnd: "", bEnd: "", area: "" }
+];
 
-    const defaultMockComplaints = [
-      { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
-      { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
-      { id: "M-3", dateCreated: "2026-06-25", receivedDate: "2026-06-25", receivedDateTime: "2026-06-25T14:00", type: "Complaint", evisionsComplaintCode: "24047211", companyName: "AIRTEL", linkType: "BACKBONE", companyComplaintCode: "INC000228009", linkName: "Katraj Node Link", maintainedBy: "Swarad Connect", linkStatus: "WIP", evisionsMttr: "02:00:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Splicing in progress" },
-      { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
-    ];
+const defaultMockComplaints = [
+  { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
+  { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
+  { id: "M-3", dateCreated: "2026-06-25", receivedDate: "2026-06-25", receivedDateTime: "2026-06-25T14:00", type: "Complaint", evisionsComplaintCode: "24047211", companyName: "AIRTEL", linkType: "BACKBONE", companyComplaintCode: "INC000228009", linkName: "Katraj Node Link", maintainedBy: "Swarad Connect", linkStatus: "WIP", evisionsMttr: "02:00:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Splicing in progress" },
+  { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
+];
 
-    // Initialize LocalStorage Data
-    function initLocalStorage() {
-      if (!localStorage.getItem('ofp_projects')) {
-        localStorage.setItem('ofp_projects', JSON.stringify(defaultMockProjects));
-      }
-      if (!localStorage.getItem('ofp_inventory')) {
-        localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
-      }
-      const existingOutward = localStorage.getItem('ofp_outward_inventory');
-      if (!existingOutward || existingOutward === '[]') {
-        localStorage.setItem('ofp_outward_inventory', JSON.stringify(defaultMockOutwardInventory));
-      }
-      if (!localStorage.getItem('ofp_complaints')) {
-        localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
+// Initialize LocalStorage Data
+function initLocalStorage() {
+  if (!localStorage.getItem('ofp_projects')) {
+    localStorage.setItem('ofp_projects', JSON.stringify(defaultMockProjects));
+  }
+  if (!localStorage.getItem('ofp_inventory')) {
+    localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
+  }
+  const existingOutward = localStorage.getItem('ofp_outward_inventory');
+  if (!existingOutward || existingOutward === '[]') {
+    localStorage.setItem('ofp_outward_inventory', JSON.stringify(defaultMockOutwardInventory));
+  }
+  if (!localStorage.getItem('ofp_complaints')) {
+    localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
+  }
+}
+
+// Authentication handlers moved to login.js
+
+// ===== NAVIGATION / ROUTING =====
+function navigateToRecord(tabId, menuId) {
+  activeRecordsTab = tabId;
+  document.querySelector('.records-tabs').style.display = 'none';
+  navigateTo('records', menuId);
+}
+function navigateTo(panelId, overrideMenuId = null) {
+  // Close mobile sidebar menu if open
+  if (typeof window.closeMobileSidebar === 'function') {
+    window.closeMobileSidebar();
+  }
+
+  // Auth Guard Checks
+  if (currentUser) {
+    if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
+      panelId = 'dashboard';
+    } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records', 'billing'].includes(panelId)) {
+      panelId = 'dashboard';
+    } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'records'].includes(panelId)) {
+      panelId = 'dashboard';
+    } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
+      panelId = 'dashboard';
+    }
+  }
+  // ===== SYSTEM STATE =====
+  let currentUser = null;
+  let currentPanel = 'dashboard';
+
+  // Wizards Step States
+  const wizardSteps = {
+    projects: { current: 0, total: 5 },
+    inventory: { current: 0, total: 5 },
+    'outward-inventory': { current: 0, total: 5 },
+    maintenance: { current: 0, total: 8 }
+  };
+
+  // Master Records Tab State
+  let activeRecordsTab = 'projects';
+
+  // Role Matrix
+  const ROLES = {
+    ADMIN: 'admin',
+    PROJECT_MANAGER: 'pm',
+    INVENTORY_MANAGER: 'im',
+    MAINTENANCE_MANAGER: 'mm'
+  };
+
+  // Preloaded Mock Data
+  const defaultMockProjects = [
+    { id: "P-1", dateCreated: "2026-06-20", commDate: "2026-06-20", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346", airtelId: "PUN19054", city: "Pune", area: "Wadgaon Budruk", surveyDistance: 150, homePass: 8, siteStatus: "WIP", deploymentEngineer: "Suraj" },
+    { id: "P-2", dateCreated: "2026-06-22", commDate: "2026-06-22", company: "Airtel FTTH", projectType: "IBD", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/IBW/20062026/089753", airtelId: "PUN18921", city: "Pune", area: "Ambegaon", surveyDistance: 450, homePass: 48, siteStatus: "Completed", deploymentEngineer: "Ramesh" },
+    { id: "P-3", dateCreated: "2026-06-25", commDate: "2026-06-25", company: "Airtel FTTH", projectType: "Transport", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/TR/25062026/112233", airtelId: "PUN17429", city: "Mumbai", area: "Kothrud", surveyDistance: 1200, homePass: 0, siteStatus: "Completed", deploymentEngineer: "Suraj" },
+    { id: "P-4", dateCreated: "2026-06-27", commDate: "2026-06-27", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/OD/27062026/445566", airtelId: "PUN19050", city: "Pune", area: "Hadapsar", surveyDistance: 800, homePass: 24, siteStatus: "WIP", deploymentEngineer: "Vijay" }
+  ];
+
+  const defaultMockInventory = [
+    { id: "I-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", invoiceDate: "2026-06-19", invoiceNo: "INV-1234", receivedFrom: "Sterlite", city: "Pune", materialType: "Fiber", fiberCompany: "Sterlite", fiberType: "Armoured", quantity: 1600, uom: "Meter", cableIdNo: "CBL-5678", totalCableLength: 1600, cableShort: "No", verifiedBy: "Rahul" },
+    { id: "I-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", invoiceDate: "2026-06-22", invoiceNo: "INV-5678", receivedFrom: "Corning", city: "Pune", materialType: "Closure Box", fiberCompany: "Corning", quantity: 10, uom: "Nos.", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Amit" },
+    { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
+  ];
+
+  const defaultMockOutwardInventory = [
+    { id: "OI-1", srNo: "1", location: "Pune", outwardDate: "2026-06-25", projectMaintenance: "Maintenance", companyName: "Airtel FTTH", evisionsTeamName: "Team 1", vendorName: "Swarad Connect", fptName: "Amrut Rathod", materialTakenBy: "AA", issuedBy: "Rohit", materialType: "Fiber", fiberCore: "6F", quantityTaken: "100", uom: "Meter", cableIdNo: "12345", startReading: "0", endReading: "100", totalCableLength: "100", linkIdNo: "567789", aEnd: "Karve Putla", bEnd: "Shivaji Putla", area: "Kothrud" },
+    { id: "OI-2", srNo: "2", location: "Mumbai", outwardDate: "2026-06-26", projectMaintenance: "Project", companyName: "AIRTEL Transport", evisionsTeamName: "Team 2", vendorName: "Anil Enterprises", fptName: "Harilal Rathod", materialTakenBy: "BB", issuedBy: "Rohit", materialType: "Closure Box", fiberCore: "12F", quantityTaken: "5", uom: "Nos.", cableIdNo: "NA", startReading: "", endReading: "", totalCableLength: "", linkIdNo: "", aEnd: "", bEnd: "", area: "" }
+  ];
+
+  const defaultMockComplaints = [
+    { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
+    { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
+    { id: "M-3", dateCreated: "2026-06-25", receivedDate: "2026-06-25", receivedDateTime: "2026-06-25T14:00", type: "Complaint", evisionsComplaintCode: "24047211", companyName: "AIRTEL", linkType: "BACKBONE", companyComplaintCode: "INC000228009", linkName: "Katraj Node Link", maintainedBy: "Swarad Connect", linkStatus: "WIP", evisionsMttr: "02:00:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Splicing in progress" },
+    { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
+  ];
+
+  // Initialize LocalStorage Data
+  function initLocalStorage() {
+    if (!localStorage.getItem('ofp_projects')) {
+      localStorage.setItem('ofp_projects', JSON.stringify(defaultMockProjects));
+    }
+    if (!localStorage.getItem('ofp_inventory')) {
+      localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
+    }
+    const existingOutward = localStorage.getItem('ofp_outward_inventory');
+    if (!existingOutward || existingOutward === '[]') {
+      localStorage.setItem('ofp_outward_inventory', JSON.stringify(defaultMockOutwardInventory));
+    }
+    if (!localStorage.getItem('ofp_complaints')) {
+      localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
+    }
+  }
+
+  // Authentication handlers moved to login.js
+
+  // ===== NAVIGATION / ROUTING =====
+  function navigateToRecord(tabId, menuId) {
+    activeRecordsTab = tabId;
+    document.querySelector('.records-tabs').style.display = 'none';
+    navigateTo('records', menuId);
+  }
+  function navigateTo(panelId, overrideMenuId = null) {
+    // Close mobile sidebar menu if open
+    if (typeof window.closeMobileSidebar === 'function') {
+      window.closeMobileSidebar();
+    }
+
+    // Auth Guard Checks
+    if (currentUser) {
+      if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
+        panelId = 'dashboard';
+      } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records', 'billing'].includes(panelId)) {
+        panelId = 'dashboard';
+      } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'outward-inventory', 'records'].includes(panelId)) {
+        panelId = 'dashboard';
+      } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
+        panelId = 'dashboard';
       }
     }
 
-    // Authentication handlers moved to login.js
+    currentPanel = panelId;
+    // Hide all panels
+    document.querySelectorAll('.app-panel').forEach(p => p.classList.add('hidden'));
+    // Show active panel
+    document.getElementById('panel-' + panelId).classList.remove('hidden');
 
-    // ===== NAVIGATION / ROUTING =====
-        function navigateToRecord(tabId, menuId) {
-      activeRecordsTab = tabId;
-      document.querySelector('.records-tabs').style.display = 'none';
-      navigateTo('records', menuId);
-    }
-    function navigateTo(panelId, overrideMenuId = null) {
-      // Close mobile sidebar menu if open
-      if (typeof window.closeMobileSidebar === 'function') {
-        window.closeMobileSidebar();
+    // Update sidebar active class
+    document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+    const activeMenuItem = document.getElementById(overrideMenuId || ('menu-' + panelId));
+
+    const recordsTabs = document.querySelector('.records-tabs');
+    if (recordsTabs) {
+      if (panelId === 'records' && !overrideMenuId) {
+        recordsTabs.style.display = 'flex';
       }
+    }
+    if (activeMenuItem) {
+      activeMenuItem.classList.add('active');
+    }
 
-      // Auth Guard Checks
-      if (currentUser) {
-        if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records', 'billing'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'records'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
-          panelId = 'dashboard';
+    // Update Headers
+    const title = document.getElementById('current-panel-title');
+    const subtitle = document.getElementById('current-panel-subtitle');
+
+    if (panelId === 'dashboard') {
+      title.textContent = 'Operations Dashboard';
+      subtitle.textContent = `Welcome back! Displaying operations metrics.`;
+      renderDashboardData();
+    } else if (panelId === 'projects') {
+      title.textContent = 'Project Wizard';
+      subtitle.textContent = 'Step-by-step rollout and fiber provisioning creator.';
+      initWizardState('projects');
+    } else if (panelId === 'inventory') {
+      title.textContent = 'Inventory Management';
+      subtitle.textContent = 'Material receipt registry and cable quality checks.';
+      initWizardState('inventory');
+    } else if (panelId === 'outward-inventory') {
+      title.textContent = 'Outward Inventory';
+      subtitle.textContent = 'Manage outward material, cable issuance, and field team tracking.';
+      initWizardState('outward-inventory');
+    } else if (panelId === 'maintenance') {
+      title.textContent = 'NOC Maintenance Wizard';
+      subtitle.textContent = 'NOC Complaint registration, assignment, and MTTR log.';
+      initWizardState('maintenance');
+    } else if (panelId === 'records') {
+      title.textContent = 'Master Records Center';
+      subtitle.textContent = 'Search, filter, and inspect completed operations sheets.';
+      switchRecordsTab(activeRecordsTab);
+    } else if (panelId === 'billing') {
+      title.textContent = 'Billing & Payments';
+      subtitle.textContent = 'Manage multiple invoices against work orders.';
+    }
+  }
+
+  // ===== CLOCK =====
+  function updateClock() {
+    const clockEl = document.getElementById('live-clock');
+    const now = new Date();
+    const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    if (clockEl) clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', options)}`;
+  }
+  setInterval(updateClock, 1000);
+
+  // ===== WIZARD MANAGER =====
+  function initWizardState(type) {
+    wizardSteps[type].current = 0;
+    updateWizardUI(type);
+  }
+
+  function updateWizardUI(type) {
+    const stepState = wizardSteps[type];
+    const formEl = document.getElementById(type === 'projects' ? 'projectWizardForm' : (type === 'inventory' ? 'inventoryWizardForm' : (type === 'outward-inventory' ? 'outwardInventoryWizardForm' : 'maintenanceWizardForm')));
+
+    // Toggle hidden content sections
+    if (formEl) {
+      formEl.querySelectorAll('.step-content').forEach(el => {
+        el.classList.add('hidden');
+        if (parseInt(el.dataset.step) === stepState.current) {
+          el.classList.remove('hidden');
         }
-      }
-    // ===== SYSTEM STATE =====
-    let currentUser = null;
-    let currentPanel = 'dashboard';
-
-    // Wizards Step States
-    const wizardSteps = {
-      projects: { current: 0, total: 5 },
-      inventory: { current: 0, total: 5 },
-      'outward-inventory': { current: 0, total: 5 },
-      maintenance: { current: 0, total: 8 }
-    };
-
-    // Master Records Tab State
-    let activeRecordsTab = 'projects';
-
-    // Role Matrix
-    const ROLES = {
-      ADMIN: 'admin',
-      PROJECT_MANAGER: 'pm',
-      INVENTORY_MANAGER: 'im',
-      MAINTENANCE_MANAGER: 'mm'
-    };
-
-    // Preloaded Mock Data
-    const defaultMockProjects = [
-      { id: "P-1", dateCreated: "2026-06-20", commDate: "2026-06-20", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/Flatbed(G+3)/IBW/19112025/124346", airtelId: "PUN19054", city: "Pune", area: "Wadgaon Budruk", surveyDistance: 150, homePass: 8, siteStatus: "WIP", deploymentEngineer: "Suraj" },
-      { id: "P-2", dateCreated: "2026-06-22", commDate: "2026-06-22", company: "Airtel FTTH", projectType: "IBD", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/IBW/20062026/089753", airtelId: "PUN18921", city: "Pune", area: "Ambegaon", surveyDistance: 450, homePass: 48, siteStatus: "Completed", deploymentEngineer: "Ramesh" },
-      { id: "P-3", dateCreated: "2026-06-25", commDate: "2026-06-25", company: "Airtel FTTH", projectType: "Transport", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/TR/25062026/112233", airtelId: "PUN17429", city: "Mumbai", area: "Kothrud", surveyDistance: 1200, homePass: 0, siteStatus: "Completed", deploymentEngineer: "Suraj" },
-      { id: "P-4", dateCreated: "2026-06-27", commDate: "2026-06-27", company: "Airtel FTTH", projectType: "ODN", workOrder: "BAL-ANG-UASL-ROM-Maharashtra/PUNE/Capex/FTTH/B2C/New Rollout/OD/27062026/445566", airtelId: "PUN19050", city: "Pune", area: "Hadapsar", surveyDistance: 800, homePass: 24, siteStatus: "WIP", deploymentEngineer: "Vijay" }
-    ];
-
-    const defaultMockInventory = [
-      { id: "I-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", invoiceDate: "2026-06-19", invoiceNo: "INV-1234", receivedFrom: "Sterlite", city: "Pune", materialType: "Fiber", fiberCompany: "Sterlite", fiberType: "Armoured", quantity: 1600, uom: "Meter", cableIdNo: "CBL-5678", totalCableLength: 1600, cableShort: "No", verifiedBy: "Rahul" },
-      { id: "I-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", invoiceDate: "2026-06-22", invoiceNo: "INV-5678", receivedFrom: "Corning", city: "Pune", materialType: "Closure Box", fiberCompany: "Corning", quantity: 10, uom: "Nos.", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Amit" },
-      { id: "I-3", dateCreated: "2026-06-24", receivedDate: "2026-06-24", invoiceDate: "2026-06-23", invoiceNo: "INV-9988", receivedFrom: "HPCL", city: "Mumbai", materialType: "Isopropyl Liquid (Cans)", fiberCompany: "Other", quantity: 5, uom: "Can", cableIdNo: "NA", totalCableLength: 0, cableShort: "No", verifiedBy: "Shyam" }
-    ];
-
-    const defaultMockOutwardInventory = [
-      { id: "OI-1", srNo: "1", location: "Pune", outwardDate: "2026-06-25", projectMaintenance: "Maintenance", companyName: "Airtel FTTH", evisionsTeamName: "Team 1", vendorName: "Swarad Connect", fptName: "Amrut Rathod", materialTakenBy: "AA", issuedBy: "Rohit", materialType: "Fiber", fiberCore: "6F", quantityTaken: "100", uom: "Meter", cableIdNo: "12345", startReading: "0", endReading: "100", totalCableLength: "100", linkIdNo: "567789", aEnd: "Karve Putla", bEnd: "Shivaji Putla", area: "Kothrud" },
-      { id: "OI-2", srNo: "2", location: "Mumbai", outwardDate: "2026-06-26", projectMaintenance: "Project", companyName: "AIRTEL Transport", evisionsTeamName: "Team 2", vendorName: "Anil Enterprises", fptName: "Harilal Rathod", materialTakenBy: "BB", issuedBy: "Rohit", materialType: "Closure Box", fiberCore: "12F", quantityTaken: "5", uom: "Nos.", cableIdNo: "NA", startReading: "", endReading: "", totalCableLength: "", linkIdNo: "", aEnd: "", bEnd: "", area: "" }
-    ];
-
-    const defaultMockComplaints = [
-      { id: "M-1", dateCreated: "2026-06-20", receivedDate: "2026-06-20", receivedDateTime: "2026-06-20T07:35", type: "Complaint", evisionsComplaintCode: "24047180", companyName: "AIRTEL", linkType: "FTTH", companyComplaintCode: "INC000226909459", linkName: "1ZM TO TCG Panorama Ambegaon", maintainedBy: "Swarad Connect", linkStatus: "RESTORED", evisionsMttr: "03:05:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Restored quickly by splicing team" },
-      { id: "M-2", dateCreated: "2026-06-22", receivedDate: "2026-06-22", receivedDateTime: "2026-06-22T08:15", type: "Complaint", evisionsComplaintCode: "24047195", companyName: "VIL", linkType: "BACKBONE", companyComplaintCode: "INC0002271827", linkName: "Hinjewadi Node Link", maintainedBy: "Hyperband Infra", linkStatus: "RESTORED", evisionsMttr: "06:15:00", evisionsSla: "Out", companySla: "Out", outageReason: "DOG BITE", remarks: "Delayed due to forest access permission" },
-      { id: "M-3", dateCreated: "2026-06-25", receivedDate: "2026-06-25", receivedDateTime: "2026-06-25T14:00", type: "Complaint", evisionsComplaintCode: "24047211", companyName: "AIRTEL", linkType: "BACKBONE", companyComplaintCode: "INC000228009", linkName: "Katraj Node Link", maintainedBy: "Swarad Connect", linkStatus: "WIP", evisionsMttr: "02:00:00", evisionsSla: "In", companySla: "In", outageReason: "FIBER CUT DUE TO VEHICLE", remarks: "Splicing in progress" },
-      { id: "M-4", dateCreated: "2026-06-26", receivedDate: "2026-06-26", receivedDateTime: "2026-06-26T10:30", type: "Complaint", evisionsComplaintCode: "24047225", companyName: "GAZON", linkType: "FTTH", companyComplaintCode: "INC000229188", linkName: "Hadapsar Branch", maintainedBy: "Team 1", linkStatus: "ACCESS ISSUE - OUR SIDE", evisionsMttr: "04:30:00", evisionsSla: "In", companySla: "In", outageReason: "PMC ACTIVITY", remarks: "NOC waiting for permissions" }
-    ];
-
-    // Initialize LocalStorage Data
-    function initLocalStorage() {
-      if (!localStorage.getItem('ofp_projects')) {
-        localStorage.setItem('ofp_projects', JSON.stringify(defaultMockProjects));
-      }
-      if (!localStorage.getItem('ofp_inventory')) {
-        localStorage.setItem('ofp_inventory', JSON.stringify(defaultMockInventory));
-      }
-      const existingOutward = localStorage.getItem('ofp_outward_inventory');
-      if (!existingOutward || existingOutward === '[]') {
-        localStorage.setItem('ofp_outward_inventory', JSON.stringify(defaultMockOutwardInventory));
-      }
-      if (!localStorage.getItem('ofp_complaints')) {
-        localStorage.setItem('ofp_complaints', JSON.stringify(defaultMockComplaints));
-      }
+      });
     }
 
-    // Authentication handlers moved to login.js
-
-    // ===== NAVIGATION / ROUTING =====
-        function navigateToRecord(tabId, menuId) {
-      activeRecordsTab = tabId;
-      document.querySelector('.records-tabs').style.display = 'none';
-      navigateTo('records', menuId);
-    }
-    function navigateTo(panelId, overrideMenuId = null) {
-      // Close mobile sidebar menu if open
-      if (typeof window.closeMobileSidebar === 'function') {
-        window.closeMobileSidebar();
-      }
-
-      // Auth Guard Checks
-      if (currentUser) {
-        if (currentUser.role === ROLES.ADMIN && ['projects', 'inventory', 'maintenance'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.PROJECT_MANAGER && !['dashboard', 'projects', 'records', 'billing'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.INVENTORY_MANAGER && !['dashboard', 'inventory', 'outward-inventory', 'records'].includes(panelId)) {
-          panelId = 'dashboard';
-        } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER && !['dashboard', 'maintenance', 'records'].includes(panelId)) {
-          panelId = 'dashboard';
-        }
-      }
-
-      currentPanel = panelId;
-      // Hide all panels
-      document.querySelectorAll('.app-panel').forEach(p => p.classList.add('hidden'));
-      // Show active panel
-      document.getElementById('panel-' + panelId).classList.remove('hidden');
-
-      // Update sidebar active class
-      document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-      const activeMenuItem = document.getElementById(overrideMenuId || ('menu-' + panelId));
-      
-      const recordsTabs = document.querySelector('.records-tabs');
-      if (recordsTabs) {
-          if (panelId === 'records' && !overrideMenuId) {
-              recordsTabs.style.display = 'flex';
-          }
-      }
-      if (activeMenuItem) {
-        activeMenuItem.classList.add('active');
-      }
-
-      // Update Headers
-      const title = document.getElementById('current-panel-title');
-      const subtitle = document.getElementById('current-panel-subtitle');
-
-      if (panelId === 'dashboard') {
-        title.textContent = 'Operations Dashboard';
-        subtitle.textContent = `Welcome back! Displaying operations metrics.`;
-        renderDashboardData();
-      } else if (panelId === 'projects') {
-        title.textContent = 'Project Wizard';
-        subtitle.textContent = 'Step-by-step rollout and fiber provisioning creator.';
-        initWizardState('projects');
-      } else if (panelId === 'inventory') {
-        title.textContent = 'Inventory Management';
-        subtitle.textContent = 'Material receipt registry and cable quality checks.';
-        initWizardState('inventory');
-      } else if (panelId === 'outward-inventory') {
-        title.textContent = 'Outward Inventory';
-        subtitle.textContent = 'Manage outward material, cable issuance, and field team tracking.';
-        initWizardState('outward-inventory');
-      } else if (panelId === 'maintenance') {
-        title.textContent = 'NOC Maintenance Wizard';
-        subtitle.textContent = 'NOC Complaint registration, assignment, and MTTR log.';
-        initWizardState('maintenance');
-      } else if (panelId === 'records') {
-        title.textContent = 'Master Records Center';
-        subtitle.textContent = 'Search, filter, and inspect completed operations sheets.';
-        switchRecordsTab(activeRecordsTab);
-      } else if (panelId === 'billing') {
-        title.textContent = 'Billing & Payments';
-        subtitle.textContent = 'Manage multiple invoices against work orders.';
-      }
-    }
-
-    // ===== CLOCK =====
-    function updateClock() {
-      const clockEl = document.getElementById('live-clock');
-      const now = new Date();
-      const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-      if(clockEl) clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', options)}`;
-    }
-    setInterval(updateClock, 1000);
-
-    // ===== WIZARD MANAGER =====
-    function initWizardState(type) {
-      wizardSteps[type].current = 0;
-      updateWizardUI(type);
-    }
-
-    function updateWizardUI(type) {
-      const stepState = wizardSteps[type];
-      const formEl = document.getElementById(type === 'projects' ? 'projectWizardForm' : (type === 'inventory' ? 'inventoryWizardForm' : (type === 'outward-inventory' ? 'outwardInventoryWizardForm' : 'maintenanceWizardForm')));
-
-      // Toggle hidden content sections
-      if (formEl) {
-        formEl.querySelectorAll('.step-content').forEach(el => {
-          el.classList.add('hidden');
-          if (parseInt(el.dataset.step) === stepState.current) {
-            el.classList.remove('hidden');
-          }
-        });
-      }
-
-      // Indicators update
-      const progressContainer = document.getElementById(type + 'Progress');
-      if (progressContainer) {
-        progressContainer.querySelectorAll('.step-indicator').forEach((indicator, index) => {
-          indicator.classList.remove('active', 'completed');
+    // Indicators update
+    const progressContainer = document.getElementById(type + 'Progress');
+    if (progressContainer) {
+      progressContainer.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        indicator.classList.remove('active', 'completed');
         if (index === stepState.current) {
           indicator.classList.add('active');
         } else if (index < stepState.current) {
@@ -426,7 +426,7 @@
         `;
         filterBox.appendChild(citySelect);
 
-      } else if (activeRecordsTab === 'inventory') {
+      } else if (activeRecordsTab === 'inventory' || activeRecordsTab === 'outward-inventory') {
         select.innerHTML = `
           <option value="all">All Materials</option>
           <option value="Fiber">Fiber</option>
@@ -463,6 +463,8 @@
         data = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
       } else if (activeRecordsTab === 'inventory') {
         data = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      } else if (activeRecordsTab === 'outward-inventory') {
+        data = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
       } else if (activeRecordsTab === 'complaints') {
         data = JSON.parse(localStorage.getItem('ofp_complaints') || '[]');
       }
@@ -486,7 +488,7 @@
         if (activeRecordsTab === 'projects') {
           if (statusFilterVal !== 'all' && item.siteStatus !== statusFilterVal) matchDropdowns = false;
           if (cityFilterVal !== 'all' && String(item.city).toLowerCase() !== cityFilterVal.toLowerCase()) matchDropdowns = false;
-        } else if (activeRecordsTab === 'inventory') {
+        } else if (activeRecordsTab === 'inventory' || activeRecordsTab === 'outward-inventory') {
           if (statusFilterVal !== 'all' && item.materialType !== statusFilterVal) matchDropdowns = false;
         } else if (activeRecordsTab === 'complaints') {
           if (statusFilterVal !== 'all' && item.evisionsSla !== statusFilterVal) matchDropdowns = false;
@@ -591,6 +593,43 @@
           `;
           body.appendChild(tr);
         });
+      } else if (activeRecordsTab === 'outward-inventory') {
+        head.innerHTML = `
+          <tr>
+            <th class="dtr-control-th"></th>
+            <th class="mobile-hide">Outward Date</th>
+            <th>Location</th>
+            <th>Material Type</th>
+            <th class="mobile-hide">Company</th>
+            <th class="mobile-hide">Quantity</th>
+            <th class="mobile-hide">Issued By</th>
+            <th style="width: 100px; text-align: right;">Actions</th>
+          </tr>
+        `;
+
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="dtr-control-td">
+              <button type="button" class="dtr-control-btn" onclick="toggleRowDetails(this, '${item.id}', 'outward-inventory')" title="Toggle Info">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </td>
+            <td class="mobile-hide">${item.outwardDate || 'N/A'}</td>
+            <td><strong>${item.location || 'N/A'}</strong></td>
+            <td><span class="badge badge-info">${item.materialType || 'N/A'}</span></td>
+            <td class="mobile-hide">${item.companyName || 'N/A'}</td>
+            <td class="mobile-hide">${item.quantityTaken || '0'} ${item.uom || ''}</td>
+            <td class="mobile-hide">${item.issuedBy || 'N/A'}</td>
+            <td style="text-align: right;">
+              <div class="action-btn-group" style="justify-content: flex-end;">
+                <button class="action-btn" title="View details" onclick="showRecordDetails('outward-inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
+                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+              </div>
+            </td>
+          `;
+          body.appendChild(tr);
+        });
       } else if (activeRecordsTab === 'complaints') {
         head.innerHTML = `
           <tr>
@@ -669,7 +708,7 @@
             <li><span class="dtr-title">Quantity</span><span class="dtr-val">${item.quantity || '0'} ${item.uom || ''}</span></li>
             <li><span class="dtr-title">Verified By</span><span class="dtr-val">${item.verifiedBy || '—'}</span></li>
           `;
-                } else if (type === 'outward-inventory') {
+        } else if (type === 'outward-inventory') {
           detailsHtml = `
             <li><span class="dtr-title">Location</span><span class="dtr-val">${item.location || '—'}</span></li>
             <li><span class="dtr-title">Outward Date</span><span class="dtr-val">${item.outwardDate || '—'}</span></li>
@@ -859,10 +898,10 @@
       for (const [key, val] of Object.entries(record)) {
         // Exclude fields not relevant to Outward Inventory if we are on that tab
         if (tab === 'outward-inventory') {
-            if (['id', 'dateCreated', 'readyToSubmit', 'verifiedBy'].includes(key)) continue;
+          if (['id', 'dateCreated', 'readyToSubmit', 'verifiedBy'].includes(key)) continue;
         } else {
-            // Generic exclusions for other tabs if needed
-            if (key === 'id') continue;
+          // Generic exclusions for other tabs if needed
+          if (key === 'id') continue;
         }
 
         const label = keyLabels[key] || key;
@@ -1137,58 +1176,58 @@
     window.addEventListener('DOMContentLoaded', () => {
       checkAuthOnLoad();
     });
-  
-// Handle cross page init
-window.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const requestedPanel = urlParams.get('panel');
-  if (requestedPanel) {
-    // Wait a tick for auth layout to apply
-    setTimeout(() => {
-      if (typeof navigateTo === 'function') {
-        navigateTo(requestedPanel);
+
+    // Handle cross page init
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedPanel = urlParams.get('panel');
+      if (requestedPanel) {
+        // Wait a tick for auth layout to apply
+        setTimeout(() => {
+          if (typeof navigateTo === 'function') {
+            navigateTo(requestedPanel);
+          }
+        }, 100);
       }
-    }, 100);
-  }
-});
+    });
 
-function saveWizardProgress() {
-  alert('✅ Draft Saved successfully!');
-}
+    function saveWizardProgress() {
+      alert('✅ Draft Saved successfully!');
+    }
 
-// ===== BILLING MANAGER =====
-let currentBillingWO = '';
-let currentBills = [];
+    // ===== BILLING MANAGER =====
+    let currentBillingWO = '';
+    let currentBills = [];
 
-function loadBillingForWO() {
-  const woInput = document.getElementById('billingSearchWO');
-  const wo = woInput.value.trim();
-  if (!wo) {
-    alert('Please enter a Work Order.');
-    return;
-  }
-  
-  currentBillingWO = wo;
-  const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
-  currentBills = allBills[wo] || [];
-  
-  document.getElementById('billingListContainer').classList.remove('hidden');
-  renderBillingCards();
-}
+    function loadBillingForWO() {
+      const woInput = document.getElementById('billingSearchWO');
+      const wo = woInput.value.trim();
+      if (!wo) {
+        alert('Please enter a Work Order.');
+        return;
+      }
 
-function renderBillingCards() {
-  const container = document.getElementById('billingCardsWrapper');
-  container.innerHTML = '';
-  
-  if (currentBills.length === 0) {
-    container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">No bills found for this Work Order. Add a new bill to begin.</p>';
-    return;
-  }
-  
-  currentBills.forEach((bill, index) => {
-    const card = document.createElement('div');
-    card.style = 'background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;';
-    card.innerHTML = `
+      currentBillingWO = wo;
+      const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
+      currentBills = allBills[wo] || [];
+
+      document.getElementById('billingListContainer').classList.remove('hidden');
+      renderBillingCards();
+    }
+
+    function renderBillingCards() {
+      const container = document.getElementById('billingCardsWrapper');
+      container.innerHTML = '';
+
+      if (currentBills.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">No bills found for this Work Order. Add a new bill to begin.</p>';
+        return;
+      }
+
+      currentBills.forEach((bill, index) => {
+        const card = document.createElement('div');
+        card.style = 'background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;';
+        card.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
         <h4 style="font-weight: 700; color: var(--text-main);"><i class="fas fa-file-invoice" style="color:var(--accent);"></i> Bill #${index + 1}</h4>
         <button type="button" style="background: none; border: none; color: var(--danger); cursor: pointer;" onclick="removeBillingCard(${index})"><i class="fas fa-trash"></i> Remove</button>
@@ -1216,39 +1255,39 @@ function renderBillingCards() {
         </div>
       </div>
     `;
-    container.appendChild(card);
-  });
-}
+        container.appendChild(card);
+      });
+    }
 
-function updateBillField(index, field, value) {
-  currentBills[index][field] = value;
-}
+    function updateBillField(index, field, value) {
+      currentBills[index][field] = value;
+    }
 
-function addBillingCard() {
-  currentBills.push({
-    status: 'Not Started',
-    poDate: '',
-    poNo: '',
-    invoiceDate: '',
-    invoiceNo: '',
-    baseAmount: '',
-    finalAmount: '',
-    paymentStatus: 'Not Received'
-  });
-  renderBillingCards();
-}
+    function addBillingCard() {
+      currentBills.push({
+        status: 'Not Started',
+        poDate: '',
+        poNo: '',
+        invoiceDate: '',
+        invoiceNo: '',
+        baseAmount: '',
+        finalAmount: '',
+        paymentStatus: 'Not Received'
+      });
+      renderBillingCards();
+    }
 
-function removeBillingCard(index) {
-  if (confirm('Are you sure you want to remove this bill?')) {
-    currentBills.splice(index, 1);
-    renderBillingCards();
-  }
-}
+    function removeBillingCard(index) {
+      if (confirm('Are you sure you want to remove this bill?')) {
+        currentBills.splice(index, 1);
+        renderBillingCards();
+      }
+    }
 
-function saveBillingForWO() {
-  if (!currentBillingWO) return;
-  const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
-  allBills[currentBillingWO] = currentBills;
-  localStorage.setItem('ofp_billing', JSON.stringify(allBills));
-  alert('Bills saved successfully for Work Order: ' + currentBillingWO);
-}
+    function saveBillingForWO() {
+      if (!currentBillingWO) return;
+      const allBills = JSON.parse(localStorage.getItem('ofp_billing') || '{}');
+      allBills[currentBillingWO] = currentBills;
+      localStorage.setItem('ofp_billing', JSON.stringify(allBills));
+      alert('Bills saved successfully for Work Order: ' + currentBillingWO);
+    }
