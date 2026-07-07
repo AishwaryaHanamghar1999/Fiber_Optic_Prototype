@@ -17,13 +17,15 @@
   <!-- Login Styles -->
   <link rel="stylesheet" href="login.css">
   <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <style>
     :root {
-      --primary: #0f172a;
-      --primary-light: #1e293b;
+      --primary: #065F6B;
+      --primary-light: #0A8293;
       --accent: #2563eb;
       --accent-glow: rgba(37, 99, 235, 0.15);
       --success: #10b981;
@@ -1404,8 +1406,10 @@
           <div class="charts-grid" style="margin-top: 1.5rem;">
             <div class="chart-card">
               <h3><i class="fa-solid fa-chart-pie"></i> Projects by Type</h3>
-              <div class="chart-canvas-placeholder" style="display: flex; align-items: center; justify-content: center; height: 180px;">
-                <div id="projects-pie-chart" style="width: 100%; display: flex; gap: 1rem; align-items: flex-end; justify-content: center; height: 120px; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+              <div class="chart-canvas-placeholder"
+                style="display: flex; align-items: center; justify-content: center; height: 180px;">
+                <div id="projects-pie-chart"
+                  style="width: 100%; display: flex; gap: 1rem; align-items: flex-end; justify-content: center; height: 120px; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
                   <!-- Dynamic bars -->
                 </div>
               </div>
@@ -1414,8 +1418,10 @@
 
             <div class="chart-card">
               <h3><i class="fa-solid fa-boxes-packing"></i> Material Distribution (Top 3)</h3>
-              <div class="chart-canvas-placeholder" style="display: flex; align-items: center; justify-content: center; height: 180px;">
-                <div id="materials-bar-chart" style="width: 100%; display: flex; flex-direction: column; gap: 1rem; justify-content: center; padding: 1rem 0;">
+              <div class="chart-canvas-placeholder"
+                style="display: flex; align-items: center; justify-content: center; height: 180px;">
+                <div id="materials-bar-chart"
+                  style="width: 100%; display: flex; flex-direction: column; gap: 1rem; justify-content: center; padding: 1rem 0;">
                   <!-- Dynamic horizontal bars -->
                 </div>
               </div>
@@ -1626,7 +1632,8 @@
                         <option value="Skyline Technology">Skyline Technology</option>
                         <option value="Spine Teleinfra Pvt. Ltd.">Spine Teleinfra Pvt. Ltd.</option>
                         <option value="Star Entertainment">Star Entertainment</option>
-                        <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable Services
+                        <option value="Tushar Broadband & Digital Cable Services">Tushar Broadband & Digital Cable
+                          Services
                         </option>
                       </select>
                     </div>
@@ -1648,7 +1655,8 @@
                         <option>No</option>
                         <option>Pending</option>
                       </select></div>
-                    <div class="field-group"><label><i class="fas fa-file-upload"></i> Upload KML File</label><input type="file" accept=".kml"></div>
+                    <div class="field-group"><label><i class="fas fa-file-upload"></i> Upload KML File</label><input
+                        type="file" accept=".kml"></div>
                     <div class="field-group"><label><i class="fas fa-flag"></i> Site Status</label><select>
                         <option>WIP</option>
                         <option>Completed</option>
@@ -2773,6 +2781,10 @@
             </div>
           </div>
 
+          <div id="inventory-summary-container" class="hidden"
+            style="display: flex; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          </div>
+
           <div class="table-container">
             <table class="data-table" id="master-records-table">
               <thead id="records-table-head">
@@ -3354,6 +3366,37 @@
     }
 
     function renderRecordsTable() {
+      const summaryContainer = document.getElementById('inventory-summary-container');
+      if (summaryContainer) {
+        if (activeRecordsTab === 'inventory' || activeRecordsTab === 'outward-inventory') {
+          const inwardData = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+          const outwardData = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
+          let totalInward = 0;
+          inwardData.forEach(item => totalInward += (parseFloat(item.quantity) || 0));
+          let totalOutward = 0;
+          outwardData.forEach(item => totalOutward += (parseFloat(item.quantity) || 0));
+          summaryContainer.innerHTML = `
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Total Inward Quantity</div>
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">${totalInward}</div>
+            </div>
+            <div style="width: 1px; background: var(--border-color);"></div>
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Total Outward Quantity</div>
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--warning);">${totalOutward}</div>
+            </div>
+            <div style="width: 1px; background: var(--border-color);"></div>
+            <div style="flex: 1; text-align: center;">
+              <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Net Available Stock</div>
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">${totalInward - totalOutward}</div>
+            </div>
+          `;
+          summaryContainer.classList.remove('hidden');
+        } else {
+          summaryContainer.classList.add('hidden');
+        }
+      }
+
       const data = getFilteredData();
       const head = document.getElementById('records-table-head');
       const body = document.getElementById('records-table-body');
@@ -3402,7 +3445,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('projects', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                <button class="action-btn" title="Edit record" onclick="editRecord('projects', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
+                ${currentUser.role !== ROLES.ADMIN ? `<button class="action-btn" title="Edit record" onclick="editRecord('projects', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>` : ''}
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('projects', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -3440,7 +3483,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                <button class="action-btn" title="Edit record" onclick="editRecord('inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
+                ${currentUser.role !== ROLES.ADMIN ? `<button class="action-btn" title="Edit record" onclick="editRecord('inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>` : ''}
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -3478,7 +3521,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('outward-inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                <button class="action-btn" title="Edit record" onclick="editRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
+                ${currentUser.role !== ROLES.ADMIN ? `<button class="action-btn" title="Edit record" onclick="editRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>` : ''}
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -3518,7 +3561,7 @@
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('complaints', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                <button class="action-btn" title="Edit record" onclick="editRecord('maintenance', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>
+                ${currentUser.role !== ROLES.ADMIN ? `<button class="action-btn" title="Edit record" onclick="editRecord('maintenance', '${item.id}')"><i class="fa-solid fa-pencil"></i></button>` : ''}
                 ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('complaints', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
               </div>
             </td>
@@ -3805,6 +3848,14 @@
       const kpiContainer = document.getElementById('dashboard-kpis');
       kpiContainer.innerHTML = ''; // reset
 
+      // Calculate inventory stats
+      const outwardInventory = readStoredData('ofp_outward_inventory', defaultMockOutwardInventory);
+      let totalInwardQuantity = 0;
+      inventory.forEach(item => totalInwardQuantity += (parseFloat(item.quantity) || 0));
+      let totalOutwardQuantity = 0;
+      outwardInventory.forEach(item => totalOutwardQuantity += (parseFloat(item.quantity) || 0));
+      const netAvailableItems = totalInwardQuantity - totalOutwardQuantity;
+
       // Calculate general metrics
       const totalProjects = projects.length;
       const completedProjects = projects.filter(p => p.siteStatus === 'Completed').length;
@@ -3858,6 +3909,22 @@
             </div>
             <div class="kpi-icon-box" style="background:#fef2f2; color:#ef4444;"><i class="fa-solid fa-clock-rotate-left"></i></div>
           </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Inward Stock</h3>
+              <p class="value">${totalInwardQuantity}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-arrow-right-to-bracket"></i> Materials Received</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-boxes-packing"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Outward Stock</h3>
+              <p class="value">${totalOutwardQuantity}</p>
+              <p class="trend trend-down"><i class="fa-solid fa-arrow-right-from-bracket"></i> Materials Dispatched</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-truck-fast"></i></div>
+          </div>
         `;
       } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
         kpiContainer.innerHTML = `
@@ -3903,6 +3970,22 @@
               <p class="trend"><i class="fa-solid fa-scroll"></i> Armoured & Unarmoured</p>
             </div>
             <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-boxes-stacked"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Inward Stock</h3>
+              <p class="value">${totalInwardQuantity}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-arrow-right-to-bracket"></i> Materials Received</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-boxes-packing"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Total Outward Stock</h3>
+              <p class="value">${totalOutwardQuantity}</p>
+              <p class="trend trend-down"><i class="fa-solid fa-arrow-right-from-bracket"></i> Materials Dispatched</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-truck-fast"></i></div>
           </div>
         `;
       } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
@@ -4019,7 +4102,7 @@
       const matContainer = document.getElementById('materials-bar-chart');
       if (matContainer) {
         matContainer.innerHTML = '';
-        const sortedMats = Object.keys(matTypes).sort((a,b) => matTypes[b] - matTypes[a]).slice(0, 3);
+        const sortedMats = Object.keys(matTypes).sort((a, b) => matTypes[b] - matTypes[a]).slice(0, 3);
         const maxMat = Math.max(...sortedMats.map(k => matTypes[k]), 1);
         sortedMats.forEach(type => {
           const qty = matTypes[type];
@@ -4293,51 +4376,51 @@
       const db = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
       const proj = db.find(p => p.id === id);
       if (!proj) return;
-      
+
       const modal = document.getElementById('gis-map-modal');
       modal.classList.remove('hidden');
-      
+
       if (!gisMapInstance) {
         gisMapInstance = L.map('leaflet-map-container');
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; OpenStreetMap contributors'
         }).addTo(gisMapInstance);
       }
-      
+
       const startLat = 18.5204 + (Math.random() - 0.5) * 0.1;
       const startLng = 73.8567 + (Math.random() - 0.5) * 0.1;
-      
+
       const numNodes = 4; // 1 start, 2 middle, 1 end
       const points = [];
       let currentLat = startLat;
       let currentLng = startLng;
-      
+
       points.push([currentLat, currentLng]);
-      for(let i=1; i<numNodes; i++) {
+      for (let i = 1; i < numNodes; i++) {
         currentLat += (Math.random() - 0.5) * 0.01;
         currentLng += (Math.random() - 0.5) * 0.01;
         points.push([currentLat, currentLng]);
       }
-      
+
       gisMapInstance.eachLayer((layer) => {
         if (layer instanceof L.Marker || layer instanceof L.Polyline) {
           gisMapInstance.removeLayer(layer);
         }
       });
-      
+
       // Determine how many nodes are "done"
       const isCompleted = proj.siteStatus === 'Completed';
       const doneIndex = isCompleted ? numNodes - 1 : Math.floor(numNodes / 2);
-      
+
       // Draw done polyline (green)
       if (doneIndex > 0) {
-        L.polyline(points.slice(0, doneIndex + 1), {color: '#22c55e', weight: 4}).addTo(gisMapInstance);
+        L.polyline(points.slice(0, doneIndex + 1), { color: '#22c55e', weight: 4 }).addTo(gisMapInstance);
       }
       // Draw pending polyline (red)
       if (doneIndex < numNodes - 1) {
-        L.polyline(points.slice(doneIndex), {color: '#ef4444', weight: 4, dashArray: '5, 5'}).addTo(gisMapInstance);
+        L.polyline(points.slice(doneIndex), { color: '#ef4444', weight: 4, dashArray: '5, 5' }).addTo(gisMapInstance);
       }
-      
+
       // Draw markers
       points.forEach((pt, idx) => {
         let title = "<b>Node " + (idx + 1) + "</b><br>Intermediate Point";
@@ -4345,13 +4428,13 @@
         if (idx === numNodes - 1) title = "<b>End Point</b><br>Final Outage";
         L.marker(pt).addTo(gisMapInstance).bindPopup(title);
       });
-      
+
       setTimeout(() => {
         gisMapInstance.invalidateSize();
-        gisMapInstance.fitBounds(L.polyline(points).getBounds(), {padding: [50, 50]});
+        gisMapInstance.fitBounds(L.polyline(points).getBounds(), { padding: [50, 50] });
       }, 100);
     }
-    
+
     function closeGisMap() {
       document.getElementById('gis-map-modal').classList.add('hidden');
     }
@@ -4363,21 +4446,30 @@
   </script>
 
   <!-- GIS Map Modal -->
-  <div id="gis-map-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+  <div id="gis-map-modal" class="hidden"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div
+      style="background: white; border-radius: 12px; width: 90%; max-width: 800px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-map-location-dot" style="color:var(--accent)"></i> Project GIS Map</h3>
-        <button type="button" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);" onclick="closeGisMap()"><i class="fa-solid fa-xmark"></i></button>
+        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-map-location-dot"
+            style="color:var(--accent)"></i> Project GIS Map</h3>
+        <button type="button"
+          style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);"
+          onclick="closeGisMap()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div style="display: flex; gap: 1.5rem; font-size: 0.875rem; color: var(--text-main); margin-bottom: -0.5rem;">
         <div style="display: flex; align-items: center; gap: 0.5rem;">
           <span style="display: inline-block; width: 24px; height: 4px; background: #22c55e;"></span> Completed Work
         </div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <span style="display: inline-block; width: 24px; height: 4px; background: #ef4444; border-top: 2px dashed white;"></span> Pending Work
+          <span
+            style="display: inline-block; width: 24px; height: 4px; background: #ef4444; border-top: 2px dashed white;"></span>
+          Pending Work
         </div>
       </div>
-      <div id="leaflet-map-container" style="height: 400px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #eee;"></div>
+      <div id="leaflet-map-container"
+        style="height: 400px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #eee;">
+      </div>
     </div>
   </div>
 
