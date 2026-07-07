@@ -1205,7 +1205,8 @@
         <div class="login-card-left-content">
           <h2>WELCOME</h2>
           <h3>OFP Unified Operations</h3>
-          <p>Access your authorized dashboard. Monitor projects, manage inventory, and track maintenance in real-time across the entire fiber optic network.</p>
+          <p>Access your authorized dashboard. Monitor projects, manage inventory, and track maintenance in real-time
+            across the entire fiber optic network.</p>
         </div>
       </div>
       <div class="login-card-right">
@@ -1221,18 +1222,21 @@
                 <input type="text" id="username" placeholder="User Name / Role">
               </div>
             </div>
-            
+
             <div class="login-group">
               <div class="login-input-wrapper">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" id="password" placeholder="Password">
-                <button type="button" id="toggle-password" class="btn-toggle-password" title="Toggle Password Visibility">SHOW</button>
+                <button type="button" id="toggle-password" class="btn-toggle-password"
+                  title="Toggle Password Visibility">SHOW</button>
               </div>
             </div>
 
 
-            
-            <div id="login-error-msg" style="color: #ef4444; font-size: 0.85rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center; font-weight: 500;" class="hidden">
+
+            <div id="login-error-msg"
+              style="color: #ef4444; font-size: 0.85rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center; font-weight: 500;"
+              class="hidden">
               Invalid username or password.
             </div>
 
@@ -1240,24 +1244,29 @@
           </form>
 
 
-          
-          <div class="login-divider" style="margin: 2rem 0 1rem; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; display: flex; align-items: center;">
+
+          <div class="login-divider"
+            style="margin: 2rem 0 1rem; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; display: flex; align-items: center;">
             <span style="flex: 1; border-bottom: 1px solid #e2e8f0; margin-right: 0.5rem;"></span>
             Or sign in with
             <span style="flex: 1; border-bottom: 1px solid #e2e8f0; margin-left: 0.5rem;"></span>
           </div>
-          
+
           <div class="quick-login-grid">
-            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('admin', 'admin')">
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;"
+              onclick="quickLogin('admin', 'admin')">
               <i class="fa-solid fa-user-shield" style="margin-right: 0.5rem; color: var(--accent);"></i> Admin
             </button>
-            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('pm', 'pm')">
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;"
+              onclick="quickLogin('pm', 'pm')">
               <i class="fa-solid fa-diagram-project" style="margin-right: 0.5rem; color: #10b981;"></i> Project Mgr
             </button>
-            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('im', 'im')">
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;"
+              onclick="quickLogin('im', 'im')">
               <i class="fa-solid fa-boxes-stacked" style="margin-right: 0.5rem; color: #f59e0b;"></i> Inventory
             </button>
-            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('mm', 'mm')">
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;"
+              onclick="quickLogin('mm', 'mm')">
               <i class="fa-solid fa-screwdriver-wrench" style="margin-right: 0.5rem; color: #ef4444;"></i> Maintenance
             </button>
           </div>
@@ -3889,7 +3898,7 @@
       if (currentUser.role === ROLES.ADMIN) {
         // Admin card list
         kpiContainer.innerHTML = `
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('projects-all');">
             <div class="kpi-info">
               <h3>Total Projects</h3>
               <p class="value">${totalProjects}</p>
@@ -3897,7 +3906,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-diagram-project"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-cable');">
             <div class="kpi-info">
               <h3>Fiber Cable Stock</h3>
               <p class="value">${Math.round(totalCableMeters)} m</p>
@@ -3905,7 +3914,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-boxes-stacked"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('complaints-active');">
             <div class="kpi-info">
               <h3>Active Outages (NOC)</h3>
               <p class="value">${activeComplaints}</p>
@@ -3913,7 +3922,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-headset"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('complaints-sla');">
             <div class="kpi-info">
               <h3>SLA Performance</h3>
               <p class="value">${slaPercent}%</p>
@@ -3921,7 +3930,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#fef2f2; color:#ef4444;"><i class="fa-solid fa-clock-rotate-left"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-inward');">
             <div class="kpi-info">
               <h3>Total Inward Stock</h3>
               <p class="value">${totalInwardQuantity}</p>
@@ -3929,7 +3938,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-boxes-packing"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-outward');">
             <div class="kpi-info">
               <h3>Total Outward Stock</h3>
               <p class="value">${totalOutwardQuantity}</p>
@@ -3948,7 +3957,7 @@
         `;
       } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
         kpiContainer.innerHTML = `
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('projects-all');">
             <div class="kpi-info">
               <h3>Total Project Sheets</h3>
               <p class="value">${totalProjects}</p>
@@ -3956,7 +3965,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-diagram-project"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('projects-wip');">
             <div class="kpi-info">
               <h3>Active Sites (WIP)</h3>
               <p class="value">${activeProjects}</p>
@@ -3964,7 +3973,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-compass-drafting"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('projects-completed');">
             <div class="kpi-info">
               <h3>Completed Turnovers</h3>
               <p class="value">${completedProjects}</p>
@@ -3975,7 +3984,7 @@
         `;
       } else if (currentUser.role === ROLES.INVENTORY_MANAGER) {
         kpiContainer.innerHTML = `
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-inward');">
             <div class="kpi-info">
               <h3>Material Receipts</h3>
               <p class="value">${totalReceipts}</p>
@@ -3983,7 +3992,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-file-invoice"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-cable');">
             <div class="kpi-info">
               <h3>Cable Stock In-house</h3>
               <p class="value">${Math.round(totalCableMeters)} m</p>
@@ -3991,7 +4000,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-boxes-stacked"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-inward');">
             <div class="kpi-info">
               <h3>Total Inward Stock</h3>
               <p class="value">${totalInwardQuantity}</p>
@@ -3999,7 +4008,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-boxes-packing"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('inventory-outward');">
             <div class="kpi-info">
               <h3>Total Outward Stock</h3>
               <p class="value">${totalOutwardQuantity}</p>
@@ -4018,7 +4027,7 @@
         `;
       } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
         kpiContainer.innerHTML = `
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('complaints-all');">
             <div class="kpi-info">
               <h3>Total NOC Tickets</h3>
               <p class="value">${totalComplaints}</p>
@@ -4026,7 +4035,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#eff6ff; color:#3b82f6;"><i class="fa-solid fa-headset"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('complaints-restored');">
             <div class="kpi-info">
               <h3>Restored Tickets</h3>
               <p class="value">${resolvedComplaints}</p>
@@ -4034,7 +4043,7 @@
             </div>
             <div class="kpi-icon-box" style="background:#ecfdf5; color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" style="cursor: pointer;" onclick="showDashboardModal('complaints-sla');">
             <div class="kpi-info">
               <h3>SLA Performance</h3>
               <p class="value">${slaPercent}%</p>
@@ -4470,7 +4479,7 @@
     function showStockLedger() {
       const inwardData = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
       const outwardData = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
-      
+
       const ledger = {};
       inwardData.forEach(item => {
         const mat = item.materialType || 'Unknown';
@@ -4482,10 +4491,10 @@
         if (!ledger[mat]) ledger[mat] = { in: 0, out: 0 };
         ledger[mat].out += (parseFloat(item.quantity) || 0);
       });
-      
+
       const tbody = document.getElementById('stock-ledger-tbody');
       tbody.innerHTML = '';
-      
+
       Object.keys(ledger).sort().forEach(mat => {
         const stats = ledger[mat];
         const remaining = stats.in - stats.out;
@@ -4498,16 +4507,113 @@
           </tr>
         `;
       });
-      
+
       if (Object.keys(ledger).length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 1rem;">No stock records found.</td></tr>';
       }
-      
+
       document.getElementById('stock-ledger-modal').classList.remove('hidden');
     }
 
     function closeStockLedger() {
       document.getElementById('stock-ledger-modal').classList.add('hidden');
+    }
+
+    function showDashboardModal(cardType) {
+      const titleEl = document.getElementById('dashboard-data-title');
+      const theadEl = document.getElementById('dashboard-data-thead');
+      const tbodyEl = document.getElementById('dashboard-data-tbody');
+
+      let data = [];
+      let headers = [];
+      let rowsHtml = '';
+
+      if (cardType.startsWith('projects')) {
+        const projects = readStoredData('ofp_projects', defaultMockProjects);
+        if (cardType === 'projects-all') {
+          titleEl.innerHTML = '<i class="fa-solid fa-diagram-project" style="color:var(--primary)"></i> Total Projects';
+          data = projects;
+        } else if (cardType === 'projects-wip') {
+          titleEl.innerHTML = '<i class="fa-solid fa-compass-drafting" style="color:var(--primary)"></i> Active Projects (WIP)';
+          data = projects.filter(p => p.siteStatus === 'WIP');
+        } else if (cardType === 'projects-completed') {
+          titleEl.innerHTML = '<i class="fa-solid fa-handshake" style="color:var(--primary)"></i> Completed Turnovers';
+          data = projects.filter(p => p.siteStatus === 'Completed');
+        }
+
+        headers = ['ID', 'Date', 'Company', 'Type', 'Status', 'Engineer'];
+        rowsHtml = data.map(d => `
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 0.75rem;">${d.id}</td>
+            <td style="padding: 0.75rem;">${d.dateCreated}</td>
+            <td style="padding: 0.75rem;">${d.company}</td>
+            <td style="padding: 0.75rem;">${d.projectType}</td>
+            <td style="padding: 0.75rem;"><span class="status-badge status-${d.siteStatus.toLowerCase().replace(' ', '')}">${d.siteStatus}</span></td>
+            <td style="padding: 0.75rem;">${d.deploymentEngineer}</td>
+          </tr>
+        `).join('');
+      } else if (cardType.startsWith('inventory')) {
+        if (cardType === 'inventory-inward') {
+          titleEl.innerHTML = '<i class="fa-solid fa-boxes-packing" style="color:var(--primary)"></i> Inward Inventory / Receipts';
+          data = readStoredData('ofp_inventory', defaultMockInventory);
+        } else if (cardType === 'inventory-outward') {
+          titleEl.innerHTML = '<i class="fa-solid fa-truck-fast" style="color:var(--primary)"></i> Outward Inventory';
+          data = readStoredData('ofp_outward_inventory', defaultMockOutwardInventory);
+        } else if (cardType === 'inventory-cable') {
+          titleEl.innerHTML = '<i class="fa-solid fa-scroll" style="color:var(--primary)"></i> Cable Stock In-house';
+          data = readStoredData('ofp_inventory', defaultMockInventory).filter(i => i.materialType === 'Fiber');
+        }
+
+        headers = ['ID', 'Date', 'Material', 'Qty', 'UOM'];
+        rowsHtml = data.map(d => `
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 0.75rem;">${d.id}</td>
+            <td style="padding: 0.75rem;">${d.dateCreated || d.dispatchDate}</td>
+            <td style="padding: 0.75rem;">${d.materialType}</td>
+            <td style="padding: 0.75rem;">${d.quantity}</td>
+            <td style="padding: 0.75rem;">${d.uom}</td>
+          </tr>
+        `).join('');
+      } else if (cardType.startsWith('complaints')) {
+        const complaints = readStoredData('ofp_complaints', defaultMockComplaints);
+        if (cardType === 'complaints-all') {
+          titleEl.innerHTML = '<i class="fa-solid fa-headset" style="color:var(--primary)"></i> Total NOC Tickets';
+          data = complaints;
+        } else if (cardType === 'complaints-active') {
+          titleEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:var(--primary)"></i> Active Outages';
+          data = complaints.filter(c => c.linkStatus === 'WIP' || c.linkStatus === 'ASSIGNED');
+        } else if (cardType === 'complaints-restored') {
+          titleEl.innerHTML = '<i class="fa-solid fa-shield-halved" style="color:var(--primary)"></i> Restored Tickets';
+          data = complaints.filter(c => c.linkStatus === 'RESTORED');
+        } else if (cardType === 'complaints-sla') {
+          titleEl.innerHTML = '<i class="fa-solid fa-clock-rotate-left" style="color:var(--primary)"></i> SLA Performance (In SLA)';
+          data = complaints.filter(c => c.evisionsSla === 'In');
+        }
+
+        headers = ['ID', 'Date', 'Link Status', 'SLA'];
+        rowsHtml = data.map(d => `
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 0.75rem;">${d.id}</td>
+            <td style="padding: 0.75rem;">${d.dateCreated}</td>
+            <td style="padding: 0.75rem;"><span class="status-badge status-${d.linkStatus.toLowerCase()}">${d.linkStatus}</span></td>
+            <td style="padding: 0.75rem;">${d.evisionsSla}</td>
+          </tr>
+        `).join('');
+      }
+
+      theadEl.innerHTML = `<tr>${headers.map(h => `<th style="text-align: left; padding: 0.75rem; background:#f8fafc;">${h}</th>`).join('')}</tr>`;
+
+      if (data.length === 0) {
+        tbodyEl.innerHTML = `<tr><td colspan="${headers.length}" style="text-align:center; padding: 2rem;">No records found.</td></tr>`;
+      } else {
+        tbodyEl.innerHTML = rowsHtml;
+      }
+
+      document.getElementById('dashboard-data-modal').classList.remove('hidden');
+    }
+
+    function closeDashboardModal() {
+      document.getElementById('dashboard-data-modal').classList.add('hidden');
     }
 
     // ===== ON LOAD INITIALIZER =====
@@ -4544,11 +4650,38 @@
     </div>
   </div>
 
-  <div id="stock-ledger-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 12px; width: 95%; max-width: 1000px; min-height: 60vh; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 90vh;">
+  <div id="dashboard-data-modal" class="hidden"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div
+      style="background: white; border-radius: 12px; width: 95%; max-width: 1000px; min-height: 40vh; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 90vh;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-boxes-stacked" style="color:var(--primary)"></i> Remaining Stock Ledger</h3>
-        <button type="button" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);" onclick="closeStockLedger()"><i class="fa-solid fa-xmark"></i></button>
+        <h3 id="dashboard-data-title" style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-list"
+            style="color:var(--primary)"></i> Details</h3>
+        <button type="button"
+          style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);"
+          onclick="closeDashboardModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div style="overflow-x: auto; overflow-y: auto; width: 100%; flex: 1;">
+        <table class="data-table" style="width: 100%; min-width: 500px;">
+          <thead id="dashboard-data-thead">
+          </thead>
+          <tbody id="dashboard-data-tbody">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="stock-ledger-modal" class="hidden"
+    style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div
+      style="background: white; border-radius: 12px; width: 95%; max-width: 1000px; min-height: 60vh; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 90vh;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-boxes-stacked"
+            style="color:var(--primary)"></i> Remaining Stock Ledger</h3>
+        <button type="button"
+          style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);"
+          onclick="closeStockLedger()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div style="overflow-x: auto; overflow-y: auto; width: 100%;">
         <table class="data-table" style="width: 100%; min-width: 500px;">
