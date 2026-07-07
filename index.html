@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="sidebar.css">
   <!-- Login Styles -->
   <link rel="stylesheet" href="login.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <style>
     :root {
       --primary: #0f172a;
@@ -1396,6 +1400,28 @@
 
           </div>
 
+          <!-- Additional Analytics Row -->
+          <div class="charts-grid" style="margin-top: 1.5rem;">
+            <div class="chart-card">
+              <h3><i class="fa-solid fa-chart-pie"></i> Projects by Type</h3>
+              <div class="chart-canvas-placeholder" style="display: flex; align-items: center; justify-content: center; height: 180px;">
+                <div id="projects-pie-chart" style="width: 100%; display: flex; gap: 1rem; align-items: flex-end; justify-content: center; height: 120px; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                  <!-- Dynamic bars -->
+                </div>
+              </div>
+              <div id="projects-pie-legends" class="donut-legends" style="margin-top: 1rem; flex-wrap: wrap;"></div>
+            </div>
+
+            <div class="chart-card">
+              <h3><i class="fa-solid fa-boxes-packing"></i> Material Distribution (Top 3)</h3>
+              <div class="chart-canvas-placeholder" style="display: flex; align-items: center; justify-content: center; height: 180px;">
+                <div id="materials-bar-chart" style="width: 100%; display: flex; flex-direction: column; gap: 1rem; justify-content: center; padding: 1rem 0;">
+                  <!-- Dynamic horizontal bars -->
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Recent Submissions list -->
           <div class="recent-activity-card" style="margin-top: 1.5rem;">
             <h3
@@ -1622,6 +1648,7 @@
                         <option>No</option>
                         <option>Pending</option>
                       </select></div>
+                    <div class="field-group"><label><i class="fas fa-file-upload"></i> Upload KML File</label><input type="file" accept=".kml"></div>
                     <div class="field-group"><label><i class="fas fa-flag"></i> Site Status</label><select>
                         <option>WIP</option>
                         <option>Completed</option>
@@ -3351,6 +3378,7 @@
             <th class="mobile-hide">City / Area</th>
             <th class="mobile-hide">Home Pass</th>
             <th>Status</th>
+            ${(currentUser.role === ROLES.PROJECT_MANAGER || currentUser.role === ROLES.ADMIN) ? `<th style="text-align: center;">GIS Map</th>` : ''}
             <th style="width: 100px; text-align: right;">Actions</th>
           </tr>
         `;
@@ -3370,6 +3398,7 @@
             <td class="mobile-hide">${item.city || ''} - ${item.area || ''}</td>
             <td class="mobile-hide">${item.homePass || '0'}</td>
             <td><span class="badge ${statusClass}">${item.siteStatus || 'WIP'}</span></td>
+            ${(currentUser.role === ROLES.PROJECT_MANAGER || currentUser.role === ROLES.ADMIN) ? `<td style="text-align: center;"><button class="action-btn" style="color:var(--accent); margin: 0 auto;" title="GIS Map" onclick="showGisMap('${item.id}')"><i class="fa-solid fa-map-location-dot"></i></button></td>` : ''}
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('projects', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
@@ -3957,6 +3986,55 @@
         barChartContainer.appendChild(col);
       });
 
+      // 4.1 Render Projects by Type
+      const projTypes = {};
+      projects.forEach(p => {
+        const type = p.projectType || 'Other';
+        projTypes[type] = (projTypes[type] || 0) + 1;
+      });
+      const projContainer = document.getElementById('projects-pie-chart');
+      const projLegends = document.getElementById('projects-pie-legends');
+      if (projContainer && projLegends) {
+        projContainer.innerHTML = '';
+        projLegends.innerHTML = '';
+        const maxProj = Math.max(...Object.values(projTypes), 1);
+        const colors = ['var(--primary)', 'var(--accent)', 'var(--info)', 'var(--warning)'];
+        Object.keys(projTypes).forEach((type, idx) => {
+          const count = projTypes[type];
+          const pct = Math.max((count / maxProj) * 100, 10);
+          const color = colors[idx % colors.length];
+          // bar
+          projContainer.innerHTML += `<div style="width: 40px; height: ${pct}%; background: ${color}; border-radius: 4px 4px 0 0; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;" title="${type}"><span style="position: absolute; top: -20px; font-size: 12px; font-weight: bold;">${count}</span></div>`;
+          // legend
+          projLegends.innerHTML += `<div class="legend-item"><div class="legend-label"><span class="legend-dot" style="background:${color}"></span> ${type}</div></div>`;
+        });
+      }
+
+      // 4.2 Render Material Distribution
+      const matTypes = {};
+      inventory.forEach(i => {
+        const type = i.materialType || 'Other';
+        matTypes[type] = (matTypes[type] || 0) + (parseFloat(i.quantity) || 0);
+      });
+      const matContainer = document.getElementById('materials-bar-chart');
+      if (matContainer) {
+        matContainer.innerHTML = '';
+        const sortedMats = Object.keys(matTypes).sort((a,b) => matTypes[b] - matTypes[a]).slice(0, 3);
+        const maxMat = Math.max(...sortedMats.map(k => matTypes[k]), 1);
+        sortedMats.forEach(type => {
+          const qty = matTypes[type];
+          const pct = Math.max((qty / maxMat) * 100, 5);
+          matContainer.innerHTML += `
+            <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
+              <div style="width: 100px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${type}">${type}</div>
+              <div style="flex-grow: 1; background: var(--bg-app); height: 24px; border-radius: 12px; overflow: hidden; position: relative;">
+                <div style="width: ${pct}%; background: var(--accent); height: 100%; border-radius: 12px;"></div>
+                <span style="position: absolute; right: 8px; top: 3px; font-size: 0.75rem; color: ${pct > 80 ? 'white' : 'var(--text-main)'}; font-weight: 600;">${qty}</span>
+              </div>
+            </div>`;
+        });
+      }
+
       // 5. Render Recent Activities Log (Last 5 submittals across all three datasets)
       const recentRows = document.getElementById('recent-activity-rows');
       recentRows.innerHTML = ''; // reset
@@ -4209,11 +4287,100 @@
       alert('Bills saved successfully for Work Order: ' + currentBillingWO);
     }
 
+    // ===== GIS MAP LOGIC =====
+    let gisMapInstance = null;
+    function showGisMap(id) {
+      const db = JSON.parse(localStorage.getItem('ofp_projects') || '[]');
+      const proj = db.find(p => p.id === id);
+      if (!proj) return;
+      
+      const modal = document.getElementById('gis-map-modal');
+      modal.classList.remove('hidden');
+      
+      if (!gisMapInstance) {
+        gisMapInstance = L.map('leaflet-map-container');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(gisMapInstance);
+      }
+      
+      const startLat = 18.5204 + (Math.random() - 0.5) * 0.1;
+      const startLng = 73.8567 + (Math.random() - 0.5) * 0.1;
+      
+      const numNodes = 4; // 1 start, 2 middle, 1 end
+      const points = [];
+      let currentLat = startLat;
+      let currentLng = startLng;
+      
+      points.push([currentLat, currentLng]);
+      for(let i=1; i<numNodes; i++) {
+        currentLat += (Math.random() - 0.5) * 0.01;
+        currentLng += (Math.random() - 0.5) * 0.01;
+        points.push([currentLat, currentLng]);
+      }
+      
+      gisMapInstance.eachLayer((layer) => {
+        if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+          gisMapInstance.removeLayer(layer);
+        }
+      });
+      
+      // Determine how many nodes are "done"
+      const isCompleted = proj.siteStatus === 'Completed';
+      const doneIndex = isCompleted ? numNodes - 1 : Math.floor(numNodes / 2);
+      
+      // Draw done polyline (green)
+      if (doneIndex > 0) {
+        L.polyline(points.slice(0, doneIndex + 1), {color: '#22c55e', weight: 4}).addTo(gisMapInstance);
+      }
+      // Draw pending polyline (red)
+      if (doneIndex < numNodes - 1) {
+        L.polyline(points.slice(doneIndex), {color: '#ef4444', weight: 4, dashArray: '5, 5'}).addTo(gisMapInstance);
+      }
+      
+      // Draw markers
+      points.forEach((pt, idx) => {
+        let title = "<b>Node " + (idx + 1) + "</b><br>Intermediate Point";
+        if (idx === 0) title = "<b>Start Point</b><br>" + (proj.area || "Survey Start");
+        if (idx === numNodes - 1) title = "<b>End Point</b><br>Final Outage";
+        L.marker(pt).addTo(gisMapInstance).bindPopup(title);
+      });
+      
+      setTimeout(() => {
+        gisMapInstance.invalidateSize();
+        gisMapInstance.fitBounds(L.polyline(points).getBounds(), {padding: [50, 50]});
+      }, 100);
+    }
+    
+    function closeGisMap() {
+      document.getElementById('gis-map-modal').classList.add('hidden');
+    }
+
     // ===== ON LOAD INITIALIZER =====
     window.addEventListener('DOMContentLoaded', () => {
       checkAuthOnLoad();
     });
   </script>
+
+  <!-- GIS Map Modal -->
+  <div id="gis-map-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 12px; width: 90%; max-width: 800px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-map-location-dot" style="color:var(--accent)"></i> Project GIS Map</h3>
+        <button type="button" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);" onclick="closeGisMap()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div style="display: flex; gap: 1.5rem; font-size: 0.875rem; color: var(--text-main); margin-bottom: -0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="display: inline-block; width: 24px; height: 4px; background: #22c55e;"></span> Completed Work
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="display: inline-block; width: 24px; height: 4px; background: #ef4444; border-top: 2px dashed white;"></span> Pending Work
+        </div>
+      </div>
+      <div id="leaflet-map-container" style="height: 400px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #eee;"></div>
+    </div>
+  </div>
+
   <!-- Login JS Handlers -->
   <script src="login.js"></script>
   <!-- Sidebar JS Dynamic Controls -->
