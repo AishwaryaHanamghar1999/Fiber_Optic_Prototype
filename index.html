@@ -1200,56 +1200,68 @@
        ========================================================================== -->
   <div id="login-screen">
     <div class="login-card">
-      <div style="margin-bottom: 1.5rem;">
-        <i class="fa-solid fa-network-wired" style="font-size: 2.5rem; color: var(--accent);"></i>
-      </div>
-      <h2>OFP Operations Portal</h2>
-      <p class="subtitle">Unified Access & Real-time Resource Hub</p>
-
-      <div class="login-form">
-        <div class="login-group">
-          <label for="username">Username / Role</label>
-          <div class="login-input-wrapper">
-            <i class="fa-solid fa-user"></i>
-            <input type="text" id="username" placeholder="Enter username">
-          </div>
+      <div class="login-card-left">
+        <div class="login-circle-bottom"></div>
+        <div class="login-card-left-content">
+          <h2>WELCOME</h2>
+          <h3>OFP Unified Operations</h3>
+          <p>Access your authorized dashboard. Monitor projects, manage inventory, and track maintenance in real-time across the entire fiber optic network.</p>
         </div>
-        <div class="login-group">
-          <label for="password">Password</label>
-          <div class="login-input-wrapper">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="password" placeholder="••••••••">
-            <button type="button" id="toggle-password" class="btn-toggle-password" title="Toggle Password Visibility">
-              <i class="fa-solid fa-eye"></i>
+      </div>
+      <div class="login-card-right">
+        <div class="login-card-right-circle"></div>
+        <div class="login-form-wrapper">
+          <h2>Sign in</h2>
+          <p class="subtitle">Enter your credentials to continue</p>
+
+          <form id="login-form" class="login-form" onsubmit="event.preventDefault(); handleFormLogin();">
+            <div class="login-group">
+              <div class="login-input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="username" placeholder="User Name / Role">
+              </div>
+            </div>
+            
+            <div class="login-group">
+              <div class="login-input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="Password">
+                <button type="button" id="toggle-password" class="btn-toggle-password" title="Toggle Password Visibility">SHOW</button>
+              </div>
+            </div>
+
+
+            
+            <div id="login-error-msg" style="color: #ef4444; font-size: 0.85rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center; font-weight: 500;" class="hidden">
+              Invalid username or password.
+            </div>
+
+            <button type="submit" class="btn-login">Sign in</button>
+          </form>
+
+
+          
+          <div class="login-divider" style="margin: 2rem 0 1rem; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; display: flex; align-items: center;">
+            <span style="flex: 1; border-bottom: 1px solid #e2e8f0; margin-right: 0.5rem;"></span>
+            Or sign in with
+            <span style="flex: 1; border-bottom: 1px solid #e2e8f0; margin-left: 0.5rem;"></span>
+          </div>
+          
+          <div class="quick-login-grid">
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('admin', 'admin')">
+              <i class="fa-solid fa-user-shield" style="margin-right: 0.5rem; color: var(--accent);"></i> Admin
+            </button>
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('pm', 'pm')">
+              <i class="fa-solid fa-diagram-project" style="margin-right: 0.5rem; color: #10b981;"></i> Project Mgr
+            </button>
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('im', 'im')">
+              <i class="fa-solid fa-boxes-stacked" style="margin-right: 0.5rem; color: #f59e0b;"></i> Inventory
+            </button>
+            <button type="button" class="btn-secondary" style="padding: 0.75rem; font-size: 0.85rem;" onclick="quickLogin('mm', 'mm')">
+              <i class="fa-solid fa-screwdriver-wrench" style="margin-right: 0.5rem; color: #ef4444;"></i> Maintenance
             </button>
           </div>
         </div>
-        <div id="login-error-msg"
-          style="color: var(--danger); font-size: 0.75rem; margin-top:-0.5rem; margin-bottom: 1rem; text-align: center;"
-          class="hidden">
-          Invalid username or password.
-        </div>
-        <button type="button" class="btn-login" onclick="handleFormLogin()">Sign In</button>
-      </div>
-
-      <div class="quick-login-title">Quick Select Role For Testing</div>
-      <div class="quick-login-grid">
-        <button class="btn-quick-role" onclick="quickLogin('admin', 'admin')">
-          <i class="fa-solid fa-user-shield"></i>
-          <span>Admin</span>
-        </button>
-        <button class="btn-quick-role" onclick="quickLogin('pm', 'pm')">
-          <i class="fa-solid fa-diagram-project"></i>
-          <span>Project Mgr</span>
-        </button>
-        <button class="btn-quick-role" onclick="quickLogin('im', 'im')">
-          <i class="fa-solid fa-boxes-stacked"></i>
-          <span>Inventory Mgr</span>
-        </button>
-        <button class="btn-quick-role" onclick="quickLogin('mm', 'mm')">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <span>Maintenance</span>
-        </button>
       </div>
     </div>
   </div>
@@ -3925,6 +3937,14 @@
             </div>
             <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-truck-fast"></i></div>
           </div>
+          <div class="kpi-card" style="cursor: pointer;" onclick="showStockLedger()">
+            <div class="kpi-info">
+              <h3>Remaining Stock</h3>
+              <p class="value">${netAvailableItems}</p>
+              <p class="trend" style="color:var(--primary)"><i class="fa-solid fa-cubes-stacked"></i> Click to view ledger</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#e0f2fe; color:#0ea5e9;"><i class="fa-solid fa-layer-group"></i></div>
+          </div>
         `;
       } else if (currentUser.role === ROLES.PROJECT_MANAGER) {
         kpiContainer.innerHTML = `
@@ -3986,6 +4006,14 @@
               <p class="trend trend-down"><i class="fa-solid fa-arrow-right-from-bracket"></i> Materials Dispatched</p>
             </div>
             <div class="kpi-icon-box" style="background:#fffbeb; color:#f59e0b;"><i class="fa-solid fa-truck-fast"></i></div>
+          </div>
+          <div class="kpi-card" style="cursor: pointer;" onclick="showStockLedger()">
+            <div class="kpi-info">
+              <h3>Remaining Stock</h3>
+              <p class="value">${netAvailableItems}</p>
+              <p class="trend" style="color:var(--primary)"><i class="fa-solid fa-cubes-stacked"></i> Click to view ledger</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#e0f2fe; color:#0ea5e9;"><i class="fa-solid fa-layer-group"></i></div>
           </div>
         `;
       } else if (currentUser.role === ROLES.MAINTENANCE_MANAGER) {
@@ -4439,6 +4467,49 @@
       document.getElementById('gis-map-modal').classList.add('hidden');
     }
 
+    function showStockLedger() {
+      const inwardData = JSON.parse(localStorage.getItem('ofp_inventory') || '[]');
+      const outwardData = JSON.parse(localStorage.getItem('ofp_outward_inventory') || '[]');
+      
+      const ledger = {};
+      inwardData.forEach(item => {
+        const mat = item.materialType || 'Unknown';
+        if (!ledger[mat]) ledger[mat] = { in: 0, out: 0 };
+        ledger[mat].in += (parseFloat(item.quantity) || 0);
+      });
+      outwardData.forEach(item => {
+        const mat = item.materialType || 'Unknown';
+        if (!ledger[mat]) ledger[mat] = { in: 0, out: 0 };
+        ledger[mat].out += (parseFloat(item.quantity) || 0);
+      });
+      
+      const tbody = document.getElementById('stock-ledger-tbody');
+      tbody.innerHTML = '';
+      
+      Object.keys(ledger).sort().forEach(mat => {
+        const stats = ledger[mat];
+        const remaining = stats.in - stats.out;
+        tbody.innerHTML += `
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.75rem;"><strong>${mat}</strong></td>
+            <td style="text-align: right; padding: 0.75rem; color: var(--success);">${stats.in}</td>
+            <td style="text-align: right; padding: 0.75rem; color: var(--warning);">${stats.out}</td>
+            <td style="text-align: right; padding: 0.75rem; font-weight: bold; color: var(--primary);">${remaining}</td>
+          </tr>
+        `;
+      });
+      
+      if (Object.keys(ledger).length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 1rem;">No stock records found.</td></tr>';
+      }
+      
+      document.getElementById('stock-ledger-modal').classList.remove('hidden');
+    }
+
+    function closeStockLedger() {
+      document.getElementById('stock-ledger-modal').classList.add('hidden');
+    }
+
     // ===== ON LOAD INITIALIZER =====
     window.addEventListener('DOMContentLoaded', () => {
       checkAuthOnLoad();
@@ -4469,6 +4540,30 @@
       </div>
       <div id="leaflet-map-container"
         style="height: 400px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #eee;">
+      </div>
+    </div>
+  </div>
+
+  <div id="stock-ledger-modal" class="hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 12px; width: 95%; max-width: 1000px; min-height: 60vh; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 90vh;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 1.25rem;"><i class="fa-solid fa-boxes-stacked" style="color:var(--primary)"></i> Remaining Stock Ledger</h3>
+        <button type="button" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-main);" onclick="closeStockLedger()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div style="overflow-x: auto; overflow-y: auto; width: 100%;">
+        <table class="data-table" style="width: 100%; min-width: 500px;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding: 0.75rem;">Material Type</th>
+              <th style="text-align: right; padding: 0.75rem;">Total Inward</th>
+              <th style="text-align: right; padding: 0.75rem;">Total Outward</th>
+              <th style="text-align: right; padding: 0.75rem;">Remaining Balance</th>
+            </tr>
+          </thead>
+          <tbody id="stock-ledger-tbody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
