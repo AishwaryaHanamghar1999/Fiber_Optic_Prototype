@@ -1190,6 +1190,17 @@
         gap: 1rem;
       }
     }
+
+    @keyframes blinkWarning {
+      0% { opacity: 1; color: #ef4444; }
+      50% { opacity: 0.4; color: #ef4444; }
+      100% { opacity: 1; color: #ef4444; }
+    }
+    .stock-limited {
+      color: #ef4444 !important;
+      font-weight: bold;
+      animation: blinkWarning 1s linear infinite;
+    }
   </style>
 </head>
 
@@ -4498,12 +4509,20 @@
       Object.keys(ledger).sort().forEach(mat => {
         const stats = ledger[mat];
         const remaining = stats.in - stats.out;
+        
+        let isLimited = remaining <= 5;
+        
+        const remainingClass = isLimited ? 'stock-limited' : '';
+        const remainingStyle = isLimited ? '' : 'color: var(--primary); font-weight: bold;';
+
         tbody.innerHTML += `
           <tr style="border-bottom: 1px solid var(--border-color);">
             <td style="padding: 0.75rem;"><strong>${mat}</strong></td>
             <td style="text-align: right; padding: 0.75rem; color: var(--success);">${stats.in}</td>
             <td style="text-align: right; padding: 0.75rem; color: var(--warning);">${stats.out}</td>
-            <td style="text-align: right; padding: 0.75rem; font-weight: bold; color: var(--primary);">${remaining}</td>
+            <td style="text-align: right; padding: 0.75rem; ${remainingStyle}" class="${remainingClass}">
+              ${isLimited ? '<i class="fa-solid fa-triangle-exclamation" style="margin-right:4px;"></i>' : ''}${remaining}
+            </td>
           </tr>
         `;
       });
