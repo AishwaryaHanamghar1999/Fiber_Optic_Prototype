@@ -550,7 +550,7 @@ function navigateTo(panelId, overrideMenuId = null) {
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('projects', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('projects', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                <button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('projects', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
               </div>
             </td>
           `;
@@ -587,7 +587,7 @@ function navigateTo(panelId, overrideMenuId = null) {
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                <button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
               </div>
             </td>
           `;
@@ -624,7 +624,7 @@ function navigateTo(panelId, overrideMenuId = null) {
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('outward-inventory', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                <button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('outward-inventory', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
               </div>
             </td>
           `;
@@ -635,16 +635,32 @@ function navigateTo(panelId, overrideMenuId = null) {
           <tr>
             <th class="dtr-control-th"></th>
             <th>Code</th>
+            <th class="mobile-hide">Created Date/Time</th>
             <th class="mobile-hide">Company</th>
             <th class="mobile-hide">Link Name</th>
             <th class="mobile-hide">Vendor</th>
             <th>Link Status</th>
+            <th class="mobile-hide">Resolution Time</th>
             <th class="mobile-hide">Evisions SLA</th>
             <th style="width: 100px; text-align: right;">Actions</th>
           </tr>
         `;
 
         data.forEach(item => {
+          let formattedCreatedDate = item.dateCreated || 'N/A';
+          if (item.receivedDateTime) {
+            const parts = item.receivedDateTime.split('T');
+            if (parts.length === 2) {
+              let [hours, minutes] = parts[1].split(':');
+              let h = parseInt(hours, 10);
+              const ampm = h >= 12 ? 'PM' : 'AM';
+              h = h % 12 || 12;
+              formattedCreatedDate = `${parts[0]} ${h.toString().padStart(2, '0')}:${minutes} ${ampm}`;
+            } else {
+              formattedCreatedDate = item.receivedDateTime;
+            }
+          }
+
           const slaClass = item.evisionsSla === 'In' ? 'badge-success' : 'badge-danger';
           const linkStatusClass = item.linkStatus === 'RESTORED' ? 'badge-success' : (item.linkStatus === 'WIP' ? 'badge-warning' : 'badge-primary');
           const tr = document.createElement('tr');
@@ -655,15 +671,17 @@ function navigateTo(panelId, overrideMenuId = null) {
               </button>
             </td>
             <td><strong>${item.evisionsComplaintCode || 'N/A'}</strong></td>
+            <td class="mobile-hide">${formattedCreatedDate}</td>
             <td class="mobile-hide">${item.companyName || 'N/A'}</td>
             <td class="mobile-hide">${item.linkName || 'N/A'}</td>
             <td class="mobile-hide">${item.maintainedBy || 'N/A'}</td>
             <td><span class="badge ${linkStatusClass}">${item.linkStatus || 'N/A'}</span></td>
+            <td class="mobile-hide"><strong>${item.linkStatus === 'RESTORED' ? (item.evisionsMttr || '—') : ''}</strong></td>
             <td class="mobile-hide"><span class="badge ${slaClass}">SLA ${item.evisionsSla || 'In'}</span></td>
             <td style="text-align: right;">
               <div class="action-btn-group" style="justify-content: flex-end;">
                 <button class="action-btn" title="View details" onclick="showRecordDetails('complaints', '${item.id}')"><i class="fa-solid fa-eye"></i></button>
-                ${currentUser.role === ROLES.ADMIN ? `<button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('complaints', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                <button class="action-btn delete-btn" title="Delete record" onclick="deleteRecord('complaints', '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
               </div>
             </td>
           `;
@@ -950,6 +968,21 @@ function navigateTo(panelId, overrideMenuId = null) {
       const slaInCount = complaints.filter(c => c.evisionsSla === 'In').length;
       const slaPercent = totalComplaints > 0 ? Math.round((slaInCount / totalComplaints) * 100) : 100;
 
+      // Calculate avg MTTR for resolved complaints
+      let totalMttrMin = 0;
+      let mttrCount = 0;
+      complaints.forEach(c => {
+        if (c.linkStatus === 'RESTORED' && c.evisionsMttr) {
+          const parts = c.evisionsMttr.split(':');
+          if (parts.length >= 2) {
+            totalMttrMin += (parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10));
+            mttrCount++;
+          }
+        }
+      });
+      const avgMttrMin = mttrCount > 0 ? Math.round(totalMttrMin / mttrCount) : 0;
+      const avgMttrStr = mttrCount > 0 ? `${Math.floor(avgMttrMin / 60)}h ${avgMttrMin % 60}m` : '0h 0m';
+
       // Construct dynamic boxes
       if (currentUser.role === ROLES.ADMIN) {
         // Admin card list
@@ -1058,6 +1091,14 @@ function navigateTo(panelId, overrideMenuId = null) {
               <p class="trend"><i class="fa-solid fa-stopwatch"></i> Compliance counter</p>
             </div>
             <div class="kpi-icon-box" style="background:#fef2f2; color:#ef4444;"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h3>Avg Resolution Time</h3>
+              <p class="value">${avgMttrStr}</p>
+              <p class="trend trend-up"><i class="fa-solid fa-clock"></i> Mean Time To Repair</p>
+            </div>
+            <div class="kpi-icon-box" style="background:#f0fdf4; color:#16a34a;"><i class="fa-solid fa-stopwatch"></i></div>
           </div>
         `;
       }
